@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreTet V2 - Design 2: Kanban Workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-anton { font-family: 'Anton', sans-serif; }
+        .font-quicksand { font-family: 'Quicksand', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+    <!-- Design 2: Kanban-Style Workflow -->
+    <!-- Concept: Visual board showing works in different stages -->
+    
+    <!-- Top Navigation -->
+    <nav class="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-6">
+        <div class="flex items-center space-x-6">
+            <div class="font-anton text-2xl text-cyan-400">CoreTet</div>
+            <div class="flex items-center space-x-1">
+                <button class="px-4 py-2 text-sm font-quicksand hover:bg-slate-800 rounded-lg transition-colors">
+                    Workflow
+                </button>
+                <button class="px-4 py-2 text-sm font-quicksand text-slate-400 hover:bg-slate-800 rounded-lg transition-colors">
+                    Library
+                </button>
+                <button class="px-4 py-2 text-sm font-quicksand text-slate-400 hover:bg-slate-800 rounded-lg transition-colors">
+                    Collaborations
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <button class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-900 rounded-lg font-quicksand font-semibold text-sm transition-colors">
+                + New Work
+            </button>
+            <div class="w-8 h-8 bg-slate-700 rounded-full"></div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+        <!-- Header -->
+        <div class="mb-6">
+            <h1 class="font-anton text-3xl mb-2">Song Workflow</h1>
+            <p class="font-quicksand text-slate-400">Drag works between stages as they progress</p>
+        </div>
+        
+        <!-- Kanban Board -->
+        <div class="flex space-x-6 overflow-x-auto pb-4">
+            <!-- Ideas Column -->
+            <div class="flex-shrink-0 w-80">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-quicksand font-semibold text-sm text-slate-400 uppercase tracking-wider">
+                            Ideas & Sketches
+                        </h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded-full">3</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Card 1 -->
+                        <div class="bg-slate-800 rounded-lg p-4 hover:ring-2 hover:ring-cyan-500/50 cursor-move transition-all">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Untitled Melody</h4>
+                                <span class="text-xs text-slate-500">2d</span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-3">Just a guitar riff for now</p>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-1">
+                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0"/>
+                                    </svg>
+                                    <span class="text-xs text-slate-500">1 audio</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                                    </svg>
+                                    <span class="text-xs text-slate-500">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="bg-slate-800 rounded-lg p-4 hover:ring-2 hover:ring-cyan-500/50 cursor-move transition-all">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Blues in E</h4>
+                                <span class="text-xs text-slate-500">1w</span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-3">12-bar blues progression</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs">
+                                        JD
+                                    </div>
+                                </div>
+                                <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded">Blues</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Add Card Button -->
+                        <button class="w-full py-3 border-2 border-dashed border-slate-700 rounded-lg text-slate-500 hover:border-slate-600 hover:text-slate-400 transition-colors">
+                            <span class="font-quicksand text-sm">+ Add idea</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- In Progress Column -->
+            <div class="flex-shrink-0 w-80">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-quicksand font-semibold text-sm text-slate-400 uppercase tracking-wider">
+                            In Progress
+                        </h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded-full">2</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Card -->
+                        <div class="bg-slate-800 rounded-lg p-4 hover:ring-2 hover:ring-cyan-500/50 cursor-move transition-all">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Midnight Dreams</h4>
+                                <span class="text-xs text-slate-500">3d</span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-3">Working on verse 2 lyrics</p>
+                            
+                            <!-- Progress Bar -->
+                            <div class="mb-3">
+                                <div class="flex items-center justify-between text-xs mb-1">
+                                    <span class="text-slate-500">Progress</span>
+                                    <span class="text-slate-400">65%</span>
+                                </div>
+                                <div class="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-500 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <div class="flex items-center space-x-1">
+                                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                        </svg>
+                                        <span class="text-xs text-slate-500">4/6</span>
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0"/>
+                                        </svg>
+                                        <span class="text-xs text-slate-500">3</span>
+                                    </div>
+                                </div>
+                                <span class="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded">v1.2</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="bg-slate-800 rounded-lg p-4 hover:ring-2 hover:ring-cyan-500/50 cursor-move transition-all border-l-4 border-orange-500">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Summer Vibes</h4>
+                                <span class="text-xs text-orange-400">Due in 2d</span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-3">Waiting for drummer's tracks</p>
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-purple-500 rounded-full border-2 border-slate-800 flex items-center justify-center text-xs">
+                                    AS
+                                </div>
+                                <div class="w-6 h-6 bg-green-500 rounded-full border-2 border-slate-800 flex items-center justify-center text-xs">
+                                    MK
+                                </div>
+                                <div class="w-6 h-6 bg-slate-600 rounded-full border-2 border-slate-800 flex items-center justify-center text-xs">
+                                    +2
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Review Column -->
+            <div class="flex-shrink-0 w-80">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-quicksand font-semibold text-sm text-slate-400 uppercase tracking-wider">
+                            Review & Mix
+                        </h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded-full">1</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 rounded-lg p-4 hover:ring-2 hover:ring-cyan-500/50 cursor-move transition-all">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Electric Nights</h4>
+                                <span class="text-xs text-slate-500">5d</span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-3">Ready for final mix</p>
+                            
+                            <!-- Review Checklist -->
+                            <div class="space-y-1 mb-3">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span class="text-xs text-slate-400 line-through">All tracks recorded</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    <span class="text-xs text-slate-400 line-through">Rough mix done</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-4 h-4 border border-slate-600 rounded"></div>
+                                    <span class="text-xs text-slate-400">Final mix approved</span>
+                                </div>
+                            </div>
+                            
+                            <button class="w-full py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded text-xs font-quicksand font-semibold transition-colors">
+                                Request Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Complete Column -->
+            <div class="flex-shrink-0 w-80">
+                <div class="bg-slate-800/50 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-quicksand font-semibold text-sm text-slate-400 uppercase tracking-wider">
+                            Complete
+                        </h3>
+                        <span class="text-xs bg-green-600 px-2 py-1 rounded-full">12</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-slate-800/50 rounded-lg p-4 opacity-75">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-quicksand font-semibold">Morning Coffee</h4>
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-slate-500 mb-2">Released on Spotify</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-500">Completed 2w ago</span>
+                                <button class="text-xs text-cyan-400 hover:text-cyan-300">View →</button>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full py-2 text-slate-500 hover:text-slate-400 text-xs font-quicksand transition-colors">
+                            View all completed (12) →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Stats Bar -->
+        <div class="mt-8 bg-slate-800/30 rounded-lg p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <div>
+                    <p class="text-xs text-slate-500 mb-1">Active Works</p>
+                    <p class="font-anton text-2xl">6</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 mb-1">This Week</p>
+                    <p class="font-anton text-2xl text-green-400">+3</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 mb-1">Collaborators</p>
+                    <p class="font-anton text-2xl">4</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button class="px-4 py-2 text-sm font-quicksand text-slate-400 hover:text-white transition-colors">
+                    Export Report
+                </button>
+                <button class="px-4 py-2 text-sm font-quicksand text-slate-400 hover:text-white transition-colors">
+                    Settings
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
