@@ -12,6 +12,7 @@ import AdminDashboard from './Admin/AdminDashboard';
 import TrackDetailsPanel from './TrackDetails/TrackDetailsPanel';
 import TutorialWrapper from './Tutorial/TutorialWrapper';
 import TasksSummary from '../pages/TasksSummary';
+import { StorageSettings } from '../pages/StorageSettings';
 import { useAutoAcceptShares } from '../hooks/useAutoAcceptShares';
 import { useErrorToast } from '../hooks/useErrorToast';
 import { Track, TrackCategory } from '../types';
@@ -70,7 +71,7 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
   const [uploadedCount, setUploadedCount] = useState(0);
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeView, setActiveView] = useState<'library' | 'tasks'>('library');
+  const [activeView, setActiveView] = useState<'library' | 'tasks' | 'storage'>('library');
 
   const handleTrackSelect = (track: Track) => {
     setSelectedTrack(track);
@@ -160,6 +161,11 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
               // Tasks Summary View
               <div className="flex-1 bg-forest-main overflow-y-auto">
                 <TasksSummary />
+              </div>
+            ) : activeView === 'storage' ? (
+              // Storage Settings View
+              <div className="flex-1 bg-forest-dark overflow-y-auto">
+                <StorageSettings />
               </div>
             ) : (
               <>

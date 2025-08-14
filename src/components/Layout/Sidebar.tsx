@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Music2, Mic, Lightbulb, MessageSquare, Search, Tag, Folder, ChevronDown, ChevronRight, Award, Headphones, ThumbsUp, Heart, ListMusic, Plus, X, Radio, Share2, Users, ChevronLeft, Library, CheckSquare, Sparkles } from 'lucide-react';
+import { Music2, Mic, Lightbulb, MessageSquare, Search, Tag, Folder, ChevronDown, ChevronRight, Award, Headphones, ThumbsUp, Heart, ListMusic, Plus, X, Radio, Share2, Users, ChevronLeft, Library, CheckSquare, Sparkles, HardDrive } from 'lucide-react';
 import { TrackCategory } from '../../types';
 import { useLibrary } from '../../contexts/LibraryContext';
 import { supabase } from '../../lib/supabase';
@@ -25,8 +25,8 @@ interface SidebarProps {
   onRatingSelect?: (rating: 'listened' | 'liked' | 'loved' | null) => void;
   selectedPlaylist?: string | null;
   onPlaylistSelect?: (playlistId: string | null) => void;
-  activeView?: 'library' | 'tasks';
-  onViewChange?: (view: 'library' | 'tasks') => void;
+  activeView?: 'library' | 'tasks' | 'storage';
+  onViewChange?: (view: 'library' | 'tasks' | 'storage') => void;
 }
 
 const categories = [
@@ -220,6 +220,34 @@ const Sidebar: React.FC<SidebarProps> = ({ activeCategory, onCategoryChange, sel
               <CheckSquare className={`w-4 h-4 ${activeView === 'tasks' ? 'text-accent-yellow' : 'text-silver/60'}`} />
               {!isCollapsed && <span>Tasks Summary</span>}
             </div>
+          </button>
+        </div>
+
+        {/* Storage Settings */}
+        <div className="mt-2">
+          <button
+            onClick={() => {
+              onViewChange?.('storage');
+              // Clear selections when switching to storage
+              onPlaylistSelect?.(null);
+              onCollectionSelect?.(null);
+            }}
+            className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-3 py-2 rounded-lg font-quicksand text-sm transition-all duration-200 ${
+              activeView === 'storage'
+                ? 'bg-forest-light text-accent-yellow'
+                : 'text-silver/70 hover:bg-forest-light/50 hover:text-silver'
+            }`}
+            title={isCollapsed ? "Storage Settings" : undefined}
+          >
+            <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+              <HardDrive className={`w-4 h-4 ${activeView === 'storage' ? 'text-accent-yellow' : 'text-silver/60'}`} />
+              {!isCollapsed && <span>Storage Settings</span>}
+            </div>
+            {!isCollapsed && (
+              <div className="text-xs bg-yellow-500 text-gray-900 px-2 py-1 rounded-full font-medium">
+                BETA
+              </div>
+            )}
           </button>
         </div>
 
