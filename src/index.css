@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import BYOS-specific styles */
+@import './styles/byos-components.css';
+
 /* Font Face Definitions - Local fallbacks */
 @font-face {
   font-family: 'Anton';

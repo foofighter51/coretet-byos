@@ -1,0 +1,133 @@
+/* CoreTet BYOS Components - Extends existing theme */
+
+/* Storage Provider Cards */
+.storage-provider-card {
+  @apply bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-gray-600 transition-colors;
+}
+
+.storage-provider-card.connected {
+  @apply border-yellow-500 bg-gray-800/80;
+}
+
+.storage-provider-card.connecting {
+  @apply border-blue-500 bg-blue-900/20;
+}
+
+/* Provider Status Indicators */
+.provider-status-dot {
+  @apply w-3 h-3 rounded-full;
+}
+
+.provider-status-dot.connected {
+  @apply bg-green-500;
+}
+
+.provider-status-dot.disconnected {
+  @apply bg-gray-500;
+}
+
+.provider-status-dot.error {
+  @apply bg-red-500;
+}
+
+.provider-status-dot.connecting {
+  @apply bg-blue-500 animate-pulse;
+}
+
+/* Storage Usage Bars */
+.storage-usage-bar {
+  @apply w-full h-2 bg-gray-700 rounded-full overflow-hidden;
+}
+
+.storage-usage-fill {
+  @apply h-full bg-gradient-to-r from-yellow-500 to-yellow-400 transition-all duration-300;
+}
+
+.storage-usage-fill.warning {
+  @apply from-orange-500 to-orange-400;
+}
+
+.storage-usage-fill.critical {
+  @apply from-red-500 to-red-400;
+}
+
+/* Provider Selector Dropdown */
+.provider-selector {
+  @apply relative;
+}
+
+.provider-option {
+  @apply flex items-center space-x-3 p-3 hover:bg-gray-700 cursor-pointer;
+}
+
+.provider-option.selected {
+  @apply bg-yellow-500/20 text-yellow-400;
+}
+
+/* Upload Progress with Provider */
+.upload-provider-indicator {
+  @apply flex items-center space-x-2 text-sm text-gray-400;
+}
+
+.upload-provider-icon {
+  @apply w-4 h-4;
+}
+
+/* Storage Settings Layout */
+.storage-settings-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* Provider Connection Flow */
+.connection-step {
+  @apply flex items-center space-x-3 p-4 border border-gray-700 rounded-lg;
+}
+
+.connection-step.active {
+  @apply border-yellow-500 bg-yellow-500/10;
+}
+
+.connection-step.completed {
+  @apply border-green-500 bg-green-500/10;
+}
+
+/* Migration Wizard */
+.migration-progress {
+  @apply w-full h-4 bg-gray-700 rounded-full overflow-hidden;
+}
+
+.migration-progress-fill {
+  @apply h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-300;
+}
+
+/* Provider Logos */
+.provider-logo {
+  @apply w-8 h-8 rounded;
+}
+
+.provider-logo.google-drive {
+  @apply bg-blue-500;
+}
+
+.provider-logo.dropbox {
+  @apply bg-blue-600;
+}
+
+.provider-logo.onedrive {
+  @apply bg-blue-700;
+}
+
+.provider-logo.supabase {
+  @apply bg-green-500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .storage-settings-grid {
+    @apply grid-cols-1;
+  }
+  
+  .storage-provider-card {
+    @apply p-4;
+  }
+}

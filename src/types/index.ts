@@ -29,6 +29,10 @@ export interface Track {
   deleted_at?: string | null;
   // Timestamps
   updated_at?: string;
+  // BYOS fields
+  storage_provider?: 'google_drive' | 'dropbox' | 'onedrive' | 'supabase';
+  provider_file_id?: string;
+  provider_url?: string;
 }
 
 export type TrackCategory = 'songs' | 'demos' | 'ideas' | 'voice-memos' | 'final-versions' | 'live-performances';
@@ -138,3 +142,6 @@ export interface TaskCategory {
 
 // Re-export custom rating types
 export * from './customRatings';
+
+// Re-export storage types
+export * from './storage';
