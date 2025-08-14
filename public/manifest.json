@@ -1,0 +1,81 @@
+{
+  "name": "CoreTet",
+  "short_name": "CoreTet",
+  "description": "Organize and play your music collection",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e3a2b",
+  "background_color": "#0f1f17",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/AppImages/android/android-launchericon-48-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/AppImages/android/android-launchericon-72-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/AppImages/android/android-launchericon-96-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/AppImages/android/android-launchericon-144-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/AppImages/android/android-launchericon-192-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/AppImages/android/android-launchericon-512-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/AppImages/screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "CoreTet Library View"
+    },
+    {
+      "src": "/AppImages/screenshot2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "CoreTet Player"
+    }
+  ],
+  "categories": ["music", "entertainment", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Upload Music",
+      "short_name": "Upload",
+      "description": "Upload new tracks to your library",
+      "url": "/?action=upload",
+      "icons": [{ "src": "/AppImages/android/android-launchericon-96-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Playlists",
+      "short_name": "Playlists",
+      "description": "View your playlists",
+      "url": "/?view=playlists",
+      "icons": [{ "src": "/AppImages/android/android-launchericon-96-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
+}

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreTet - Forest Theme (Current)</title>
+  <link rel="stylesheet" href="demo-template.css">
+  <style>
+    /* Forest Theme Color Scheme - Current Production Theme */
+    :root {
+      /* Primary Colors */
+      --forest-dark: #0F1F0F;
+      --forest-main: #1A2F1A;
+      --forest-light: #2D4A2D;
+      --silver: #E8E8E8;
+      --accent-yellow: #FFD700;
+      --accent-coral: #FF6B6B;
+      
+      /* Applied Colors */
+      --bg-primary: var(--forest-main);
+      --bg-secondary: var(--forest-light);
+      --text-primary: var(--silver);
+      --text-muted: rgba(232, 232, 232, 0.6);
+      --accent-primary: var(--accent-yellow);
+      --accent-secondary: var(--accent-coral);
+      --accent-success: var(--accent-yellow);
+      --accent-danger: var(--accent-coral);
+      
+      /* Component Colors */
+      --border-color: rgba(232, 232, 232, 0.1);
+      --hover-bg: rgba(255, 215, 0, 0.1);
+      --accent-bg: rgba(255, 215, 0, 0.2);
+      --accent-text: var(--accent-yellow);
+      --header-bg: var(--forest-main);
+      --input-bg: var(--forest-light);
+      --button-bg: var(--forest-light);
+      --button-hover: rgba(255, 215, 0, 0.15);
+      --button-text: var(--forest-dark);
+      --card-bg: rgba(45, 74, 45, 0.5);
+      --card-hover: rgba(45, 74, 45, 0.8);
+      --card-selected: rgba(255, 215, 0, 0.1);
+      --panel-bg: var(--forest-light);
+      --tag-bg: rgba(255, 215, 0, 0.2);
+      --tag-text: var(--accent-yellow);
+      --tag-border: rgba(255, 215, 0, 0.3);
+      --player-bg: var(--forest-dark);
+      --progress-bg: rgba(232, 232, 232, 0.1);
+      --accent-hover: #FFC700;
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    /* Forest Theme specific overrides */
+    .logo {
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+    
+    .play-button {
+      background: var(--accent-yellow);
+    }
+    
+    .play-button:hover {
+      background: var(--accent-hover);
+      transform: scale(1.05);
+    }
+    
+    .track-card.selected {
+      border-color: var(--accent-yellow);
+      border-width: 2px;
+    }
+    
+    .nav-item.active {
+      background: var(--accent-bg);
+      color: var(--accent-text);
+    }
+    
+    .rating-button.active {
+      background: var(--accent-yellow);
+      color: var(--forest-dark);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">CoreTet</h1>
+        <p style="font-size: 12px; opacity: 0.6;">Current Forest Theme</p>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Library</h3>
+        <div class="nav-item active">
+          <span>🎵</span> All Tracks
+        </div>
+        <div class="nav-item">
+          <span>❤️</span> Favorites
+        </div>
+        <div class="nav-item">
+          <span>🕒</span> Recent
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Categories</h3>
+        <div class="nav-item">
+          <span>🎸</span> Songs
+        </div>
+        <div class="nav-item">
+          <span>🎹</span> Demos
+        </div>
+        <div class="nav-item">
+          <span>💡</span> Ideas
+        </div>
+        <div class="nav-item">
+          <span>🎤</span> Voice Memos
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Playlists</h3>
+        <div class="nav-item">
+          <span>📁</span> My Favorites
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Work in Progress
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Shared with Me
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="btn-secondary">☰</button>
+        
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search tracks, artists, albums...">
+        </div>
+        
+        <div class="header-actions">
+          <button class="btn-secondary">⬆️ Upload</button>
+          <button class="btn-primary">👤 Profile</button>
+        </div>
+      </header>
+      
+      <!-- Track List -->
+      <div class="track-list-container">
+        <div class="filter-bar">
+          <button class="filter-button active">
+            🔽 Filters
+            <span style="background: var(--accent-yellow); color: var(--forest-dark); padding: 2px 6px; border-radius: 10px; font-size: 11px;">3</span>
+          </button>
+          <button class="sort-button">⬆️ Date Added</button>
+          <div style="flex: 1;"></div>
+          <span style="color: var(--text-muted); font-size: 14px;">156 tracks</span>
+        </div>
+        
+        <div class="track-grid">
+          <!-- Track 1 - Selected -->
+          <div class="track-card selected">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Forest Echo</div>
+              <div class="track-meta">
+                <span>Indie Folk</span>
+                <span>•</span>
+                <span>98 BPM</span>
+                <span>•</span>
+                <span>C major</span>
+                <span>•</span>
+                <span>3:42</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--accent-coral);">❤️</button>
+              <button class="icon-button active" style="color: var(--accent-yellow);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 2 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Green Canopy</div>
+              <div class="track-meta">
+                <span>Ambient</span>
+                <span>•</span>
+                <span>72 BPM</span>
+                <span>•</span>
+                <span>A minor</span>
+                <span>•</span>
+                <span>5:15</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button active" style="color: var(--accent-yellow);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 3 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Woodland Path</div>
+              <div class="track-meta">
+                <span>Classical</span>
+                <span>•</span>
+                <span>120 BPM</span>
+                <span>•</span>
+                <span>G major</span>
+                <span>•</span>
+                <span>4:28</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--accent-coral);">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 4 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Moss & Stone</div>
+              <div class="track-meta">
+                <span>Electronic</span>
+                <span>•</span>
+                <span>105 BPM</span>
+                <span>•</span>
+                <span>D minor</span>
+                <span>•</span>
+                <span>6:03</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 5 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Evergreen Dreams</div>
+              <div class="track-meta">
+                <span>New Age</span>
+                <span>•</span>
+                <span>80 BPM</span>
+                <span>•</span>
+                <span>F major</span>
+                <span>•</span>
+                <span>7:12</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--accent-coral);">❤️</button>
+              <button class="icon-button active" style="color: var(--accent-yellow);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Track Details Panel -->
+    <aside class="track-details">
+      <div class="details-header">
+        <h2 class="details-title">Forest Echo</h2>
+        <p class="details-artist">The Woodland Collective</p>
+        
+        <div class="rating-buttons">
+          <button class="rating-button">👂 Listened</button>
+          <button class="rating-button active">❤️ Liked</button>
+          <button class="rating-button active">⭐ Loved</button>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Track Information</h3>
+        <div class="metadata-grid">
+          <div class="metadata-item">
+            <span class="metadata-label">BPM</span>
+            <span class="metadata-value">98</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Key</span>
+            <span class="metadata-value">C major</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Duration</span>
+            <span class="metadata-value">3:42</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Genre</span>
+            <span class="metadata-value">Indie Folk</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Recorded</span>
+            <span class="metadata-value">Sept 12, 2024</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">File Size</span>
+            <span class="metadata-value">7.8 MB</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Tags</h3>
+        <div class="tags-container">
+          <span class="tag">indie</span>
+          <span class="tag">folk</span>
+          <span class="tag">acoustic</span>
+          <span class="tag">nature</span>
+          <span class="tag">peaceful</span>
+          <span class="tag">original</span>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Production Notes</h3>
+        <div style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+          <p>Recorded in a cabin studio surrounded by pine trees. Natural room ambience captured with spaced pair mics.</p>
+          <p style="margin-top: 12px;">Minimal processing to maintain the organic feel. Light compression and EQ only.</p>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button class="btn-primary">✏️ Edit Metadata</button>
+          <button class="btn-secondary">📤 Share Track</button>
+          <button class="btn-secondary">📋 Add to Playlist</button>
+          <button class="btn-secondary" style="color: var(--accent-coral); border-color: var(--accent-coral);">🗑️ Delete</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Player Bar -->
+  <div class="player-bar">
+    <div class="player-controls">
+      <button class="icon-button">⏮️</button>
+      <button class="play-button" style="width: 48px; height: 48px;">⏸️</button>
+      <button class="icon-button">⏭️</button>
+    </div>
+    
+    <div class="player-track-info">
+      <div>
+        <div style="font-weight: 600;">Forest Echo</div>
+        <div style="font-size: 14px; color: var(--text-muted);">The Woodland Collective</div>
+      </div>
+    </div>
+    
+    <div class="player-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" style="background: var(--accent-yellow); width: 45%;"></div>
+      </div>
+      <div class="time-display">
+        <span>1:40</span>
+        <span>3:42</span>
+      </div>
+    </div>
+    
+    <div class="player-controls">
+      <button class="icon-button">🔀</button>
+      <button class="icon-button">🔁</button>
+      <button class="icon-button">🔊</button>
+    </div>
+  </div>
+  
+  <!-- Theme Info -->
+  <div class="theme-info">
+    <div class="theme-name" style="color: var(--accent-yellow);">Forest Theme (Current)</div>
+    <a href="index.html" class="back-link">← Back to all themes</a>
+  </div>
+</body>
+</html>

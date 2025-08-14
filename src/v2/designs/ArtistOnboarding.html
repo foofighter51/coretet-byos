@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreTet - Artist Onboarding Flow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-anton { font-family: 'Anton', sans-serif; }
+        .font-quicksand { font-family: 'Quicksand', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-950 via-indigo-950 to-blue-950 text-white min-h-screen">
+    <!-- Artist Onboarding Flow - Making the value proposition immediately clear -->
+    
+    <!-- Step 1: Welcome Screen -->
+    <div class="min-h-screen flex items-center justify-center p-6" id="step1">
+        <div class="max-w-2xl w-full text-center">
+            <!-- Logo Animation -->
+            <div class="mb-12">
+                <div class="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl mx-auto mb-6 flex items-center justify-center transform hover:rotate-12 transition-transform">
+                    <span class="font-anton text-4xl text-purple-950">C</span>
+                </div>
+                <h1 class="font-anton text-5xl mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    Welcome to CoreTet
+                </h1>
+                <p class="font-quicksand text-xl text-indigo-300">
+                    Your complete songwriter's studio in the cloud
+                </p>
+            </div>
+            
+            <!-- Value Props -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white/5 backdrop-blur rounded-xl p-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-quicksand font-bold mb-2">Track Every Version</h3>
+                    <p class="text-sm text-indigo-400">Never lose a take. Every idea, demo, and version saved automatically.</p>
+                </div>
+                
+                <div class="bg-white/5 backdrop-blur rounded-xl p-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-quicksand font-bold mb-2">Collaborate Seamlessly</h3>
+                    <p class="text-sm text-indigo-400">Work with your band in real-time, no matter where you are.</p>
+                </div>
+                
+                <div class="bg-white/5 backdrop-blur rounded-xl p-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-quicksand font-bold mb-2">Stay Organized</h3>
+                    <p class="text-sm text-indigo-400">From voice memo to master, track your creative journey.</p>
+                </div>
+            </div>
+            
+            <button class="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 rounded-xl font-quicksand font-bold text-lg text-purple-950 transition-all transform hover:scale-105">
+                Get Started - It's Free
+            </button>
+            
+            <p class="mt-4 text-sm text-indigo-500">No credit card required • 5GB free storage</p>
+        </div>
+    </div>
+    
+    <!-- Step 2: Quick Setup -->
+    <div class="min-h-screen flex items-center justify-center p-6 hidden" id="step2">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <h2 class="font-anton text-3xl mb-2">Let's set up your studio</h2>
+                <p class="text-indigo-400">Just a few quick questions to personalize your experience</p>
+            </div>
+            
+            <div class="bg-white/5 backdrop-blur rounded-xl p-8">
+                <!-- Progress Bar -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex-1 h-2 bg-indigo-900 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all" style="width: 33%"></div>
+                    </div>
+                    <span class="ml-4 text-sm text-indigo-400">1 of 3</span>
+                </div>
+                
+                <!-- Question 1 -->
+                <div>
+                    <h3 class="font-quicksand font-bold text-lg mb-4">What's your artist name?</h3>
+                    <input 
+                        type="text" 
+                        placeholder="Enter your artist or band name"
+                        class="w-full px-4 py-3 bg-indigo-900/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-indigo-500"
+                    />
+                    
+                    <div class="mt-6">
+                        <p class="text-sm text-indigo-400 mb-3">Or are you part of a band?</p>
+                        <button class="w-full py-3 bg-indigo-900/30 hover:bg-indigo-900/50 rounded-lg text-indigo-300 font-quicksand transition-colors">
+                            I'm in a band
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 rounded-lg font-quicksand font-bold text-purple-950 transition-all">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Step 3: First Action -->
+    <div class="min-h-screen flex items-center justify-center p-6 hidden" id="step3">
+        <div class="max-w-2xl w-full">
+            <div class="text-center mb-8">
+                <h2 class="font-anton text-3xl mb-2">You're all set!</h2>
+                <p class="text-indigo-400">What would you like to do first?</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Option 1 -->
+                <button class="bg-white/5 backdrop-blur rounded-xl p-8 text-left hover:bg-white/10 transition-colors group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-purple-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-quicksand font-bold text-xl mb-2">Start a New Song</h3>
+                    <p class="text-indigo-400">Create your first work with just a title. Add audio and details as you go.</p>
+                    
+                    <!-- Example -->
+                    <div class="mt-4 p-3 bg-indigo-900/30 rounded-lg">
+                        <p class="text-xs text-indigo-500 mb-1">Example:</p>
+                        <p class="text-sm">"Untitled Demo" → Add guitar → Add vocals → "Summer Dreams v1.0"</p>
+                    </div>
+                </button>
+                
+                <!-- Option 2 -->
+                <button class="bg-white/5 backdrop-blur rounded-xl p-8 text-left hover:bg-white/10 transition-colors group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-quicksand font-bold text-xl mb-2">Upload Existing Audio</h3>
+                    <p class="text-indigo-400">Import your demos, recordings, or ideas. We'll help you organize them.</p>
+                    
+                    <!-- Example -->
+                    <div class="mt-4 p-3 bg-indigo-900/30 rounded-lg">
+                        <p class="text-xs text-indigo-500 mb-1">Supports:</p>
+                        <p class="text-sm">MP3, WAV, M4A, FLAC • Up to 500MB per file</p>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- Interactive Demo -->
+            <div class="bg-gradient-to-r from-purple-900/30 to-indigo-900/30 rounded-xl p-6 border border-purple-500/30">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-quicksand font-bold mb-1">Pro Tip: Start Simple</h4>
+                        <p class="text-sm text-indigo-300">
+                            Most successful songs on CoreTet start as simple voice memos or guitar recordings. 
+                            Don't wait for perfection - capture the idea first, polish it later!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mt-6 text-sm text-indigo-500 hover:text-indigo-400 transition-colors">
+                Skip for now, I'll explore on my own →
+            </button>
+        </div>
+    </div>
+    
+    <!-- Interactive Tutorial Overlay (shown after first action) -->
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50 hidden" id="tutorial">
+        <div class="max-w-lg w-full bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-8 relative">
+            <button class="absolute top-4 right-4 text-indigo-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="font-anton text-2xl mb-2">Great Start!</h3>
+                <p class="text-indigo-300">You've created your first work. Here's what you can do next:</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3 p-3 bg-indigo-800/30 rounded-lg">
+                    <div class="w-8 h-8 bg-indigo-700 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                    <p class="text-sm">Upload audio files to create versions</p>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-indigo-800/30 rounded-lg">
+                    <div class="w-8 h-8 bg-indigo-700 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                    <p class="text-sm">Add notes to track your creative ideas</p>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-indigo-800/30 rounded-lg">
+                    <div class="w-8 h-8 bg-indigo-700 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                    <p class="text-sm">Invite collaborators to work together</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex items-center space-x-3">
+                <button class="flex-1 py-3 bg-indigo-800/50 hover:bg-indigo-800/70 rounded-lg font-quicksand transition-colors">
+                    Show Me Around
+                </button>
+                <button class="flex-1 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 rounded-lg font-quicksand font-bold text-purple-950 transition-colors">
+                    Got It!
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

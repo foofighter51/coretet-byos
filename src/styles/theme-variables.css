@@ -1,0 +1,65 @@
+/* CSS Variables for Theme System */
+:root {
+  /* Default Forest Theme Colors - matching Tailwind config */
+  --forest-dark: #0a1612;
+  --forest-main: #1a2e26;
+  --forest-light: #243830;
+  --silver: #ebeae8;
+  --accent-yellow: #e4da38;
+  --accent-coral: #d27556;
+  
+  /* Derived colors using opacity */
+  --silver-80: rgba(232, 232, 232, 0.8);
+  --silver-60: rgba(232, 232, 232, 0.6);
+  --silver-40: rgba(232, 232, 232, 0.4);
+  --silver-20: rgba(232, 232, 232, 0.2);
+  --silver-10: rgba(232, 232, 232, 0.1);
+  
+  --accent-yellow-80: rgba(255, 215, 0, 0.8);
+  --accent-yellow-60: rgba(255, 215, 0, 0.6);
+  --accent-yellow-40: rgba(255, 215, 0, 0.4);
+  --accent-yellow-20: rgba(255, 215, 0, 0.2);
+  --accent-yellow-10: rgba(255, 215, 0, 0.1);
+  
+  --accent-coral-80: rgba(255, 107, 107, 0.8);
+  --accent-coral-60: rgba(255, 107, 107, 0.6);
+  --accent-coral-40: rgba(255, 107, 107, 0.4);
+  --accent-coral-20: rgba(255, 107, 107, 0.2);
+  --accent-coral-10: rgba(255, 107, 107, 0.1);
+  
+  /* Component-specific colors */
+  --bg-primary: var(--forest-main);
+  --bg-secondary: var(--forest-light);
+  --bg-dark: var(--forest-dark);
+  --text-primary: var(--silver);
+  --text-muted: var(--silver-60);
+  --text-dim: var(--silver-40);
+  --border-color: var(--silver-10);
+  --border-light: var(--silver-20);
+}
+
+/* Apply dynamic theming to specific elements */
+body {
+  background-color: var(--forest-dark);
+  color: var(--silver);
+}
+
+.text-silver { color: var(--silver); }
+.text-accent-yellow { color: var(--accent-yellow); }
+.text-accent-coral { color: var(--accent-coral); }
+.text-forest-dark { color: var(--forest-dark); }
+
+.border-forest-light { border-color: var(--forest-light); }
+.border-accent-yellow { border-color: var(--accent-yellow); }
+.border-accent-coral { border-color: var(--accent-coral); }
+
+/* Background colors */
+.bg-forest-dark { background-color: var(--forest-dark); }
+.bg-forest-main { background-color: var(--forest-main); }
+.bg-forest-light { background-color: var(--forest-light); }
+.bg-accent-yellow { background-color: var(--accent-yellow); }
+.bg-accent-coral { background-color: var(--accent-coral); }
+.bg-silver { background-color: var(--silver); }
+
+/* Focus states */
+.focus\:border-accent-yellow:focus { border-color: var(--accent-yellow); }

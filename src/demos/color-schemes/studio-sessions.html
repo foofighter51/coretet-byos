@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreTet - Studio Sessions Theme</title>
+  <link rel="stylesheet" href="demo-template.css">
+  <style>
+    /* Studio Sessions Color Scheme */
+    :root {
+      /* Primary Colors */
+      --deep-charcoal: #1C1C1E;
+      --warm-gray: #2C2C2E;
+      --soft-white: #F5F5F0;
+      --studio-gold: #FFB800;
+      --analog-orange: #FF6B35;
+      --success-green: #00C896;
+      --alert-red: #FF3B30;
+      
+      /* Applied Colors */
+      --bg-primary: var(--deep-charcoal);
+      --bg-secondary: var(--warm-gray);
+      --text-primary: var(--soft-white);
+      --text-muted: rgba(245, 245, 240, 0.6);
+      --accent-primary: var(--studio-gold);
+      --accent-secondary: var(--analog-orange);
+      --accent-success: var(--success-green);
+      --accent-danger: var(--alert-red);
+      
+      /* Component Colors */
+      --border-color: rgba(245, 245, 240, 0.1);
+      --hover-bg: rgba(255, 184, 0, 0.1);
+      --accent-bg: rgba(255, 184, 0, 0.2);
+      --accent-text: var(--studio-gold);
+      --header-bg: rgba(28, 28, 30, 0.8);
+      --input-bg: var(--warm-gray);
+      --button-bg: var(--warm-gray);
+      --button-hover: rgba(255, 184, 0, 0.15);
+      --button-text: var(--deep-charcoal);
+      --card-bg: rgba(44, 44, 46, 0.5);
+      --card-hover: rgba(44, 44, 46, 0.8);
+      --card-selected: rgba(255, 184, 0, 0.1);
+      --panel-bg: var(--warm-gray);
+      --tag-bg: rgba(255, 184, 0, 0.2);
+      --tag-text: var(--studio-gold);
+      --tag-border: rgba(255, 184, 0, 0.3);
+      --player-bg: rgba(28, 28, 30, 0.95);
+      --progress-bg: rgba(245, 245, 240, 0.1);
+      --accent-hover: var(--analog-orange);
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    /* Studio Sessions specific overrides */
+    .logo {
+      color: var(--studio-gold);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .play-button {
+      background: linear-gradient(135deg, var(--studio-gold), var(--analog-orange));
+    }
+    
+    .track-card.selected {
+      box-shadow: 0 0 0 2px var(--studio-gold);
+    }
+    
+    .nav-item.active {
+      box-shadow: inset 3px 0 0 var(--studio-gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">CoreTet</h1>
+        <p style="font-size: 12px; opacity: 0.6;">Studio Sessions Theme</p>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Library</h3>
+        <div class="nav-item active">
+          <span>🎵</span> All Tracks
+        </div>
+        <div class="nav-item">
+          <span>❤️</span> Favorites
+        </div>
+        <div class="nav-item">
+          <span>🕒</span> Recent
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Categories</h3>
+        <div class="nav-item">
+          <span>🎸</span> Songs
+        </div>
+        <div class="nav-item">
+          <span>🎹</span> Demos
+        </div>
+        <div class="nav-item">
+          <span>💡</span> Ideas
+        </div>
+        <div class="nav-item">
+          <span>🎤</span> Voice Memos
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Playlists</h3>
+        <div class="nav-item">
+          <span>📁</span> Summer Vibes
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Work in Progress
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Client Reviews
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="btn-secondary">☰</button>
+        
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search tracks, artists, albums...">
+        </div>
+        
+        <div class="header-actions">
+          <button class="btn-secondary">⬆️ Upload</button>
+          <button class="btn-primary">👤 Profile</button>
+        </div>
+      </header>
+      
+      <!-- Track List -->
+      <div class="track-list-container">
+        <div class="filter-bar">
+          <button class="filter-button active">
+            🔽 Filters
+            <span style="background: var(--studio-gold); color: var(--deep-charcoal); padding: 2px 6px; border-radius: 10px; font-size: 11px;">3</span>
+          </button>
+          <button class="sort-button">⬆️ Date Added</button>
+          <div style="flex: 1;"></div>
+          <span style="color: var(--text-muted); font-size: 14px;">247 tracks</span>
+        </div>
+        
+        <div class="track-grid">
+          <!-- Track 1 - Selected -->
+          <div class="track-card selected">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Sunset Boulevard</div>
+              <div class="track-meta">
+                <span>Rock Ballad</span>
+                <span>•</span>
+                <span>128 BPM</span>
+                <span>•</span>
+                <span>A minor</span>
+                <span>•</span>
+                <span>4:32</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 2 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Morning Coffee</div>
+              <div class="track-meta">
+                <span>Lo-fi Hip Hop</span>
+                <span>•</span>
+                <span>85 BPM</span>
+                <span>•</span>
+                <span>C major</span>
+                <span>•</span>
+                <span>3:18</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button active">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 3 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Electric Dreams</div>
+              <div class="track-meta">
+                <span>Synthwave</span>
+                <span>•</span>
+                <span>118 BPM</span>
+                <span>•</span>
+                <span>E minor</span>
+                <span>•</span>
+                <span>5:21</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 4 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Jazz Improv Session</div>
+              <div class="track-meta">
+                <span>Jazz</span>
+                <span>•</span>
+                <span>132 BPM</span>
+                <span>•</span>
+                <span>Bb major</span>
+                <span>•</span>
+                <span>7:45</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active">❤️</button>
+              <button class="icon-button active">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 5 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Acoustic Memories</div>
+              <div class="track-meta">
+                <span>Folk</span>
+                <span>•</span>
+                <span>96 BPM</span>
+                <span>•</span>
+                <span>G major</span>
+                <span>•</span>
+                <span>3:52</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Track Details Panel -->
+    <aside class="track-details">
+      <div class="details-header">
+        <h2 class="details-title">Sunset Boulevard</h2>
+        <p class="details-artist">The Studio Sessions</p>
+        
+        <div class="rating-buttons">
+          <button class="rating-button">👂 Listened</button>
+          <button class="rating-button active">❤️ Liked</button>
+          <button class="rating-button">⭐ Loved</button>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Track Information</h3>
+        <div class="metadata-grid">
+          <div class="metadata-item">
+            <span class="metadata-label">BPM</span>
+            <span class="metadata-value">128</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Key</span>
+            <span class="metadata-value">A minor</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Duration</span>
+            <span class="metadata-value">4:32</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Genre</span>
+            <span class="metadata-value">Rock Ballad</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Recorded</span>
+            <span class="metadata-value">Oct 15, 2024</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">File Size</span>
+            <span class="metadata-value">8.7 MB</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Tags</h3>
+        <div class="tags-container">
+          <span class="tag">rock</span>
+          <span class="tag">ballad</span>
+          <span class="tag">guitar</span>
+          <span class="tag">emotional</span>
+          <span class="tag">studio-recording</span>
+          <span class="tag">master</span>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Production Notes</h3>
+        <div style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+          <p>Recorded at Studio A with the full band. Used vintage Neve console for that warm analog sound. Guitar through 1965 Fender Twin Reverb. </p>
+          <p style="margin-top: 12px;">Mix notes: Added subtle tape saturation on the master bus. Parallel compression on drums.</p>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button class="btn-primary">✏️ Edit Metadata</button>
+          <button class="btn-secondary">📤 Share Track</button>
+          <button class="btn-secondary">📋 Add to Playlist</button>
+          <button class="btn-secondary" style="color: var(--alert-red); border-color: var(--alert-red);">🗑️ Delete</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Player Bar -->
+  <div class="player-bar">
+    <div class="player-controls">
+      <button class="icon-button">⏮️</button>
+      <button class="play-button" style="width: 48px; height: 48px;">⏸️</button>
+      <button class="icon-button">⏭️</button>
+    </div>
+    
+    <div class="player-track-info">
+      <div>
+        <div style="font-weight: 600;">Sunset Boulevard</div>
+        <div style="font-size: 14px; color: var(--text-muted);">The Studio Sessions</div>
+      </div>
+    </div>
+    
+    <div class="player-progress">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="time-display">
+        <span>1:34</span>
+        <span>4:32</span>
+      </div>
+    </div>
+    
+    <div class="player-controls">
+      <button class="icon-button">🔀</button>
+      <button class="icon-button">🔁</button>
+      <button class="icon-button">🔊</button>
+    </div>
+  </div>
+  
+  <!-- Theme Info -->
+  <div class="theme-info">
+    <div class="theme-name">Studio Sessions Theme</div>
+    <a href="index.html" class="back-link">← Back to all themes</a>
+  </div>
+</body>
+</html>

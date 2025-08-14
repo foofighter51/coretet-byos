@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreTet - Midnight Jazz Theme</title>
+  <link rel="stylesheet" href="demo-template.css">
+  <style>
+    /* Midnight Jazz Color Scheme */
+    :root {
+      /* Primary Colors */
+      --midnight-blue: #0A0E27;
+      --deep-purple: #1A1B3A;
+      --cool-white: #E8EAED;
+      --electric-blue: #00D4FF;
+      --violet-pink: #B24BF3;
+      --mint-green: #00FFC2;
+      --coral-pink: #FF5E7A;
+      
+      /* Applied Colors */
+      --bg-primary: var(--midnight-blue);
+      --bg-secondary: var(--deep-purple);
+      --text-primary: var(--cool-white);
+      --text-muted: rgba(232, 234, 237, 0.6);
+      --accent-primary: var(--electric-blue);
+      --accent-secondary: var(--violet-pink);
+      --accent-success: var(--mint-green);
+      --accent-danger: var(--coral-pink);
+      
+      /* Component Colors */
+      --border-color: rgba(232, 234, 237, 0.1);
+      --hover-bg: rgba(0, 212, 255, 0.1);
+      --accent-bg: rgba(0, 212, 255, 0.15);
+      --accent-text: var(--electric-blue);
+      --header-bg: rgba(10, 14, 39, 0.8);
+      --input-bg: var(--deep-purple);
+      --button-bg: var(--deep-purple);
+      --button-hover: rgba(0, 212, 255, 0.15);
+      --button-text: var(--midnight-blue);
+      --card-bg: rgba(26, 27, 58, 0.5);
+      --card-hover: rgba(26, 27, 58, 0.8);
+      --card-selected: rgba(0, 212, 255, 0.1);
+      --panel-bg: var(--deep-purple);
+      --tag-bg: rgba(178, 75, 243, 0.2);
+      --tag-text: var(--violet-pink);
+      --tag-border: rgba(178, 75, 243, 0.3);
+      --player-bg: rgba(10, 14, 39, 0.95);
+      --progress-bg: rgba(232, 234, 237, 0.1);
+      --accent-hover: var(--violet-pink);
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    /* Midnight Jazz specific overrides */
+    .logo {
+      background: linear-gradient(135deg, var(--electric-blue), var(--violet-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .play-button {
+      background: linear-gradient(135deg, var(--electric-blue), var(--violet-pink));
+      box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    }
+    
+    .play-button:hover {
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    }
+    
+    .track-card.selected {
+      box-shadow: 0 0 0 2px var(--electric-blue), 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+    
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), transparent);
+      border-left: 3px solid var(--electric-blue);
+    }
+    
+    .rating-button.active {
+      background: var(--violet-pink);
+      box-shadow: 0 4px 12px rgba(178, 75, 243, 0.3);
+    }
+    
+    /* Glow effects */
+    .btn-primary {
+      box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    }
+    
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    }
+    
+    .search-input:focus {
+      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">CoreTet</h1>
+        <p style="font-size: 12px; opacity: 0.6;">Midnight Jazz Theme</p>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Library</h3>
+        <div class="nav-item active">
+          <span>🎵</span> All Tracks
+        </div>
+        <div class="nav-item">
+          <span>❤️</span> Favorites
+        </div>
+        <div class="nav-item">
+          <span>🕒</span> Recent
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Categories</h3>
+        <div class="nav-item">
+          <span>🎸</span> Songs
+        </div>
+        <div class="nav-item">
+          <span>🎹</span> Demos
+        </div>
+        <div class="nav-item">
+          <span>💡</span> Ideas
+        </div>
+        <div class="nav-item">
+          <span>🎤</span> Voice Memos
+        </div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h3>Playlists</h3>
+        <div class="nav-item">
+          <span>📁</span> Late Night Sessions
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Electronic Experiments
+        </div>
+        <div class="nav-item">
+          <span>📁</span> Chill Vibes
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="btn-secondary">☰</button>
+        
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search tracks, artists, albums...">
+        </div>
+        
+        <div class="header-actions">
+          <button class="btn-secondary">⬆️ Upload</button>
+          <button class="btn-primary">👤 Profile</button>
+        </div>
+      </header>
+      
+      <!-- Track List -->
+      <div class="track-list-container">
+        <div class="filter-bar">
+          <button class="filter-button active">
+            🔽 Filters
+            <span style="background: var(--electric-blue); color: var(--midnight-blue); padding: 2px 6px; border-radius: 10px; font-size: 11px;">3</span>
+          </button>
+          <button class="sort-button">⬆️ Date Added</button>
+          <div style="flex: 1;"></div>
+          <span style="color: var(--text-muted); font-size: 14px;">312 tracks</span>
+        </div>
+        
+        <div class="track-grid">
+          <!-- Track 1 - Selected -->
+          <div class="track-card selected">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Neon Dreams</div>
+              <div class="track-meta">
+                <span>Synthwave</span>
+                <span>•</span>
+                <span>120 BPM</span>
+                <span>•</span>
+                <span>C minor</span>
+                <span>•</span>
+                <span>5:14</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--coral-pink);">❤️</button>
+              <button class="icon-button active" style="color: var(--violet-pink);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 2 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Digital Rain</div>
+              <div class="track-meta">
+                <span>Ambient Electronic</span>
+                <span>•</span>
+                <span>75 BPM</span>
+                <span>•</span>
+                <span>A minor</span>
+                <span>•</span>
+                <span>6:32</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button active" style="color: var(--violet-pink);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 3 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Quantum Flux</div>
+              <div class="track-meta">
+                <span>Future Bass</span>
+                <span>•</span>
+                <span>140 BPM</span>
+                <span>•</span>
+                <span>F# minor</span>
+                <span>•</span>
+                <span>4:08</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--coral-pink);">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 4 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Midnight Groove</div>
+              <div class="track-meta">
+                <span>Nu-Jazz</span>
+                <span>•</span>
+                <span>110 BPM</span>
+                <span>•</span>
+                <span>Eb major</span>
+                <span>•</span>
+                <span>3:45</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button">❤️</button>
+              <button class="icon-button">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+          
+          <!-- Track 5 -->
+          <div class="track-card">
+            <button class="play-button">▶</button>
+            <div class="track-info">
+              <div class="track-title">Aurora Borealis</div>
+              <div class="track-meta">
+                <span>Chillstep</span>
+                <span>•</span>
+                <span>70 BPM</span>
+                <span>•</span>
+                <span>D major</span>
+                <span>•</span>
+                <span>4:56</span>
+              </div>
+            </div>
+            <div class="track-actions">
+              <button class="icon-button active" style="color: var(--coral-pink);">❤️</button>
+              <button class="icon-button active" style="color: var(--violet-pink);">⭐</button>
+              <button class="icon-button">⋮</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Track Details Panel -->
+    <aside class="track-details">
+      <div class="details-header">
+        <h2 class="details-title">Neon Dreams</h2>
+        <p class="details-artist">Midnight Collective</p>
+        
+        <div class="rating-buttons">
+          <button class="rating-button">👂 Listened</button>
+          <button class="rating-button active">❤️ Liked</button>
+          <button class="rating-button active">⭐ Loved</button>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Track Information</h3>
+        <div class="metadata-grid">
+          <div class="metadata-item">
+            <span class="metadata-label">BPM</span>
+            <span class="metadata-value">120</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Key</span>
+            <span class="metadata-value">C minor</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Duration</span>
+            <span class="metadata-value">5:14</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Genre</span>
+            <span class="metadata-value">Synthwave</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Recorded</span>
+            <span class="metadata-value">Dec 3, 2024</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">File Size</span>
+            <span class="metadata-value">12.1 MB</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Tags</h3>
+        <div class="tags-container">
+          <span class="tag">synthwave</span>
+          <span class="tag">electronic</span>
+          <span class="tag">retro</span>
+          <span class="tag">atmospheric</span>
+          <span class="tag">night-drive</span>
+          <span class="tag">cinematic</span>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Production Notes</h3>
+        <div style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+          <p>Created using analog synthesizers including Juno-106 and Prophet-5. Drums programmed in TR-808 with heavy gated reverb.</p>
+          <p style="margin-top: 12px;">Mastered with subtle tape emulation and analog-modeled compression for that warm 80s sound.</p>
+        </div>
+      </div>
+      
+      <div class="details-section">
+        <h3 class="section-title">Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button class="btn-primary">✏️ Edit Metadata</button>
+          <button class="btn-secondary">📤 Share Track</button>
+          <button class="btn-secondary">📋 Add to Playlist</button>
+          <button class="btn-secondary" style="color: var(--coral-pink); border-color: var(--coral-pink);">🗑️ Delete</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Player Bar -->
+  <div class="player-bar">
+    <div class="player-controls">
+      <button class="icon-button">⏮️</button>
+      <button class="play-button" style="width: 48px; height: 48px;">⏸️</button>
+      <button class="icon-button">⏭️</button>
+    </div>
+    
+    <div class="player-track-info">
+      <div>
+        <div style="font-weight: 600;">Neon Dreams</div>
+        <div style="font-size: 14px; color: var(--text-muted);">Midnight Collective</div>
+      </div>
+    </div>
+    
+    <div class="player-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" style="background: linear-gradient(90deg, var(--electric-blue), var(--violet-pink));"></div>
+      </div>
+      <div class="time-display">
+        <span>2:17</span>
+        <span>5:14</span>
+      </div>
+    </div>
+    
+    <div class="player-controls">
+      <button class="icon-button">🔀</button>
+      <button class="icon-button">🔁</button>
+      <button class="icon-button">🔊</button>
+    </div>
+  </div>
+  
+  <!-- Theme Info -->
+  <div class="theme-info">
+    <div class="theme-name" style="background: linear-gradient(135deg, var(--electric-blue), var(--violet-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Midnight Jazz Theme</div>
+    <a href="index.html" class="back-link">← Back to all themes</a>
+  </div>
+</body>
+</html>

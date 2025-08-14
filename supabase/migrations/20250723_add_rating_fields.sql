@@ -1,0 +1,5 @@
+-- Add rating fields to tracks table
+ALTER TABLE tracks 
+ADD COLUMN IF NOT EXISTS listened BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS liked BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS loved BOOLEAN DEFAULT false;

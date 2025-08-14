@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Face Definitions - Local fallbacks */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Anton'), local('Arial Black'), local('Helvetica');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local('Quicksand'), local('Arial'), local('Helvetica');
+}
+
+@layer base {
+  body {
+    background-color: var(--forest-dark);
+    color: var(--silver);
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Apply custom scrollbar globally */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--forest-light) var(--forest-main);
+  }
+  
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background-color: var(--forest-main);
+    border-radius: 0.25rem;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--forest-light);
+    border-radius: 0.25rem;
+    border: 1px solid var(--forest-main);
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--forest-light);
+    opacity: 0.8;
+  }
+  
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* Custom scrollbar styling */
+@layer utilities {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--forest-light) var(--forest-main);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--forest-main);
+    border-radius: 0.5rem;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--forest-light);
+    border-radius: 0.5rem;
+    border: 2px solid var(--forest-main);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
+  }
+  
+  /* Volume slider styling */
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--accent-coral);
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 0 4px var(--accent-coral-40);
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--accent-coral);
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 0;
+    box-shadow: 0 0 4px var(--accent-coral-40);
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply h-1 rounded-lg;
+  }
+  
+  input[type="range"]::-moz-range-track {
+    @apply h-1 rounded-lg;
+  }
+  
+  /* Inline Player Volume Slider */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #e4da38;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #e4da38;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  
+  .slider::-webkit-slider-thumb:hover {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .slider::-moz-range-thumb:hover {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Ensure track background */
+  .slider::-webkit-slider-runnable-track {
+    @apply h-1 rounded-lg;
+  }
+  
+  .slider::-moz-range-track {
+    @apply h-1 rounded-lg;
+  }
+}
