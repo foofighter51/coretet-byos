@@ -1,134 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ProviderCard } from '../components/Storage/ProviderCard';
-import { StorageProvider, StorageProviderName } from '../types/storage';
-import { STORAGE_PROVIDERS, FEATURE_FLAGS } from '../config/storageProviders';
+import { STORAGE_PROVIDERS } from '../config/storageProviders';
+import { useStorage } from '../contexts/StorageContext';
 import '../styles/byos-components.css';
 
 export function StorageSettings() {
-  const [providers, setProviders] = useState<StorageProvider[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeProvider, setActiveProvider] = useState<StorageProvider | null>(null);
+  const { 
+    providers, 
+    activeProvider, 
+    isLoading, 
+    connectProvider, 
+    disconnectProvider, 
+    switchProvider 
+  } = useStorage();
 
-  // Initialize providers
-  useEffect(() => {
-    const initializeProviders = () => {
-      const initialProviders: StorageProvider[] = [
-        {
-          name: 'google_drive',
-          displayName: 'Google Drive',
-          connected: false,
-          connectionStatus: 'disconnected'
-        },
-        // Only show enabled providers
-        ...(FEATURE_FLAGS.DROPBOX ? [{
-          name: 'dropbox' as StorageProviderName,
-          displayName: 'Dropbox', 
-          connected: false,
-          connectionStatus: 'disconnected' as const
-        }] : []),
-        ...(FEATURE_FLAGS.ONEDRIVE ? [{
-          name: 'onedrive' as StorageProviderName,
-          displayName: 'OneDrive',
-          connected: false, 
-          connectionStatus: 'disconnected' as const
-        }] : []),
-        // Always show Supabase for migration purposes
-        {
-          name: 'supabase',
-          displayName: 'CoreTet Storage',
-          connected: true,
-          isActive: true,
-          connectionStatus: 'connected',
-          quota: {
-            used: 2.5 * 1024 * 1024 * 1024, // 2.5GB
-            total: 10 * 1024 * 1024 * 1024, // 10GB
-            unit: 'bytes'
-          }
-        }
-      ];
-      
-      setProviders(initialProviders);
-      setActiveProvider(initialProviders.find(p => p.isActive) || null);
-    };
-
-    initializeProviders();
-  }, []);
-
-  const handleConnect = async (providerName: StorageProviderName) => {
-    setIsLoading(true);
-    setProviders(prev => prev.map(p => 
-      p.name === providerName 
-        ? { ...p, connectionStatus: 'connecting' }
-        : p
-    ));
-
+  const handleConnect = async (providerName: string) => {
     try {
-      // Simulate connection process
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // TODO: Implement actual OAuth flow
-      setProviders(prev => prev.map(p => 
-        p.name === providerName 
-          ? { 
-              ...p, 
-              connected: true, 
-              connectionStatus: 'connected',
-              email: 'user@example.com',
-              lastSync: new Date().toISOString(),
-              quota: {
-                used: Math.random() * 5 * 1024 * 1024 * 1024,
-                total: 15 * 1024 * 1024 * 1024,
-                unit: 'bytes'
-              }
-            }
-          : p
-      ));
+      await connectProvider(providerName as any);
     } catch (error) {
-      setProviders(prev => prev.map(p => 
-        p.name === providerName 
-          ? { 
-              ...p, 
-              connectionStatus: 'error',
-              errorMessage: 'Failed to connect. Please try again.'
-            }
-          : p
-      ));
-    } finally {
-      setIsLoading(false);
+      console.error('Failed to connect provider:', error);
     }
   };
 
-  const handleDisconnect = async (providerName: StorageProviderName) => {
-    setProviders(prev => prev.map(p => 
-      p.name === providerName 
-        ? { 
-            ...p, 
-            connected: false, 
-            connectionStatus: 'disconnected',
-            isActive: false,
-            email: undefined,
-            quota: undefined
-          }
-        : p
-    ));
-    
-    if (activeProvider?.name === providerName) {
-      // Switch back to Supabase as default
-      const supabaseProvider = providers.find(p => p.name === 'supabase');
-      if (supabaseProvider) {
-        handleSetActive('supabase');
-      }
+  const handleDisconnect = async (providerName: string) => {
+    try {
+      await disconnectProvider(providerName as any);
+    } catch (error) {
+      console.error('Failed to disconnect provider:', error);
     }
   };
 
-  const handleSetActive = async (providerName: StorageProviderName) => {
-    setProviders(prev => prev.map(p => ({
-      ...p,
-      isActive: p.name === providerName
-    })));
-    
-    const newActiveProvider = providers.find(p => p.name === providerName);
-    setActiveProvider(newActiveProvider || null);
+  const handleSetActive = async (providerName: string) => {
+    try {
+      await switchProvider(providerName as any);
+    } catch (error) {
+      console.error('Failed to switch provider:', error);
+    }
   };
 
   const connectedProviders = providers.filter(p => p.connected);

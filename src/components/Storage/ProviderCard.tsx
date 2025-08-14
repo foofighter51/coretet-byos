@@ -4,9 +4,9 @@ import { STORAGE_PROVIDERS, PROVIDER_COLORS } from '../../config/storageProvider
 
 interface ProviderCardProps {
   provider: StorageProvider;
-  onConnect: () => void;
-  onDisconnect: () => void;
-  onSetActive: () => void;
+  onConnect: () => Promise<void>;
+  onDisconnect: () => Promise<void>;
+  onSetActive: () => Promise<void>;
   disabled?: boolean;
 }
 
