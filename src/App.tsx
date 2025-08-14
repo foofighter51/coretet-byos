@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ErrorProvider } from './contexts/ErrorContext';
-import { StorageProvider } from './contexts/StorageContext';
+import { StorageProvider as StorageContextProvider } from './contexts/StorageContext';
 import { GlobalErrorBoundary } from './components/ErrorHandling/GlobalErrorBoundary';
 import { NetworkStatusIndicator } from './components/ErrorHandling/NetworkStatusIndicator';
 import { ErrorDebugPanel } from './components/ErrorHandling/ErrorDebugPanel';
@@ -52,9 +52,9 @@ function App() {
               <Route path="/*" element={
                 <AuthProvider>
                   <AuthGuard>
-                    <StorageProvider>
+                    <StorageContextProvider>
                       {FEATURES.PROJECT_HIERARCHY ? <V2Routes /> : <MainApp />}
-                    </StorageProvider>
+                    </StorageContextProvider>
                   </AuthGuard>
                 </AuthProvider>
               } />
