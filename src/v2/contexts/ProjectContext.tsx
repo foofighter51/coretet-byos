@@ -48,6 +48,10 @@ interface ProjectContextType {
   deleteIteration: (id: string) => Promise<void>;
   selectIteration: (id: string) => Promise<void>;
   
+  // Version utilities
+  getVersions: (projectId: string) => Promise<SongVersion[]>;
+  getIterations: (versionId: string) => Promise<VersionIteration[]>;
+  
   // Collaboration
   inviteCollaborator: (projectId: string, email: string, role: string) => Promise<void>;
   removeCollaborator: (projectId: string, userId: string) => Promise<void>;
@@ -528,6 +532,42 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
   }, [user, showToast]);
 
   // ============================================================================
+  // Version Utility Operations
+  // ============================================================================
+
+  const getVersions = useCallback(async (projectId: string): Promise<SongVersion[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('song_versions')
+        .select('*')
+        .eq('project_id', projectId)
+        .order('created_at', { ascending: true });
+      
+      if (error) throw error;
+      return data || [];
+    } catch (err) {
+      console.error('Error fetching versions:', err);
+      return [];
+    }
+  }, []);
+
+  const getIterations = useCallback(async (versionId: string): Promise<VersionIteration[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('version_iterations')
+        .select('*')
+        .eq('version_id', versionId)
+        .order('iteration_number', { ascending: true });
+      
+      if (error) throw error;
+      return data || [];
+    } catch (err) {
+      console.error('Error fetching iterations:', err);
+      return [];
+    }
+  }, []);
+
+  // ============================================================================
   // Migration Operations
   // ============================================================================
 
@@ -579,11 +619,22 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
   }, [currentProject]);
 
   const getNextIterationNumber = useCallback(async (versionId: string): Promise<number> => {
-    const { data, error } = await supabase
-      .rpc('get_next_iteration_number', { p_version_id: versionId });
-    
-    if (error) throw error;
-    return data || 1;
+    try {
+      const { data, error } = await supabase
+        .from('version_iterations')
+        .select('iteration_number')
+        .eq('version_id', versionId)
+        .order('iteration_number', { ascending: false })
+        .limit(1);
+      
+      if (error) throw error;
+      
+      const highest = data && data.length > 0 ? data[0].iteration_number : 0;
+      return highest + 1;
+    } catch (err) {
+      console.error('Error getting next iteration number:', err);
+      return 1;
+    }
   }, []);
 
   // ============================================================================
@@ -658,6 +709,10 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     updateIteration,
     deleteIteration,
     selectIteration,
+    
+    // Version utilities
+    getVersions,
+    getIterations,
     
     // Collaboration
     inviteCollaborator,
