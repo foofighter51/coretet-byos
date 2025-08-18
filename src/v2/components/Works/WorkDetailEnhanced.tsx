@@ -198,9 +198,9 @@ export default function WorkDetailEnhanced() {
   }
 
   return (
-    <div className="min-h-screen bg-forest-dark">
+    <div className="min-h-screen bg-forest-dark flex flex-col">
       {/* Header */}
-      <header className="bg-forest-main border-b border-forest-light sticky top-0 z-10">
+      <header className="bg-forest-main border-b border-forest-light sticky top-0 z-20 flex-shrink-0">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -267,25 +267,26 @@ export default function WorkDetailEnhanced() {
       </header>
 
       {/* Content - All sections on one scrollable page */}
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Quick Navigation - Sticky sidebar */}
-        <div className="fixed right-4 top-32 z-10 hidden xl:block">
-          <nav className="bg-forest-main border border-forest-light rounded-lg p-4 space-y-2">
-            <p className="font-quicksand text-xs text-silver/60 mb-3">Quick Nav</p>
-            <a href="#overview" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
-              Overview
-            </a>
-            <a href="#versions" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
-              Versions
-            </a>
-            <a href="#notes" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
-              Notes
-            </a>
-            <a href="#tasks" className="block font-quicksand text-sm text-silver hover:text-accent-coral transition-colors">
-              Tasks
-            </a>
-          </nav>
-        </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto p-6 relative">
+          {/* Quick Navigation - Sticky sidebar */}
+          <div className="absolute right-0 top-4 z-10 hidden xl:block">
+            <nav className="bg-forest-main border border-forest-light rounded-lg p-4 space-y-2 sticky top-4">
+              <p className="font-quicksand text-xs text-silver/60 mb-3">Quick Nav</p>
+              <a href="#overview" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
+                Overview
+              </a>
+              <a href="#versions" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
+                Versions
+              </a>
+              <a href="#notes" className="block font-quicksand text-sm text-silver hover:text-accent-yellow transition-colors">
+                Notes
+              </a>
+              <a href="#tasks" className="block font-quicksand text-sm text-silver hover:text-accent-coral transition-colors">
+                Tasks
+              </a>
+            </nav>
+          </div>
         
         <div className="space-y-12">
         {/* SECTION 1: Overview & Quick Actions */}
@@ -654,6 +655,7 @@ export default function WorkDetailEnhanced() {
             <WorkTasks workId={work.id} />
           </div>
         </section>
+        </div>
         </div>
       </div>
 

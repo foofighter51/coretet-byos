@@ -160,7 +160,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         .insert({
           ...input,
           user_id: user.id,
-          status: 'draft' // Default status for new works
+          status: 'active' // Default status for new works
         })
         .select()
         .single();
