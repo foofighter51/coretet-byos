@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { PenTool, Upload, Music, Library, Plus } from 'lucide-react';
+import { PenTool, Upload, Music, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import CreateWorkModal from '../Works/CreateWorkModal';
 import QuickUploadModal from '../Upload/QuickUploadModal';
-import { DatabaseSetup } from '../Debug/DatabaseSetup';
+import { V2Layout } from '../Layout/V2Layout';
 
 /**
  * SongwriterDashboard - The main entry point for songwriters
@@ -15,23 +15,52 @@ export default function SongwriterDashboard() {
   const [showUpload, setShowUpload] = useState(false);
 
   return (
-    <div className="min-h-screen bg-forest-dark flex flex-col">
-      {/* Simple Header */}
+    <div className="v2-layout bg-forest-dark">
+      {/* Header with Navigation */}
       <header className="bg-forest-main border-b border-forest-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="font-anton text-2xl text-silver">CoreTet</h1>
           <button
-            onClick={() => navigate('/library')}
-            className="flex items-center space-x-2 text-silver/60 hover:text-silver transition-colors"
+            onClick={() => navigate('/')}
+            className="font-anton text-2xl text-silver hover:text-white transition-colors"
           >
-            <Library className="w-5 h-5" />
-            <span className="font-quicksand text-sm">View All Audio</span>
+            CoreTet
           </button>
+          
+          {/* Navigation Links */}
+          <nav className="flex items-center space-x-6">
+            <button
+              onClick={() => navigate('/works')}
+              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
+            >
+              View My Works
+            </button>
+            <span className="text-silver/20">•</span>
+            <button
+              onClick={() => navigate('/recent')}
+              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
+            >
+              Recent Activity
+            </button>
+            <span className="text-silver/20">•</span>
+            <button
+              onClick={() => navigate('/collaborations')}
+              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
+            >
+              Collaborations
+            </button>
+            <span className="text-silver/20">•</span>
+            <button
+              onClick={() => navigate('/storage')}
+              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
+            >
+              Storage Settings
+            </button>
+          </nav>
         </div>
       </header>
 
       {/* Main Content - Centered Options */}
-      <div className="flex-1 flex items-center justify-center p-6">
+      <div className="v2-content v2-scrollable flex items-center justify-center p-6">
         <div className="max-w-4xl w-full">
           {/* Welcome Message */}
           <div className="text-center mb-12">
@@ -90,43 +119,6 @@ export default function SongwriterDashboard() {
             </button>
           </div>
 
-          {/* Secondary Actions */}
-          <div className="mt-12 text-center">
-            <div className="inline-flex items-center space-x-6 text-sm font-quicksand">
-              <button
-                onClick={() => navigate('/works')}
-                className="text-silver/40 hover:text-silver transition-colors"
-              >
-                View My Works
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/recent')}
-                className="text-silver/40 hover:text-silver transition-colors"
-              >
-                Recent Activity
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/collaborations')}
-                className="text-silver/40 hover:text-silver transition-colors"
-              >
-                Collaborations
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/storage')}
-                className="text-silver/40 hover:text-silver transition-colors"
-              >
-                Storage Settings
-              </button>
-            </div>
-          </div>
-
-          {/* Database Setup - Development Only */}
-          <div className="mt-12 max-w-2xl mx-auto">
-            <DatabaseSetup />
-          </div>
         </div>
       </div>
 

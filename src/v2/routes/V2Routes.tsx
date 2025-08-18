@@ -9,8 +9,11 @@ import SongwriterDashboard from '../components/Dashboard/SongwriterDashboard';
 import WorkDetailEnhanced from '../components/Works/WorkDetailEnhanced';
 import ProjectList from '../components/Projects/ProjectList';
 
-// Import existing storage settings
-import { StorageSettings } from '../../pages/StorageSettings';
+// Import V2 pages
+import { StorageSettingsV2 } from '../pages/StorageSettingsV2';
+import { WorksListV2 } from '../pages/WorksListV2';
+import { WorkDetailV2 } from '../pages/WorkDetailV2';
+import { AdminDashboard } from '../pages/AdminDashboard';
 
 // For now, import V1 components as placeholders for other routes
 import MainApp from '../../components/MainApp';
@@ -28,12 +31,13 @@ export function V2Routes() {
         <Routes>
           {/* V2 Routes - Songwriter focus */}
           <Route path="/" element={<SongwriterDashboard />} />
-          <Route path="/works" element={<WorksListPlaceholder />} />
-          <Route path="/work/:workId" element={<WorkDetailEnhanced />} />
+          <Route path="/works" element={<WorksListV2 />} />
+          <Route path="/work/:workId" element={<WorkDetailV2 />} />
           <Route path="/library" element={<AudioLibraryPlaceholder />} />
           <Route path="/recent" element={<RecentActivityPlaceholder />} />
           <Route path="/collaborations" element={<CollaborationsPlaceholder />} />
-          <Route path="/storage" element={<StorageSettings />} />
+          <Route path="/storage" element={<StorageSettingsV2 />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           
           {/* Keep V1 routes accessible */}
           <Route path="/v1/*" element={<MainApp />} />
@@ -46,41 +50,71 @@ export function V2Routes() {
   );
 }
 
+// Import V2 Layout
+import { V2Layout } from '../components/Layout/V2Layout';
+
 // Temporary placeholder components
 
 function WorksListPlaceholder() {
   return (
-    <div className="min-h-screen bg-forest-dark p-8">
-      <h2 className="font-anton text-2xl text-silver mb-4">My Works</h2>
-      <p className="font-quicksand text-silver/60">Your songs and compositions will appear here</p>
-    </div>
+    <V2Layout 
+      title="My Works" 
+      subtitle="Your songs and compositions will appear here"
+    >
+      <div className="text-center py-12">
+        <div className="text-6xl mb-4">🎵</div>
+        <p className="font-quicksand text-silver/60 text-lg">
+          No works created yet. Start by creating your first work from the dashboard.
+        </p>
+      </div>
+    </V2Layout>
   );
 }
 
-
 function AudioLibraryPlaceholder() {
   return (
-    <div className="min-h-screen bg-forest-dark p-8">
-      <h2 className="font-anton text-2xl text-silver mb-4">Audio Library</h2>
-      <p className="font-quicksand text-silver/60">All your uploaded audio files</p>
-    </div>
+    <V2Layout 
+      title="Audio Library" 
+      subtitle="All your uploaded audio files"
+    >
+      <div className="text-center py-12">
+        <div className="text-6xl mb-4">🎧</div>
+        <p className="font-quicksand text-silver/60 text-lg">
+          Your audio library will appear here once you upload files.
+        </p>
+      </div>
+    </V2Layout>
   );
 }
 
 function RecentActivityPlaceholder() {
   return (
-    <div className="min-h-screen bg-forest-dark p-8">
-      <h2 className="font-anton text-2xl text-silver mb-4">Recent Activity</h2>
-      <p className="font-quicksand text-silver/60">Your recent uploads and edits</p>
-    </div>
+    <V2Layout 
+      title="Recent Activity" 
+      subtitle="Your recent uploads and edits"
+    >
+      <div className="text-center py-12">
+        <div className="text-6xl mb-4">⏱️</div>
+        <p className="font-quicksand text-silver/60 text-lg">
+          Recent activity will be tracked here as you use CoreTet.
+        </p>
+      </div>
+    </V2Layout>
   );
 }
 
 function CollaborationsPlaceholder() {
   return (
-    <div className="min-h-screen bg-forest-dark p-8">
-      <h2 className="font-anton text-2xl text-silver mb-4">Collaborations</h2>
-      <p className="font-quicksand text-silver/60">Works you're collaborating on</p>
-    </div>
+    <V2Layout 
+      title="Collaborations" 
+      subtitle="Works you're collaborating on"
+    >
+      <div className="text-center py-12">
+        <div className="text-6xl mb-4">👥</div>
+        <p className="font-quicksand text-silver/60 text-lg">
+          Collaborative works will appear here when you start working with others.
+        </p>
+      </div>
+    </V2Layout>
   );
 }
