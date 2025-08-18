@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useRef, useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { getStreamingUrl } from '../utils/getStreamingUrl';
+import { useLibrary } from './LibraryContext';
 
 interface AudioContextType {
   currentTrack: string | null;
@@ -36,6 +38,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode; onTrackEnd?: (
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolumeState] = useState(0.8);
+  const { tracks } = useLibrary();
 
   const play = useCallback(async (trackId: string, url: string) => {
     // If URL is empty or looks like a public URL that might fail, fetch secure URL
@@ -132,7 +135,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode; onTrackEnd?: (
     }
   }, [currentTrack, volume, onTrackEnd]);
 
-  // New secure playTrack method that fetches URL from edge function
+  // BYOS-aware playTrack method that handles multiple storage providers
   const playTrack = useCallback(async (trackId: string) => {
     
     // If same track, just resume
@@ -142,43 +145,31 @@ export const AudioProvider: React.FC<{ children: React.ReactNode; onTrackEnd?: (
       return;
     }
 
-    // Check cache first
-    const cached = urlCache[trackId];
-    let url: string | null = null;
-    
-    if (cached && cached.expires > Date.now()) {
-      url = cached.url;
-    } else {
-      // Fetch secure URL from edge function
-      try {
-        const { data, error } = await supabase.functions.invoke('get-track-url', {
-          body: { trackId }
-        });
-
-        if (error) throw error;
-
-        if (data?.url) {
-          // Cache for 50 minutes (URLs expire in 60)
-          urlCache[trackId] = {
-            url: data.url,
-            expires: Date.now() + 50 * 60 * 1000
-          };
-          url = data.url;
-        }
-      } catch (error) {
-        console.error('Error getting secure URL:', error);
-        return;
-      }
-    }
-
-    if (!url) {
-      console.error('Failed to get URL for track:', trackId);
+    // Find the track in our library
+    const track = tracks.find(t => t.id === trackId);
+    if (!track) {
+      console.error('Track not found:', trackId);
       return;
     }
 
-    // Play the track with the secure URL
-    play(trackId, url);
-  }, [currentTrack, play]);
+    try {
+      // Get streaming URL based on storage provider
+      const streamingUrl = await getStreamingUrl(track);
+      
+      if (!streamingUrl) {
+        console.error('Failed to get streaming URL for track:', trackId);
+        return;
+      }
+
+      console.log('Playing track with URL:', streamingUrl);
+      
+      // Play the track with the streaming URL
+      play(trackId, streamingUrl);
+    } catch (error) {
+      console.error('Error getting streaming URL:', error);
+      return;
+    }
+  }, [currentTrack, play, tracks]);
 
   const pause = useCallback(() => {
     if (audioRef.current) {

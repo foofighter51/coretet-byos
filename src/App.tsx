@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ErrorProvider } from './contexts/ErrorContext';
-import { StorageProvider as StorageContextProvider } from './contexts/StorageContext';
+import { StorageProvider as StorageContextProvider } from './contexts/StorageContext.simple';
 import { GlobalErrorBoundary } from './components/ErrorHandling/GlobalErrorBoundary';
 import { NetworkStatusIndicator } from './components/ErrorHandling/NetworkStatusIndicator';
 import { ErrorDebugPanel } from './components/ErrorHandling/ErrorDebugPanel';
@@ -11,6 +11,7 @@ import MainApp from './components/MainApp';
 import CollaboratorRoute from './routes/CollaboratorRoute';
 import MobileRoute from './routes/MobileRoute';
 import ResetPassword from './pages/ResetPassword';
+import { GoogleOAuthCallback } from './pages/GoogleOAuthCallback';
 import UpdateNotification from './components/UpdateNotification';
 import { checkMobileRedirect } from './utils/mobileDetection';
 import './styles/theme-variables.css';
@@ -68,6 +69,9 @@ function App() {
                   <ResetPassword />
                 </AuthProvider>
               } />
+              
+              {/* OAuth callback routes */}
+              <Route path="/auth/google/callback" element={<GoogleOAuthCallback />} />
               
               {/* Redirect any unknown routes */}
               <Route path="*" element={<Navigate to="/" replace />} />

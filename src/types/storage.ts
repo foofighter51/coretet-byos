@@ -82,6 +82,7 @@ export interface StorageContextType {
   uploadFile: (file: File, path?: string) => Promise<FileReference>;
   refreshProviders: () => Promise<void>;
   getProviderQuota: (name: StorageProviderName) => Promise<StorageQuota | null>;
+  getProviderInstance: (name: StorageProviderName) => IStorageProvider | null;
 }
 
 // Database types for user storage providers

@@ -41,14 +41,12 @@ const MainAppContent: React.FC = () => {
   }, []);
 
   return (
-    <LibraryProvider>
-      <MainAppInner 
-        isAdmin={isAdmin}
-        play={play}
-        showAdmin={showAdmin}
-        setShowAdmin={setShowAdmin}
-      />
-    </LibraryProvider>
+    <MainAppInner 
+      isAdmin={isAdmin}
+      play={play}
+      showAdmin={showAdmin}
+      setShowAdmin={setShowAdmin}
+    />
   );
 };
 
@@ -252,11 +250,13 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
 
 const MainApp: React.FC = () => {
   return (
-    <AudioProvider>
-      <ToastProvider>
-        <MainAppContent />
-      </ToastProvider>
-    </AudioProvider>
+    <LibraryProvider>
+      <AudioProvider>
+        <ToastProvider>
+          <MainAppContent />
+        </ToastProvider>
+      </AudioProvider>
+    </LibraryProvider>
   );
 };
 

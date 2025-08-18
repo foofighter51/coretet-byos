@@ -7,6 +7,12 @@ export interface Track {
   category: TrackCategory;
   uploadedAt: Date;
   tags: string[];
+  // File metadata
+  file_name: string;
+  file_size: number;
+  s3_key?: string;
+  ai_recommended_tags?: string[];
+  analysis?: any;
   // User-entered metadata
   artist?: string;
   collection?: string;

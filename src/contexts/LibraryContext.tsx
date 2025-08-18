@@ -84,7 +84,7 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({ child
           name,
           file_name,
           file_size,
-          storage_path,
+          s3_key,
           duration,
           category,
           tags,
@@ -102,7 +102,15 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({ child
           primary_track_id,
           deleted_at,
           created_at,
-          updated_at
+          updated_at,
+          storage_provider,
+          provider_file_id,
+          provider_url,
+          ai_recommended_tags,
+          analysis,
+          tuning,
+          lyrics,
+          variation_count
         `)
         .eq('user_id', user.id)
         .is('deleted_at', null)
@@ -147,13 +155,21 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({ child
         // Convert database tracks to Track type, filtering out ghost tracks
         const formattedTracks: Track[] = await Promise.all(
           dbTracks
-            .filter(track => track.duration && track.duration > 0) // Filter out tracks without duration
+            // No filtering for now - we'll show tracks without duration as well
             .map(async (track) => {
-              // Get public URL (bucket is public)
-              // Note: storage_path should not be URL encoded when passed to getPublicUrl
-              const { data: urlData } = supabase.storage
-                .from('audio-files')
-                .getPublicUrl(track.storage_path);
+              // Get URL based on storage provider
+              let trackUrl = '';
+              
+              if (track.storage_provider === 'google_drive' && track.provider_url) {
+                // For Google Drive, use the provider URL directly
+                trackUrl = track.provider_url;
+              } else if (track.s3_key) {
+                // For Supabase storage, get public URL from storage bucket
+                const { data: urlData } = supabase.storage
+                  .from('audio-files')
+                  .getPublicUrl(track.s3_key);
+                trackUrl = urlData?.publicUrl || '';
+              }
               
               const userRating = ratingsMap.get(track.id);
               
@@ -161,11 +177,17 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({ child
                 id: track.id,
                 name: track.name,
                 file: null, // File object not stored in DB
-                url: urlData?.publicUrl || '',
+                url: trackUrl,
                 duration: track.duration || 0,
                 category: track.category as TrackCategory,
                 uploadedAt: new Date(track.created_at),
                 tags: track.tags || [],
+                // File metadata
+                file_name: track.file_name,
+                file_size: track.file_size,
+                s3_key: track.s3_key,
+                ai_recommended_tags: track.ai_recommended_tags,
+                analysis: track.analysis,
                 // Optional metadata
                 artist: track.artist,
                 collection: track.collection,
@@ -174,16 +196,25 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({ child
                 mood: track.mood,
                 genre: track.genre,
                 notes: track.notes,
+                tuning: track.tuning,
+                lyrics: track.lyrics,
                 timeSignature: track.time_signature,
-                // Rating fields - now from user_track_ratings
-                listened: userRating === 'listened',
-                liked: userRating === 'liked',
-                loved: userRating === 'loved',
+                // Rating fields - now from track.listened, track.liked, track.loved
+                listened: track.listened || false,
+                liked: track.liked || false,
+                loved: track.loved || false,
                 // Variations
                 primary_track_id: track.primary_track_id,
                 variation_count: track.primary_track_id 
                   ? variationGroupMap.get(track.primary_track_id) || 0  // For variations, show total group count
                   : variationCountMap.get(track.id) || 0,              // For primary tracks, show variation count
+                // BYOS fields
+                storage_provider: track.storage_provider,
+                provider_file_id: track.provider_file_id,
+                provider_url: track.provider_url,
+                // Timestamps
+                updated_at: track.updated_at,
+                deleted_at: track.deleted_at,
               };
             })
         );
