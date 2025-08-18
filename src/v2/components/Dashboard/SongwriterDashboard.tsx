@@ -3,6 +3,7 @@ import { PenTool, Upload, Music, Library, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import CreateWorkModal from '../Works/CreateWorkModal';
 import QuickUploadModal from '../Upload/QuickUploadModal';
+import { DatabaseSetup } from '../Debug/DatabaseSetup';
 
 /**
  * SongwriterDashboard - The main entry point for songwriters
@@ -113,6 +114,11 @@ export default function SongwriterDashboard() {
                 Collaborations
               </button>
             </div>
+          </div>
+
+          {/* Database Setup - Development Only */}
+          <div className="mt-12 max-w-2xl mx-auto">
+            <DatabaseSetup />
           </div>
         </div>
       </div>
