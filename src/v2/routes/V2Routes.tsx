@@ -9,6 +9,9 @@ import SongwriterDashboard from '../components/Dashboard/SongwriterDashboard';
 import WorkDetailEnhanced from '../components/Works/WorkDetailEnhanced';
 import ProjectList from '../components/Projects/ProjectList';
 
+// Import existing storage settings
+import { StorageSettings } from '../../pages/StorageSettings';
+
 // For now, import V1 components as placeholders for other routes
 import MainApp from '../../components/MainApp';
 
@@ -30,6 +33,7 @@ export function V2Routes() {
           <Route path="/library" element={<AudioLibraryPlaceholder />} />
           <Route path="/recent" element={<RecentActivityPlaceholder />} />
           <Route path="/collaborations" element={<CollaborationsPlaceholder />} />
+          <Route path="/storage" element={<StorageSettings />} />
           
           {/* Keep V1 routes accessible */}
           <Route path="/v1/*" element={<MainApp />} />

@@ -113,6 +113,13 @@ export default function SongwriterDashboard() {
               >
                 Collaborations
               </button>
+              <span className="text-silver/20">•</span>
+              <button
+                onClick={() => navigate('/storage')}
+                className="text-silver/40 hover:text-silver transition-colors"
+              >
+                Storage Settings
+              </button>
             </div>
           </div>
 
