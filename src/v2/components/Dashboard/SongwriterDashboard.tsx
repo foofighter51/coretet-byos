@@ -13,54 +13,13 @@ export default function SongwriterDashboard() {
   const navigate = useNavigate();
   const [showCreateWork, setShowCreateWork] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  
+  console.log('🏠 SongwriterDashboard rendering!');
+  console.log('🔍 This should have V2Layout with enhanced navigation!');
 
   return (
-    <div className="v2-layout bg-forest-dark">
-      {/* Header with Navigation */}
-      <header className="bg-forest-main border-b border-forest-light">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate('/')}
-            className="font-anton text-2xl text-silver hover:text-white transition-colors"
-          >
-            CoreTet
-          </button>
-          
-          {/* Navigation Links */}
-          <nav className="flex items-center space-x-6">
-            <button
-              onClick={() => navigate('/works')}
-              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
-            >
-              View My Works
-            </button>
-            <span className="text-silver/20">•</span>
-            <button
-              onClick={() => navigate('/recent')}
-              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
-            >
-              Recent Activity
-            </button>
-            <span className="text-silver/20">•</span>
-            <button
-              onClick={() => navigate('/collaborations')}
-              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
-            >
-              Collaborations
-            </button>
-            <span className="text-silver/20">•</span>
-            <button
-              onClick={() => navigate('/storage')}
-              className="text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
-            >
-              Storage Settings
-            </button>
-          </nav>
-        </div>
-      </header>
-
-      {/* Main Content - Centered Options */}
-      <div className="v2-content v2-scrollable flex items-center justify-center p-6">
+    <V2Layout title="" subtitle="">
+      <div className="flex items-center justify-center min-h-[70vh]">
         <div className="max-w-4xl w-full">
           {/* Welcome Message */}
           <div className="text-center mb-12">
@@ -130,6 +89,6 @@ export default function SongwriterDashboard() {
       {showUpload && (
         <QuickUploadModal onClose={() => setShowUpload(false)} />
       )}
-    </div>
+    </V2Layout>
   );
 }

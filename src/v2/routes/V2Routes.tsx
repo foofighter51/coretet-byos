@@ -20,10 +20,15 @@ import MainApp from '../../components/MainApp';
 
 export function V2Routes() {
   const { user } = useAuth();
+  
+  console.log('🎯 V2Routes is loading!', { user: !!user, path: window.location.pathname });
 
   if (!user) {
+    console.log('🚫 V2Routes: No user, redirecting to login');
     return <Navigate to="/login" replace />;
   }
+  
+  console.log('✅ V2Routes: User authenticated, rendering V2 routes');
 
   return (
     <ToastProvider>

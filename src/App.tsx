@@ -37,6 +37,15 @@ function MobileRedirect({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  // Debug V2 detection
+  console.log('🔍 App.tsx Debug:', {
+    'import.meta.env': import.meta.env,
+    'VITE_ENABLE_V2': import.meta.env.VITE_ENABLE_V2,
+    'hostname': window.location.hostname,
+    'FEATURES.PROJECT_HIERARCHY': FEATURES.PROJECT_HIERARCHY,
+    'Will use V2?': FEATURES.PROJECT_HIERARCHY
+  });
+
   return (
     <GlobalErrorBoundary>
       <ErrorProvider>

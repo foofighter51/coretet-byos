@@ -97,7 +97,27 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     
     try {
-      // Simplified query - just fetch projects without joins for now
+      console.log('🔍 Fetching projects for user:', user.id);
+      
+      // Check both projects and tracks tables for debugging
+      const { data: projectsData, error: projectsError } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('user_id', user.id);
+        
+      const { data: tracksData, error: tracksError } = await supabase
+        .from('tracks')
+        .select('*')
+        .eq('user_id', user.id);
+      
+      console.log('📊 Database results:', {
+        projects: { count: projectsData?.length || 0, data: projectsData },
+        tracks: { count: tracksData?.length || 0, data: tracksData?.slice(0, 3) }, // Show first 3
+        projectsError,
+        tracksError
+      });
+      
+      // For now, continue with projects query
       const { data, error } = await supabase
         .from('projects')
         .select('*')
