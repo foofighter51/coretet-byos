@@ -46,7 +46,11 @@ export const getFeature = (featureName: keyof typeof FEATURES): boolean => {
 if (import.meta.env.DEV) {
   // Log active features in development
   console.log('🚀 CoreTet Feature Flags:', {
+    VITE_ENABLE_V2: import.meta.env.VITE_ENABLE_V2,
+    hostname: window.location.hostname,
+    isV2Mode: isV2Mode,
     mode: isV2Mode ? 'V2' : 'V1',
+    PROJECT_HIERARCHY: FEATURES.PROJECT_HIERARCHY,
     features: Object.entries(FEATURES)
       .filter(([_, enabled]) => enabled)
       .map(([name]) => name)
