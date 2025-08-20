@@ -28,6 +28,25 @@ export class GoogleDriveProvider implements IStorageProvider {
   private refreshToken: string | null = null;
   private tokenExpiry: number | null = null;
 
+  constructor() {
+    // Automatically restore tokens from localStorage on initialization
+    this.restoreStoredTokens();
+  }
+
+  private restoreStoredTokens(): void {
+    const storedToken = localStorage.getItem('google_access_token');
+    const storedRefreshToken = localStorage.getItem('google_refresh_token');
+    const storedExpiry = localStorage.getItem('google_token_expiry');
+
+    if (storedToken && storedExpiry) {
+      this.accessToken = storedToken;
+      this.refreshToken = storedRefreshToken;
+      this.tokenExpiry = parseInt(storedExpiry);
+      
+      console.log('[GoogleDriveProvider] Restored tokens from localStorage');
+    }
+  }
+
   async connect(): Promise<boolean> {
     try {
       // Google OAuth 2.0 flow

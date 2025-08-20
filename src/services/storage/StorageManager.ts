@@ -2,6 +2,7 @@
 
 import { IStorageProvider, StorageProviderName, FileReference, StorageQuota } from '../../types/storage';
 import { MockProvider } from './providers/MockProvider';
+import { GoogleDriveProvider } from './providers/GoogleDriveProvider';
 
 export class StorageManager {
   private static instance: StorageManager;
@@ -35,13 +36,16 @@ export class StorageManager {
       // Set Google Drive as default active provider for development
       this.activeProvider = this.providers.get('google_drive') || null;
     } else {
-      // TODO: Initialize real providers in production
       console.log('[StorageManager] Initializing with real providers');
       
-      // Real providers will be implemented in subsequent phases
-      // this.providers.set('google_drive', new GoogleDriveProvider());
+      // Initialize real providers
+      this.providers.set('google_drive', new GoogleDriveProvider());
+      // TODO: Add other providers when implemented
       // this.providers.set('dropbox', new DropboxProvider());
-      // etc.
+      // this.providers.set('onedrive', new OneDriveProvider());
+      
+      // Set Google Drive as default active provider
+      this.activeProvider = this.providers.get('google_drive') || null;
     }
   }
 

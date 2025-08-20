@@ -85,18 +85,10 @@ export function WorkDetailV2() {
   return (
     <V2Layout 
       title={work.name} 
-      subtitle="Your creative work"
+      subtitle=""
     >
       {/* Work Header Actions */}
-      <div className="mb-8 flex justify-between items-center">
-        <button
-          onClick={() => navigate('/works')}
-          className="inline-flex items-center space-x-2 text-silver/60 hover:text-silver transition-colors font-quicksand text-sm"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to My Works</span>
-        </button>
-        
+      <div className="mb-8 flex justify-end items-center">
         <div className="flex items-center space-x-4">
           <button className="flex items-center space-x-2 px-4 py-2 bg-forest-main border border-forest-light rounded-lg text-silver/60 hover:text-silver transition-colors font-quicksand text-sm">
             <Edit2 className="w-4 h-4" />
@@ -109,7 +101,7 @@ export function WorkDetailV2() {
       </div>
 
       {/* Sticky Section Navigation */}
-      <div className="sticky top-0 z-50 bg-forest-dark/95 backdrop-blur-sm border-b border-forest-light mb-8">
+      <div className="sticky top-0 z-40 bg-forest-dark/95 backdrop-blur-sm border-b border-forest-light mb-8">
         <div className="flex space-x-4 px-4 py-4">
           {[
             { key: 'work-info', label: 'Work Info', icon: Music },

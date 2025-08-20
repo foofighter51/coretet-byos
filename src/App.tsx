@@ -15,6 +15,7 @@ import { GoogleOAuthCallback } from './pages/GoogleOAuthCallback';
 import UpdateNotification from './components/UpdateNotification';
 import { checkMobileRedirect } from './utils/mobileDetection';
 import './styles/theme-variables.css';
+import './styles/v2-layout-fix.css';
 
 // V2 imports
 import { V2Routes } from './v2/routes/V2Routes';
