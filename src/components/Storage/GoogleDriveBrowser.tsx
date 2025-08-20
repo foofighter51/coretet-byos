@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleDriveProvider } from '../../services/storage/providers/GoogleDriveProvider';
-import { useStorage } from '../../contexts/StorageContext.simple';
+import { useStorage } from '../../contexts/StorageContext';
 
 interface GoogleDriveFolder {
   id: string;

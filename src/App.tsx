@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ErrorProvider } from './contexts/ErrorContext';
-import { StorageProvider as StorageContextProvider } from './contexts/StorageContext.simple';
+import { StorageProvider as StorageContextProvider } from './contexts/StorageContext';
 import { GlobalErrorBoundary } from './components/ErrorHandling/GlobalErrorBoundary';
 import { NetworkStatusIndicator } from './components/ErrorHandling/NetworkStatusIndicator';
 import { ErrorDebugPanel } from './components/ErrorHandling/ErrorDebugPanel';
@@ -20,6 +20,8 @@ import './styles/theme-variables.css';
 import { V2Routes } from './v2/routes/V2Routes';
 import { FEATURES } from './config/features';
 import DebugV2 from './v2/components/DebugV2';
+import { ToastProvider } from './contexts/ToastContext';
+import { ProjectProvider } from './v2/contexts/ProjectContext';
 
 // Component to handle mobile detection and redirection
 function MobileRedirect({ children }: { children: React.ReactNode }) {
@@ -37,14 +39,6 @@ function MobileRedirect({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
-  // Debug V2 detection
-  console.log('🔍 App.tsx Debug:', {
-    'import.meta.env': import.meta.env,
-    'VITE_ENABLE_V2': import.meta.env.VITE_ENABLE_V2,
-    'hostname': window.location.hostname,
-    'FEATURES.PROJECT_HIERARCHY': FEATURES.PROJECT_HIERARCHY,
-    'Will use V2?': FEATURES.PROJECT_HIERARCHY
-  });
 
   return (
     <GlobalErrorBoundary>
@@ -63,7 +57,13 @@ function App() {
                 <AuthProvider>
                   <AuthGuard>
                     <StorageContextProvider>
-                      {FEATURES.PROJECT_HIERARCHY ? <V2Routes /> : <MainApp />}
+                      {FEATURES.PROJECT_HIERARCHY ? (
+                        <ToastProvider>
+                          <ProjectProvider>
+                            <V2Routes />
+                          </ProjectProvider>
+                        </ToastProvider>
+                      ) : <MainApp />}
                     </StorageContextProvider>
                   </AuthGuard>
                 </AuthProvider>

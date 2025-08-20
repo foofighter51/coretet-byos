@@ -1,5 +1,5 @@
 // Service Worker for CoreTet PWA
-const CACHE_VERSION = 'v1755538288599'; // Increment this on each deployment
+const CACHE_VERSION = 'v1755558142921'; // Increment this on each deployment
 const CACHE_NAME = `coretet-${CACHE_VERSION}`;
 const urlsToCache = [
   '/',

@@ -165,7 +165,7 @@ const InteractiveTutorial: React.FC<InteractiveTutorialProps> = ({ onClose }) =>
     const padding = 20;
     const viewportPadding = 40; // Extra padding from viewport edges
     
-    let style: React.CSSProperties = {
+    const style: React.CSSProperties = {
       position: 'fixed' as const,
       zIndex: 10001
     };

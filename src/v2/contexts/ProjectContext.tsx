@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { useToast } from '../../contexts/ToastContext';
+import { Track } from '../../types/database.types';
 import {
   Project,
   SongVersion,
@@ -97,44 +98,79 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     
     try {
-      console.log('🔍 Fetching projects for user:', user.id);
       
-      // Check both projects and tracks tables for debugging
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('user_id', user.id);
-        
-      const { data: tracksData, error: tracksError } = await supabase
-        .from('tracks')
-        .select('*')
-        .eq('user_id', user.id);
-      
-      console.log('📊 Database results:', {
-        projects: { count: projectsData?.length || 0, data: projectsData },
-        tracks: { count: tracksData?.length || 0, data: tracksData?.slice(0, 3) }, // Show first 3
-        projectsError,
-        tracksError
-      });
-      
-      // For now, continue with projects query
-      const { data, error } = await supabase
+      // First try to get projects
+      const { data: projectsQuery, error: projectsQueryError } = await supabase
         .from('projects')
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
       
-      if (error) throw error;
+      if (projectsQueryError) {
+        console.warn('Projects query failed:', projectsQueryError);
+        // Don't throw immediately, try tracks fallback
+      }
       
-      setProjects(data || []);
+      // Use projects if available, otherwise try tracks as fallback
+      if (projectsQuery && projectsQuery.length > 0 && !projectsQueryError) {
+        setProjects(projectsQuery);
+      } else {
+        
+        // Try tracks fallback with simplified query and better error handling
+        try {
+          const { data: tracksData, error: tracksError } = await supabase
+            .from('tracks')
+            .select('id, user_id, name, title, artist, description, genre, bpm, key, key_signature, time_signature, category, created_at, updated_at')
+            .eq('user_id', user.id)
+            .is('soft_deleted', false)
+            .order('created_at', { ascending: false })
+            .limit(20); // Small limit for better performance
+          
+          if (tracksError) {
+            console.error('Tracks query failed:', tracksError);
+            setProjects([]);
+          } else if (tracksData && tracksData.length > 0) {
+            
+            const tempProjects: Project[] = tracksData.map((track: any) => ({
+              id: track.id,
+              user_id: track.user_id,
+              name: track.name || track.title || 'Untitled Work',
+              artist: track.artist || 'Unknown Artist',
+              description: track.description || '',
+              project_type: 'single' as const,
+              status: 'active' as const,
+              target_release_date: null,
+              metadata: {
+                original_track_id: track.id,
+                genre: track.genre,
+                bpm: track.bpm,
+                key_signature: track.key || track.key_signature,
+                time_signature: track.time_signature,
+                migrated_from_tracks: true,
+                category: track.category
+              },
+              settings: {},
+              created_at: track.created_at,
+              updated_at: track.updated_at
+            }));
+            
+            setProjects(tempProjects);
+          } else {
+            setProjects([]);
+          }
+        } catch (tracksErr) {
+          console.error('Error querying tracks:', tracksErr);
+          setProjects([]);
+        }
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to fetch projects';
       setError(message);
-      showToast(message, 'error');
+      console.error('ProjectContext fetchProjects error:', message);
     } finally {
       setLoading(false);
     }
-  }, [user, showToast]);
+  }, [user]);
 
   const fetchProject = useCallback(async (id: string) => {
     if (!user) return;
@@ -317,7 +353,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, [user, currentProject, fetchProject, showToast]);
+  }, [user, currentProject, showToast]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateVersion = useCallback(async (id: string, updates: Partial<SongVersion>) => {
     if (!user) return;
@@ -367,7 +403,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
       const message = err instanceof Error ? err.message : 'Failed to delete version';
       showToast(message, 'error');
     }
-  }, [user, currentProject, fetchProject, showToast]);
+  }, [user, currentProject, showToast]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ============================================================================
   // Iteration CRUD Operations
@@ -609,7 +645,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
       showToast(message, 'error');
       throw err;
     }
-  }, [user, fetchProjects, showToast]);
+  }, [user, showToast]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ============================================================================
   // Utility Functions
@@ -670,7 +706,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
       setCurrentProject(null);
       setCurrentVersion(null);
     }
-  }, [user, fetchProjects]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Subscribe to real-time updates
   useEffect(() => {
@@ -696,7 +732,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [user, fetchProjects]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ============================================================================
   // Context Value

@@ -14,8 +14,6 @@ export default function SongwriterDashboard() {
   const [showCreateWork, setShowCreateWork] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   
-  console.log('🏠 SongwriterDashboard rendering!');
-  console.log('🔍 This should have V2Layout with enhanced navigation!');
 
   return (
     <V2Layout title="" subtitle="">

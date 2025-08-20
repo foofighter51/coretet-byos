@@ -1,8 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { ProjectProvider } from '../contexts/ProjectContext';
-import { ToastProvider } from '../../contexts/ToastContext';
 
 // V2 Component imports
 import SongwriterDashboard from '../components/Dashboard/SongwriterDashboard';
@@ -20,38 +18,29 @@ import MainApp from '../../components/MainApp';
 
 export function V2Routes() {
   const { user } = useAuth();
-  
-  console.log('🎯 V2Routes is loading!', { user: !!user, path: window.location.pathname });
 
   if (!user) {
-    console.log('🚫 V2Routes: No user, redirecting to login');
     return <Navigate to="/login" replace />;
   }
-  
-  console.log('✅ V2Routes: User authenticated, rendering V2 routes');
 
   return (
-    <ToastProvider>
-      <ProjectProvider>
-        <Routes>
-          {/* V2 Routes - Songwriter focus */}
-          <Route path="/" element={<SongwriterDashboard />} />
-          <Route path="/works" element={<WorksListV2 />} />
-          <Route path="/work/:workId" element={<WorkDetailV2 />} />
-          <Route path="/library" element={<AudioLibraryPlaceholder />} />
-          <Route path="/recent" element={<RecentActivityPlaceholder />} />
-          <Route path="/collaborations" element={<CollaborationsPlaceholder />} />
-          <Route path="/storage" element={<StorageSettingsV2 />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          
-          {/* Keep V1 routes accessible */}
-          <Route path="/v1/*" element={<MainApp />} />
-          
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </ProjectProvider>
-    </ToastProvider>
+    <Routes>
+      {/* V2 Routes - Songwriter focus */}
+      <Route path="/" element={<SongwriterDashboard />} />
+      <Route path="/works" element={<WorksListV2 />} />
+      <Route path="/work/:workId" element={<WorkDetailV2 />} />
+      <Route path="/library" element={<AudioLibraryPlaceholder />} />
+      <Route path="/recent" element={<RecentActivityPlaceholder />} />
+      <Route path="/collaborations" element={<CollaborationsPlaceholder />} />
+      <Route path="/storage" element={<StorageSettingsV2 />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+      
+      {/* Keep V1 routes accessible */}
+      <Route path="/v1/*" element={<MainApp />} />
+      
+      {/* Catch all */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

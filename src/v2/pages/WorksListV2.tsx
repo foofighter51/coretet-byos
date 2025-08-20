@@ -22,7 +22,7 @@ export function WorksListV2() {
   useEffect(() => {
     // Fetch projects when component mounts
     fetchProjects();
-  }, [fetchProjects]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const formatDate = (dateString: string) => {
     try {

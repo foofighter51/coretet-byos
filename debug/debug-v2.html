@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>V2 Debug</title>
+</head>
+<body>
+    <h1>V2 Feature Debug</h1>
+    <div id="debug-info"></div>
+
+    <script type="module">
+        // Simulate the feature detection logic
+        const isV2Mode = import.meta.env.VITE_ENABLE_V2 === 'true' || 
+                         window.location.hostname === 'beta.coretet.app' ||
+                         window.location.hostname.includes('coretet-beta') ||
+                         window.location.hostname.includes('netlify');
+
+        const debugInfo = {
+            'VITE_ENABLE_V2': import.meta.env.VITE_ENABLE_V2,
+            'hostname': window.location.hostname,
+            'isV2Mode': isV2Mode,
+            'PROJECT_HIERARCHY': isV2Mode,
+            'All env vars': import.meta.env
+        };
+
+        document.getElementById('debug-info').innerHTML = 
+            '<pre>' + JSON.stringify(debugInfo, null, 2) + '</pre>';
+        
+        console.log('V2 Feature Debug:', debugInfo);
+    </script>
+</body>
+</html>

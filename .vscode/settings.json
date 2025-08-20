@@ -1,0 +1,50 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "plaintext": false,
+    "json": true
+  },
+  "github.copilot.advanced": {
+    "inlineSuggestCount": 1,
+    "length": "short"
+  },
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  "errorLens.enabled": true,
+  "errorLens.fontWeight": "bold",
+  "sonarlint.rules": {
+    "javascript:S3776": {
+      "level": "on",
+      "parameters": {
+        "threshold": 15
+      }
+    }
+  },
+  "betterComments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "TODO",
+      "color": "#FF8C00",
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "FIXME",
+      "color": "#FF2D00",
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "AI-REVIEW",
+      "color": "#3498DB",
+      "backgroundColor": "transparent"
+    }
+  ]
+}

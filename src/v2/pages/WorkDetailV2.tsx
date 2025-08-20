@@ -16,13 +16,20 @@ export function WorkDetailV2() {
   const navigate = useNavigate();
   const { projects, loading, fetchProjects } = useProjects();
   const [work, setWork] = useState<Project | null>(null);
-  const [activeSection, setActiveSection] = useState<'overview' | 'versions' | 'notes' | 'tasks'>('overview');
+
+  // Scroll navigation function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     if (projects.length === 0) {
       fetchProjects();
     }
-  }, [projects.length, fetchProjects]);
+  }, [projects.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (workId && projects.length > 0) {
@@ -78,7 +85,7 @@ export function WorkDetailV2() {
   return (
     <V2Layout 
       title={work.name} 
-      subtitle={work.artist ? `By ${work.artist}` : 'Your creative work'}
+      subtitle="Your creative work"
     >
       {/* Work Header Actions */}
       <div className="mb-8 flex justify-between items-center">
@@ -101,23 +108,19 @@ export function WorkDetailV2() {
         </div>
       </div>
 
-      {/* Section Navigation */}
-      <div className="mb-8 border-b border-forest-light">
-        <div className="flex space-x-8">
+      {/* Sticky Section Navigation */}
+      <div className="sticky top-0 z-50 bg-forest-dark/95 backdrop-blur-sm border-b border-forest-light mb-8">
+        <div className="flex space-x-4 px-4 py-4">
           {[
-            { key: 'overview', label: 'Overview', icon: Music },
+            { key: 'work-info', label: 'Work Info', icon: Music },
             { key: 'versions', label: 'Versions', icon: Upload },
             { key: 'notes', label: 'Notes', icon: Edit2 },
             { key: 'tasks', label: 'Tasks', icon: Check }
           ].map(({ key, label, icon: Icon }) => (
             <button
               key={key}
-              onClick={() => setActiveSection(key as any)}
-              className={`flex items-center space-x-2 pb-4 border-b-2 transition-colors font-quicksand text-sm ${
-                activeSection === key
-                  ? 'border-accent-yellow text-accent-yellow'
-                  : 'border-transparent text-silver/60 hover:text-silver hover:border-silver/30'
-              }`}
+              onClick={() => scrollToSection(key)}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-quicksand text-sm text-silver/60 hover:text-silver hover:bg-forest-main/50"
             >
               <Icon className="w-4 h-4" />
               <span>{label}</span>
@@ -126,79 +129,89 @@ export function WorkDetailV2() {
         </div>
       </div>
 
-      {/* Section Content */}
-      <div className="space-y-8">
-        {activeSection === 'overview' && (
-          <>
-            {/* Quick Actions */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-forest-main border border-forest-light rounded-lg p-6">
-                <h3 className="font-anton text-xl text-white mb-4">Quick Actions</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <button className="flex items-center space-x-2 p-3 bg-accent-coral/20 border border-accent-coral/30 rounded-lg text-accent-coral hover:bg-accent-coral/30 transition-colors font-quicksand text-sm">
-                    <Upload className="w-4 h-4" />
-                    <span>Upload Audio</span>
-                  </button>
-                  <button className="flex items-center space-x-2 p-3 bg-accent-yellow/20 border border-accent-yellow/30 rounded-lg text-accent-yellow hover:bg-accent-yellow/30 transition-colors font-quicksand text-sm">
-                    <Plus className="w-4 h-4" />
-                    <span>New Version</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-forest-main border border-forest-light rounded-lg p-6">
-                <h3 className="font-anton text-xl text-white mb-4">Status</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-silver/70 font-quicksand text-sm">Current Status</span>
-                    <span className="text-white font-quicksand text-sm">Draft</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-silver/70 font-quicksand text-sm">Created</span>
-                    <span className="text-white font-quicksand text-sm">{formatDate(work.created_at)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-silver/70 font-quicksand text-sm">Last Updated</span>
-                    <span className="text-white font-quicksand text-sm">{formatDate(work.updated_at)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Work Information */}
+      {/* Scrollable Content Sections */}
+      <div className="space-y-16">
+        {/* Work Information Section */}
+        <section id="work-info" className="scroll-mt-24">
+          {/* Quick Actions */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="bg-forest-main border border-forest-light rounded-lg p-6">
-              <h3 className="font-anton text-xl text-white mb-6">Work Information</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Artist</label>
-                  <div className="text-white font-quicksand">{work.artist || '—'}</div>
+              <h3 className="font-anton text-xl text-white mb-4">Quick Actions</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <button className="flex items-center space-x-2 p-3 bg-accent-coral/20 border border-accent-coral/30 rounded-lg text-accent-coral hover:bg-accent-coral/30 transition-colors font-quicksand text-sm">
+                  <Upload className="w-4 h-4" />
+                  <span>Upload Audio</span>
+                </button>
+                <button className="flex items-center space-x-2 p-3 bg-accent-yellow/20 border border-accent-yellow/30 rounded-lg text-accent-yellow hover:bg-accent-yellow/30 transition-colors font-quicksand text-sm">
+                  <Plus className="w-4 h-4" />
+                  <span>New Version</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-forest-main border border-forest-light rounded-lg p-6">
+              <h3 className="font-anton text-xl text-white mb-4">Status</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-silver/70 font-quicksand text-sm">Current Status</span>
+                  <span className="text-white font-quicksand text-sm">{work.status}</span>
                 </div>
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Key</label>
-                  <div className="text-white font-quicksand">—</div>
+                <div className="flex justify-between">
+                  <span className="text-silver/70 font-quicksand text-sm">Type</span>
+                  <span className="text-white font-quicksand text-sm">{work.project_type}</span>
                 </div>
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Tempo</label>
-                  <div className="text-white font-quicksand">—</div>
+                <div className="flex justify-between">
+                  <span className="text-silver/70 font-quicksand text-sm">Created</span>
+                  <span className="text-white font-quicksand text-sm">{formatDate(work.created_at)}</span>
                 </div>
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Time Signature</label>
-                  <div className="text-white font-quicksand">—</div>
-                </div>
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Genre</label>
-                  <div className="text-white font-quicksand">—</div>
-                </div>
-                <div>
-                  <label className="block text-silver/70 font-quicksand text-sm mb-2">Mood</label>
-                  <div className="text-white font-quicksand">—</div>
+                <div className="flex justify-between">
+                  <span className="text-silver/70 font-quicksand text-sm">Last Updated</span>
+                  <span className="text-white font-quicksand text-sm">{formatDate(work.updated_at)}</span>
                 </div>
               </div>
             </div>
-          </>
-        )}
+          </div>
 
-        {activeSection === 'versions' && (
+          {/* Work Information */}
+          <div className="bg-forest-main border border-forest-light rounded-lg p-6">
+            <h3 className="font-anton text-xl text-white mb-6">Work Information</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Artist</label>
+                <div className="text-white font-quicksand">{work.artist || '—'}</div>
+              </div>
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Key</label>
+                <div className="text-white font-quicksand">{work.metadata?.key_signature || '—'}</div>
+              </div>
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Tempo</label>
+                <div className="text-white font-quicksand">{work.metadata?.bpm ? `${work.metadata.bpm} BPM` : '—'}</div>
+              </div>
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Time Signature</label>
+                <div className="text-white font-quicksand">{work.metadata?.time_signature || '—'}</div>
+              </div>
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Genre</label>
+                <div className="text-white font-quicksand">{work.metadata?.genre || '—'}</div>
+              </div>
+              <div>
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Category</label>
+                <div className="text-white font-quicksand">{work.metadata?.category || '—'}</div>
+              </div>
+            </div>
+            {work.description && (
+              <div className="mt-6">
+                <label className="block text-silver/70 font-quicksand text-sm mb-2">Description</label>
+                <div className="text-white font-quicksand">{work.description}</div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Versions Section */}
+        <section id="versions" className="scroll-mt-24">
           <div className="bg-forest-main border border-forest-light rounded-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-anton text-xl text-white">Audio Versions</h3>
@@ -216,9 +229,10 @@ export function WorkDetailV2() {
               </button>
             </div>
           </div>
-        )}
+        </section>
 
-        {activeSection === 'notes' && (
+        {/* Notes Section */}
+        <section id="notes" className="scroll-mt-24">
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-forest-main border border-forest-light rounded-lg p-6">
               <h3 className="font-anton text-xl text-white mb-4">Add Note</h3>
@@ -241,9 +255,10 @@ export function WorkDetailV2() {
               </div>
             </div>
           </div>
-        )}
+        </section>
 
-        {activeSection === 'tasks' && (
+        {/* Tasks Section */}
+        <section id="tasks" className="scroll-mt-24">
           <div className="bg-forest-main border border-forest-light rounded-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="font-anton text-xl text-white">Tasks</h3>
@@ -261,7 +276,7 @@ export function WorkDetailV2() {
               </p>
             </div>
           </div>
-        )}
+        </section>
       </div>
     </V2Layout>
   );

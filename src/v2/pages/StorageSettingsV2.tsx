@@ -3,7 +3,7 @@ import { V2Layout } from '../components/Layout/V2Layout';
 import { ProviderCard } from '../../components/Storage/ProviderCard';
 import { GoogleDriveBrowser } from '../../components/Storage/GoogleDriveBrowser';
 import { STORAGE_PROVIDERS } from '../../config/storageProviders';
-import { useStorage } from '../../contexts/StorageContext.simple';
+import { useStorage } from '../../contexts/StorageContext';
 import { supabase } from '../../lib/supabase';
 import { GoogleDriveProvider } from '../../services/storage/providers/GoogleDriveProvider';
 import '../../styles/byos-components.css';

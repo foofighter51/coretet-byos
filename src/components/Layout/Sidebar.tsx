@@ -401,7 +401,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeCategory, onCategoryChange, sel
                           }
                           
                           let successCount = 0;
-                          let errors: string[] = [];
+                          const errors: string[] = [];
                           
                           for (const trackId of trackIds) {
                             try {
@@ -559,7 +559,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeCategory, onCategoryChange, sel
                             const trackIds = JSON.parse(trackIdsJson) as string[];
                             
                             let successCount = 0;
-                            let errors: string[] = [];
+                            const errors: string[] = [];
                             
                             for (const trackId of trackIds) {
                               try {

@@ -21,9 +21,9 @@ export class StorageManager {
 
   private initializeProviders(): void {
     // Check if we should use mock providers
-    const useMock = process.env.VITE_USE_MOCK_PROVIDER === 'true';
+    const useMock = import.meta.env.VITE_USE_MOCK_PROVIDER === 'true';
     
-    if (useMock || process.env.NODE_ENV === 'development') {
+    if (useMock || import.meta.env.DEV) {
       console.log('[StorageManager] Initializing with mock providers');
       
       // Initialize mock providers
@@ -214,6 +214,6 @@ export class StorageManager {
   }
 
   public isMockMode(): boolean {
-    return process.env.VITE_USE_MOCK_PROVIDER === 'true' || process.env.NODE_ENV === 'development';
+    return import.meta.env.VITE_USE_MOCK_PROVIDER === 'true' || import.meta.env.DEV;
   }
 }

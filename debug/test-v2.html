@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V2 Features Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #fff; }
+        .result { background: #2a2a2a; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { color: #ff6b6b; }
+        .success { color: #51cf66; }
+    </style>
+</head>
+<body>
+    <h1>CoreTet V2 Features Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = `result ${isError ? 'error' : 'success'}`;
+            div.textContent = message;
+            results.appendChild(div);
+            console.log(message);
+        }
+        
+        try {
+            // Check if import.meta.env is available
+            if (typeof import.meta !== 'undefined' && import.meta.env) {
+                addResult(`VITE_ENABLE_V2: ${import.meta.env.VITE_ENABLE_V2}`);
+                addResult(`VITE_APP_ENV: ${import.meta.env.VITE_APP_ENV}`);
+                addResult(`MODE: ${import.meta.env.MODE}`);
+                addResult(`DEV: ${import.meta.env.DEV}`);
+            } else {
+                addResult('import.meta.env is undefined - this may be the issue!', true);
+            }
+            
+            addResult(`Hostname: ${window.location.hostname}`);
+            
+            // Test V2 detection logic (duplicated from features.ts)
+            const enableV2 = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_ENABLE_V2 : undefined;
+            const isV2Mode = enableV2 === 'true' || 
+                             window.location.hostname === 'beta.coretet.app' ||
+                             window.location.hostname.includes('coretet-beta') ||
+                             window.location.hostname.includes('netlify');
+            
+            addResult(`V2 Mode Calculated: ${isV2Mode}`);
+            
+            // Test imports
+            addResult('Trying to import feature flags...');
+            import('/src/config/features.ts').then(module => {
+                addResult(`Features loaded: ${JSON.stringify(module.FEATURES, null, 2)}`);
+                addResult(`PROJECT_HIERARCHY: ${module.FEATURES.PROJECT_HIERARCHY}`);
+            }).catch(err => {
+                addResult(`Failed to import features: ${err.message}`, true);
+            });
+            
+            // Test V2 component imports
+            addResult('Trying to import V2Layout...');
+            import('/src/v2/components/Layout/V2Layout.tsx').then(module => {
+                addResult('V2Layout imported successfully!');
+            }).catch(err => {
+                addResult(`Failed to import V2Layout: ${err.message}`, true);
+            });
+            
+        } catch (error) {
+            addResult(`Test error: ${error.message}`, true);
+        }
+    </script>
+</body>
+</html>

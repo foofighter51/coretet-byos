@@ -1,7 +1,7 @@
 // Storage Context - Provides storage provider functionality to React components
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { StorageContextType, StorageProvider, StorageProviderName, FileReference, StorageQuota } from '../types/storage';
+import { StorageContextType, StorageProvider as StorageProviderType, StorageProviderName, FileReference, StorageQuota } from '../types/storage';
 import { StorageManager } from '../services/storage/StorageManager';
 import { STORAGE_PROVIDERS } from '../config/storageProviders';
 import { useAuth } from './AuthContext';
@@ -23,8 +23,8 @@ interface StorageProviderProps {
 
 export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) => {
   const { user } = useAuth();
-  const [providers, setProviders] = useState<StorageProvider[]>([]);
-  const [activeProvider, setActiveProvider] = useState<StorageProvider | null>(null);
+  const [providers, setProviders] = useState<StorageProviderType[]>([]);
+  const [activeProvider, setActiveProvider] = useState<StorageProviderType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const storageManager = StorageManager.getInstance();
 
@@ -44,7 +44,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
     try {
       // Get provider configurations
       const providerConfigs = Object.values(STORAGE_PROVIDERS);
-      const initialProviders: StorageProvider[] = [];
+      const initialProviders: StorageProviderType[] = [];
 
       // In mock mode, set up mock data
       if (storageManager.isMockMode()) {
@@ -56,7 +56,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
             continue;
           }
 
-          const provider: StorageProvider = {
+          const provider: StorageProviderType = {
             name: config.name,
             displayName: config.displayName,
             connected: false,
@@ -98,7 +98,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
     }
   }, [user, storageManager]);
 
-  const loadProvidersFromDatabase = async (initialProviders: StorageProvider[]) => {
+  const loadProvidersFromDatabase = async (initialProviders: StorageProviderType[]) => {
     if (!user) return;
 
     try {
@@ -117,7 +117,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
       for (const config of Object.values(STORAGE_PROVIDERS)) {
         const dbProvider = userProviders?.find(p => p.provider === config.name);
         
-        const provider: StorageProvider = {
+        const provider: StorageProviderType = {
           name: config.name,
           displayName: config.displayName,
           connected: !!dbProvider?.encrypted_access_token,
