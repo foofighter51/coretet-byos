@@ -3,7 +3,6 @@ import { X, Upload, Music, FileAudio, Cloud, HardDrive } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../../lib/supabase';
 import { useAuth } from '../../../contexts/AuthContext';
-import { GoogleDriveBrowser } from '../../../components/Storage/GoogleDriveBrowser';
 
 interface QuickUploadModalProps {
   onClose: () => void;
@@ -211,29 +210,6 @@ export default function QuickUploadModal({ onClose }: QuickUploadModalProps) {
                   </button>
                 </div>
               )}
-            </div>
-          ) : (
-            <div className="border-2 border-dashed border-forest-light rounded-xl p-6">
-              <div className="mb-4 text-center">
-                <p className="font-quicksand text-sm text-silver/60 mb-2">
-                  Import audio files from your Google Drive
-                </p>
-                <button
-                  onClick={() => {
-                    navigate('/storage');
-                    onClose();
-                  }}
-                  className="font-quicksand text-xs text-accent-yellow hover:text-accent-yellow/80 transition-colors"
-                >
-                  ⚙️ Configure Storage Settings
-                </button>
-              </div>
-              <GoogleDriveBrowser
-                onImportComplete={(importedCount) => {
-                  navigate('/library');
-                  onClose();
-                }}
-              />
             </div>
           )}
 
