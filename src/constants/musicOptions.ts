@@ -22,9 +22,5 @@ export const GENRE_OPTIONS = [
 
 export const CATEGORY_OPTIONS = [
   { value: 'songs', label: 'Songs' },
-  { value: 'final-versions', label: 'Final Versions' },
-  { value: 'live-performances', label: 'Live Performances' },
-  { value: 'demos', label: 'Demos' },
-  { value: 'ideas', label: 'Ideas' },
-  { value: 'voice-memos', label: 'Voice Memos' }
+  { value: 'demos', label: 'Demos' }
 ];

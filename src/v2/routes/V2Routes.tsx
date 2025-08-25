@@ -8,7 +8,6 @@ import WorkDetailEnhanced from '../components/Works/WorkDetailEnhanced';
 import ProjectList from '../components/Projects/ProjectList';
 
 // Import V2 pages
-import { StorageSettingsV2 } from '../pages/StorageSettingsV2';
 import { WorksListV2 } from '../pages/WorksListV2';
 import { WorkDetailV2 } from '../pages/WorkDetailV2';
 import { AdminDashboard } from '../pages/AdminDashboard';
@@ -32,7 +31,7 @@ export function V2Routes() {
       <Route path="/library" element={<AudioLibraryPlaceholder />} />
       <Route path="/recent" element={<RecentActivityPlaceholder />} />
       <Route path="/collaborations" element={<CollaborationsPlaceholder />} />
-      <Route path="/storage" element={<StorageSettingsV2 />} />
+      <Route path="/storage" element={<div>Storage simplified - using Supabase only</div>} />
       <Route path="/admin" element={<AdminDashboard />} />
       
       {/* Keep V1 routes accessible */}

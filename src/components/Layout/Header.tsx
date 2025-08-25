@@ -5,10 +5,7 @@ import SimpleFeedbackModal from '../Feedback/SimpleFeedbackModal';
 import DeletedTracksModal from '../Library/DeletedTracksModal';
 import ProfileSettingsModal from '../Account/ProfileSettingsModal';
 import PasswordResetModal from '../Account/PasswordResetModal';
-import TutorialModal from '../Tutorial/TutorialModal';
-import InteractiveTutorial from '../Tutorial/InteractiveTutorial';
 import EnhancedSearch from './EnhancedSearch';
-import ThemeSelector from '../ThemeSelector/ThemeSelector';
 
 interface HeaderProps {
   onUploadClick: () => void;
@@ -24,7 +21,6 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showProfileSettings, setShowProfileSettings] = useState(false);
   const [showPasswordReset, setShowPasswordReset] = useState(false);
-  const [showTutorial, setShowTutorial] = useState(false);
   const accountMenuRef = useRef<HTMLDivElement>(null);
 
   const handleSignOut = async () => {
@@ -66,7 +62,6 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
           
           <div className="flex items-center space-x-4">
             {/* Theme Selector */}
-            <ThemeSelector />
             
             {isAdmin && onAdminClick && (
               <button
@@ -154,13 +149,13 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
                         
                         <button
                           onClick={() => {
-                            setShowTutorial(true);
+                            // Tutorial removed in beta simplification
                             setShowAccountMenu(false);
                           }}
                           className="w-full flex items-center space-x-3 px-4 py-2 text-silver/80 hover:bg-forest-light/50 hover:text-silver transition-colors"
                         >
                           <HelpCircle className="w-4 h-4" />
-                          <span className="font-quicksand text-sm">View Tutorial</span>
+                          <span className="font-quicksand text-sm">Help (Coming Soon)</span>
                         </button>
                         
                         <div className="my-2 border-t border-forest-light"></div>
@@ -215,10 +210,6 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
         />
       )}
       
-      {/* Tutorial Modal - Now shows interactive version */}
-      {showTutorial && (
-        <InteractiveTutorial onClose={() => setShowTutorial(false)} />
-      )}
     </header>
   );
 };

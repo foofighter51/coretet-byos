@@ -10,9 +10,6 @@ import PlayerBar from './Player/PlayerBar';
 import FileUpload from './Upload/FileUpload';
 import AdminDashboard from './Admin/AdminDashboard';
 import TrackDetailsPanel from './TrackDetails/TrackDetailsPanel';
-import TutorialWrapper from './Tutorial/TutorialWrapper';
-import TasksSummary from '../pages/TasksSummary';
-import { StorageSettings } from '../pages/StorageSettings';
 import { useAutoAcceptShares } from '../hooks/useAutoAcceptShares';
 import { useErrorToast } from '../hooks/useErrorToast';
 import { Track, TrackCategory } from '../types';
@@ -69,7 +66,7 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
   const [uploadedCount, setUploadedCount] = useState(0);
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeView, setActiveView] = useState<'library' | 'tasks' | 'storage'>('library');
+  const [activeView, setActiveView] = useState<'library'>('library');
 
   const handleTrackSelect = (track: Track) => {
     setSelectedTrack(track);
@@ -124,7 +121,6 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
   return (
     <div className="h-screen bg-forest-dark flex flex-col overflow-hidden">
           {/* Tutorial for new users */}
-          <TutorialWrapper />
           
           {/* Fixed Header */}
           <Header 
@@ -155,17 +151,7 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
             </div>
             
             {/* Main Content Area */}
-            {activeView === 'tasks' ? (
-              // Tasks Summary View
-              <div className="flex-1 bg-forest-main overflow-y-auto">
-                <TasksSummary />
-              </div>
-            ) : activeView === 'storage' ? (
-              // Storage Settings View
-              <div className="flex-1 bg-forest-dark overflow-y-auto">
-                <StorageSettings />
-              </div>
-            ) : (
+            {(
               <>
                 {/* Middle Column - Track List */}
                 {/* Note: Original color was bg-forest-dark (#0a1612), changed to bg-[#213129] for lighter shade */}

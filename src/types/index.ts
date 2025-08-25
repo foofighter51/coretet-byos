@@ -7,41 +7,19 @@ export interface Track {
   category: TrackCategory;
   uploadedAt: Date;
   tags: string[];
-  // File metadata
+  // Essential metadata only
   file_name: string;
   file_size: number;
-  s3_key?: string;
-  ai_recommended_tags?: string[];
-  analysis?: any;
-  // User-entered metadata
-  artist?: string;
-  collection?: string;
-  key?: string;
-  tempo?: number; // BPM for arrangements
-  timeSignature?: string;
-  mood?: string;
-  genre?: string;
-  notes?: string;
-  tuning?: string; // Instrument tuning (e.g., Drop D, DADGAD)
-  lyrics?: string; // Song lyrics
-  // Rating fields
+  notes?: string; // Simple notes/description
+  // Core interaction fields
   listened?: boolean;
   liked?: boolean;
-  loved?: boolean;
-  // Variations
-  primary_track_id?: string | null;
-  variation_count?: number;
-  // Soft delete
+  // System fields
   deleted_at?: string | null;
-  // Timestamps
   updated_at?: string;
-  // BYOS fields
-  storage_provider?: 'google_drive' | 'dropbox' | 'onedrive' | 'supabase';
-  provider_file_id?: string;
-  provider_url?: string;
 }
 
-export type TrackCategory = 'songs' | 'demos' | 'ideas' | 'voice-memos' | 'final-versions' | 'live-performances';
+export type TrackCategory = 'songs' | 'demos';
 
 // Arrangements types
 export interface AudioSection {
