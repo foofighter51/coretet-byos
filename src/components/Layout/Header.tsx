@@ -6,15 +6,17 @@ import DeletedTracksModal from '../Library/DeletedTracksModal';
 import ProfileSettingsModal from '../Account/ProfileSettingsModal';
 import PasswordResetModal from '../Account/PasswordResetModal';
 import EnhancedSearch from './EnhancedSearch';
+import InlinePlayer from '../Player/InlinePlayer';
 
 interface HeaderProps {
   onUploadClick: () => void;
   onAdminClick?: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onTrackSelect?: (track: any) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuery, onSearchChange }) => {
+const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuery, onSearchChange, onTrackSelect }) => {
   const { signOut, profile, isAdmin } = useAuth();
   const [showFeedback, setShowFeedback] = useState(false);
   const [showDeletedTracks, setShowDeletedTracks] = useState(false);
@@ -47,6 +49,7 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
   return (
     <header className="bg-forest-dark border-b border-forest-light">
       <div className="px-4">
+        {/* Top Row - Navigation */}
         <div className="flex items-center justify-between h-14">
           <div>
             <h1 className="font-anton text-xl text-silver">CoreTet</h1>
@@ -179,6 +182,7 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick, onAdminClick, searchQuer
             </div>
           </div>
         </div>
+        
       </div>
       
       {/* Feedback Modal */}

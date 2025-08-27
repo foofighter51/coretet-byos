@@ -128,6 +128,7 @@ const MainAppInner: React.FC<MainAppInnerProps> = ({ isAdmin, play, showAdmin, s
             onAdminClick={isAdmin ? () => setShowAdmin(true) : undefined}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            onTrackSelect={setSelectedTrack}
           />
           
           {/* Main Content Area with dynamic columns */}

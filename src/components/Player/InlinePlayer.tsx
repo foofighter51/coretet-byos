@@ -95,8 +95,8 @@ const InlinePlayer: React.FC<InlinePlayerProps> = ({ onTrackSelect, selectedTrac
     };
   }, [isDragging, dragTime, seek]);
 
-  // Don't show the player if no track is loaded or if we're viewing track details
-  if (!currentTrack || selectedTrack) {
+  // Don't show the player if we're viewing track details
+  if (selectedTrack) {
     return null;
   }
 
@@ -108,59 +108,69 @@ const InlinePlayer: React.FC<InlinePlayerProps> = ({ onTrackSelect, selectedTrac
 
   return (
     <div 
-      className="bg-accent-yellow/20 border border-accent-yellow rounded-lg px-3 py-2 flex items-center space-x-3 w-full max-w-md lg:max-w-lg"
+      className="bg-forest-main border border-forest-light/30 rounded-lg px-4 py-3 flex items-center space-x-4 w-full max-w-4xl"
     >
       {/* Now Playing Label */}
-      {currentTrackDetails && (
-        <div 
-          className="flex items-center space-x-2 text-sm cursor-pointer hover:text-silver/80 transition-colors min-w-0"
-          onDoubleClick={handleDoubleClick}
-          title="Double-click to view track details"
-        >
-          <span className="font-quicksand text-silver/60 flex-shrink-0 hidden sm:inline">Now playing:</span>
-          <span className="font-quicksand text-silver font-medium truncate max-w-[120px] sm:max-w-[200px]">
-            {currentTrackDetails.name}
-          </span>
-        </div>
-      )}
+      <div 
+        className="flex items-center space-x-2 text-sm cursor-pointer hover:text-silver/80 transition-colors min-w-0"
+        onDoubleClick={handleDoubleClick}
+        title={currentTrackDetails ? "Double-click to view track details" : "No track selected"}
+      >
+        <span className="font-quicksand text-silver/60 flex-shrink-0 hidden sm:inline">
+          {currentTrackDetails ? "Now playing:" : "No track"}
+        </span>
+        <span className="font-quicksand text-silver font-medium truncate max-w-[120px] sm:max-w-[200px]">
+          {currentTrackDetails ? currentTrackDetails.name : "Select a track to play"}
+        </span>
+      </div>
       
       {/* Play/Pause */}
       <button
         onClick={handlePlayPause}
-        className="p-1 rounded transition-colors bg-accent-yellow text-forest-dark hover:bg-accent-yellow/90"
-        title={isPlaying ? "Pause" : "Play"}
+        disabled={!currentTrack}
+        className={`p-2 rounded-full transition-colors border ${
+          currentTrack 
+            ? "bg-silver/10 hover:bg-silver/20 border-silver/20" 
+            : "bg-silver/5 border-silver/10 cursor-not-allowed"
+        }`}
+        title={currentTrack ? (isPlaying ? "Pause" : "Play") : "No track selected"}
       >
         {isPlaying ? (
-          <Pause className="w-3.5 h-3.5" />
+          <Pause className={`w-4 h-4 ${currentTrack ? "text-silver" : "text-silver/30"}`} />
         ) : (
-          <Play className="w-3.5 h-3.5" />
+          <Play className={`w-4 h-4 ml-0.5 ${currentTrack ? "text-silver" : "text-silver/30"}`} />
         )}
       </button>
 
       {/* Progress Bar with Time */}
       <div className="flex items-center space-x-2 flex-1 min-w-0">
         <span className="font-quicksand text-xs text-silver/60 tabular-nums w-12 text-right hidden sm:inline-block">
-          {formatDuration(currentTime)}
+          {currentTrack ? formatDuration(currentTime) : "-:--"}
         </span>
         
         <div 
           ref={progressRef}
-          className="flex-1 h-4 bg-forest-light rounded-full cursor-pointer relative group flex items-center"
-          onMouseDown={handleSeekMouseDown}
-          onClick={handleSeekClick}
+          className={`flex-1 h-8 relative group flex items-center ${currentTrack ? 'cursor-pointer' : 'cursor-not-allowed'}`}
+          onMouseDown={currentTrack ? handleSeekMouseDown : undefined}
+          onClick={currentTrack ? handleSeekClick : undefined}
         >
-          <div 
-            className="absolute top-1/2 left-0 h-1 bg-accent-yellow rounded-full pointer-events-none transition-all duration-100 -translate-y-1/2"
-            style={{ width: `${progress}%` }}
-          />
-          <div 
-            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-accent-yellow rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-            style={{ left: `${progress}%`, marginLeft: '-6px' }}
-          />
+          <div className="w-full h-2 bg-silver/20 rounded-full">
+            <div 
+              className={`h-full rounded-full transition-all duration-100 relative ${currentTrack ? 'bg-silver' : 'bg-silver/30'}`}
+              style={{ width: `${currentTrack ? progress : 0}%` }}
+            >
+              {currentTrack && (
+                <div 
+                  className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-silver rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg border-2 border-forest-dark"
+                  style={{ transform: 'translateY(-50%) translateX(50%)' }}
+                />
+              )}
+            </div>
+          </div>
         </div>
         
         <span className="font-quicksand text-xs text-silver/60 tabular-nums w-12 hidden sm:inline-block">
-          {formatDuration(duration)}
+          {currentTrack ? formatDuration(duration) : "-:--"}
         </span>
       </div>
 

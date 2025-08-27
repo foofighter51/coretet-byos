@@ -26,7 +26,7 @@ export function V2Routes() {
     <Routes>
       {/* V2 Routes - Songwriter focus */}
       <Route path="/" element={<SongwriterDashboard />} />
-      <Route path="/works" element={<WorksListV2 />} />
+      <Route path="/tracks" element={<WorksListV2 />} />
       <Route path="/work/:workId" element={<WorkDetailV2 />} />
       <Route path="/library" element={<AudioLibraryPlaceholder />} />
       <Route path="/recent" element={<RecentActivityPlaceholder />} />

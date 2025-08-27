@@ -1,31 +1,41 @@
 /* CSS Variables for Theme System */
 :root {
-  /* Default Forest Theme Colors - matching Tailwind config */
-  --forest-dark: #0a1612;
-  --forest-main: #1a2e26;
-  --forest-light: #243830;
-  --silver: #ebeae8;
-  --accent-yellow: #e4da38;
-  --accent-coral: #d27556;
+  /* Studio Session Theme - Band Collaboration Focused */
+  --forest-dark: #1C1C1E;     /* Charcoal background */
+  --forest-main: #2C2C2E;     /* Medium charcoal */
+  --forest-light: #3A3A3C;    /* Light charcoal */
+  --silver: #F2F2F7;          /* Pure white text */
+  --accent-yellow: #FF9500;   /* Upload orange */
+  --accent-coral: #007AFF;    /* Share blue */
+  --accent-green: #34C759;    /* Comments green */
   
   /* Derived colors using opacity */
-  --silver-80: rgba(232, 232, 232, 0.8);
-  --silver-60: rgba(232, 232, 232, 0.6);
-  --silver-40: rgba(232, 232, 232, 0.4);
-  --silver-20: rgba(232, 232, 232, 0.2);
-  --silver-10: rgba(232, 232, 232, 0.1);
+  --silver-80: rgba(242, 242, 247, 0.8);
+  --silver-60: rgba(242, 242, 247, 0.6);
+  --silver-40: rgba(242, 242, 247, 0.4);
+  --silver-20: rgba(242, 242, 247, 0.2);
+  --silver-10: rgba(242, 242, 247, 0.1);
   
-  --accent-yellow-80: rgba(255, 215, 0, 0.8);
-  --accent-yellow-60: rgba(255, 215, 0, 0.6);
-  --accent-yellow-40: rgba(255, 215, 0, 0.4);
-  --accent-yellow-20: rgba(255, 215, 0, 0.2);
-  --accent-yellow-10: rgba(255, 215, 0, 0.1);
+  /* Upload Orange variants */
+  --accent-yellow-80: rgba(255, 149, 0, 0.8);
+  --accent-yellow-60: rgba(255, 149, 0, 0.6);
+  --accent-yellow-40: rgba(255, 149, 0, 0.4);
+  --accent-yellow-20: rgba(255, 149, 0, 0.2);
+  --accent-yellow-10: rgba(255, 149, 0, 0.1);
   
-  --accent-coral-80: rgba(255, 107, 107, 0.8);
-  --accent-coral-60: rgba(255, 107, 107, 0.6);
-  --accent-coral-40: rgba(255, 107, 107, 0.4);
-  --accent-coral-20: rgba(255, 107, 107, 0.2);
-  --accent-coral-10: rgba(255, 107, 107, 0.1);
+  /* Share Blue variants */
+  --accent-coral-80: rgba(0, 122, 255, 0.8);
+  --accent-coral-60: rgba(0, 122, 255, 0.6);
+  --accent-coral-40: rgba(0, 122, 255, 0.4);
+  --accent-coral-20: rgba(0, 122, 255, 0.2);
+  --accent-coral-10: rgba(0, 122, 255, 0.1);
+  
+  /* Comments Green variants */
+  --accent-green-80: rgba(52, 199, 89, 0.8);
+  --accent-green-60: rgba(52, 199, 89, 0.6);
+  --accent-green-40: rgba(52, 199, 89, 0.4);
+  --accent-green-20: rgba(52, 199, 89, 0.2);
+  --accent-green-10: rgba(52, 199, 89, 0.1);
   
   /* Component-specific colors */
   --bg-primary: var(--forest-main);
@@ -47,11 +57,13 @@ body {
 .text-silver { color: var(--silver); }
 .text-accent-yellow { color: var(--accent-yellow); }
 .text-accent-coral { color: var(--accent-coral); }
+.text-accent-green { color: var(--accent-green); }
 .text-forest-dark { color: var(--forest-dark); }
 
 .border-forest-light { border-color: var(--forest-light); }
 .border-accent-yellow { border-color: var(--accent-yellow); }
 .border-accent-coral { border-color: var(--accent-coral); }
+.border-accent-green { border-color: var(--accent-green); }
 
 /* Background colors */
 .bg-forest-dark { background-color: var(--forest-dark); }
@@ -59,6 +71,7 @@ body {
 .bg-forest-light { background-color: var(--forest-light); }
 .bg-accent-yellow { background-color: var(--accent-yellow); }
 .bg-accent-coral { background-color: var(--accent-coral); }
+.bg-accent-green { background-color: var(--accent-green); }
 .bg-silver { background-color: var(--silver); }
 
 /* Focus states */

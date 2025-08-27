@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { getStreamingUrl } from '../utils/getStreamingUrl';
 
 interface UrlCache {
   [trackId: string]: {
@@ -34,19 +35,25 @@ export function useSecureTrackUrl(trackId: string | null) {
       setError(null);
 
       try {
-        const { data, error } = await supabase.functions.invoke('get-track-url', {
-          body: { trackId }
-        });
+        // Get track from database
+        const { data: track, error: trackError } = await supabase
+          .from('tracks')
+          .select('id, storage_path, provider_url, url')
+          .eq('id', trackId)
+          .single();
 
-        if (error) throw error;
+        if (trackError) throw trackError;
 
-        if (data?.url) {
+        // Use the centralized getStreamingUrl function
+        const finalUrl = await getStreamingUrl(track);
+
+        if (finalUrl) {
           // Cache for 50 minutes (URLs expire in 60)
           urlCache[trackId] = {
-            url: data.url,
+            url: finalUrl,
             expires: Date.now() + 50 * 60 * 1000
           };
-          setUrl(data.url);
+          setUrl(finalUrl);
         } else {
           throw new Error('No URL returned');
         }
@@ -89,19 +96,25 @@ export async function fetchTrackUrls(trackIds: string[]): Promise<Record<string,
   }
 
   try {
-    // Calling edge function with track IDs
-    
-    const { data, error } = await supabase.functions.invoke('get-track-urls', {
-      body: { trackIds: uncachedIds }
-    });
+    // Get tracks from database
+    const { data: tracks, error: tracksError } = await supabase
+      .from('tracks')
+      .select('id, storage_path, provider_url, url')
+      .in('id', uncachedIds);
 
-    if (error) {
-      // Edge function error
-      throw error;
+    if (tracksError) {
+      throw tracksError;
     }
 
-    // Edge function response received
-    const urls = data?.urls || {};
+    // Generate URLs for each track using centralized function
+    const urls: Record<string, string> = {};
+    
+    for (const track of tracks || []) {
+      const url = await getStreamingUrl(track);
+      if (url) {
+        urls[track.id] = url;
+      }
+    }
     
     // Cache the new URLs
     const expiresAt = Date.now() + 50 * 60 * 1000;

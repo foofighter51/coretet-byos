@@ -43,16 +43,29 @@ const DetailedWaveform: React.FC<DetailedWaveformProps> = ({
 
         // Try to get a signed URL from the edge function
         let url = audioUrl;
-        try {
-          const { data, error } = await supabase.functions.invoke('get-track-url', {
-            body: { trackId }
-          });
-          
-          if (!error && data?.url) {
-            url = data.url;
+        
+        // Try to get a better URL if we have a trackId
+        if (trackId) {
+          try {
+            const { data: track, error: trackError } = await supabase
+              .from('tracks')
+              .select('storage_path, provider_url')
+              .eq('id', trackId)
+              .single();
+
+            if (!trackError && track?.storage_path) {
+              const { data: signedData, error: signedError } = await supabase.storage
+                .from('audio-files')
+                .createSignedUrl(track.storage_path, 3600);
+              
+              if (signedData && !signedError) {
+                url = signedData.signedUrl;
+              }
+            }
+          } catch (err) {
+            // Fallback to original URL if database lookup fails
+            console.log('Failed to get signed URL, using original:', err);
           }
-        } catch (err) {
-          // Fallback to public URL
         }
 
         // Fetch the audio file

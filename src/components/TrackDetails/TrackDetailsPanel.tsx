@@ -500,7 +500,7 @@ const TrackDetailsPanel: React.FC<TrackDetailsPanelProps> = ({ track, onClose, p
                       <option value="songs">Songs</option>
                       <option value="final-versions">Final Versions</option>
                       <option value="live-performances">Live Performances</option>
-                      <option value="demos">Demos</option>
+                      <option value="demos">Recordings</option>
                       <option value="ideas">Ideas</option>
                       <option value="voice-memos">Voice Memos</option>
                     </select>

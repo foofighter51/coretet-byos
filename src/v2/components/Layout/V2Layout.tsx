@@ -4,6 +4,7 @@ import { SearchBar } from '../Navigation/SearchBar';
 import { AccountDropdown } from '../Navigation/AccountDropdown';
 import { FeedbackModal } from '../Navigation/FeedbackModal';
 import { SecondaryToolbar } from '../Navigation/SecondaryToolbar';
+import InlinePlayer from '../../../components/Player/InlinePlayer';
 
 interface V2LayoutProps {
   children: React.ReactNode;
@@ -23,29 +24,34 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
     <div className="v2-layout bg-forest-dark">
       {/* Primary Navigation Bar */}
       <header className="bg-forest-main border-b border-forest-light flex-shrink-0">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <button
               onClick={() => navigate('/')}
-              className="font-anton text-2xl text-silver hover:text-white transition-colors"
+              className="font-anton text-xl sm:text-2xl text-silver hover:text-white transition-colors"
             >
               CoreTet
             </button>
             
-            {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-8">
-              <SearchBar />
-            </div>
+            {/* Spacer */}
+            <div className="flex-1"></div>
 
             {/* Right Navigation */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Upload Music Button */}
               <button
-                onClick={() => navigate('/upload')}
-                className="bg-accent-yellow text-forest-dark px-6 py-2 rounded-lg font-quicksand font-semibold hover:bg-accent-yellow/90 transition-colors"
+                onClick={() => {
+                  // For now, navigate to tracks page which has the upload modal
+                  if (location.pathname !== '/tracks') {
+                    navigate('/tracks');
+                  }
+                  // TODO: Trigger upload modal directly
+                }}
+                className="bg-accent-yellow text-forest-dark px-4 sm:px-6 py-2 rounded-lg font-quicksand font-semibold hover:bg-accent-yellow/90 transition-colors text-sm sm:text-base"
               >
-                Upload Music
+                <span className="hidden sm:inline">Upload Music</span>
+                <span className="sm:hidden">Upload</span>
               </button>
 
               {/* Feedback Button */}
@@ -65,50 +71,17 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
           </div>
 
           {/* Secondary Navigation */}
-          <nav className="flex items-center justify-between mt-4 pt-4 border-t border-forest-light/30">
-            <div className="flex items-center space-x-6">
+          <nav className="flex items-center justify-between mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-forest-light/30">
+            <div className="flex items-center flex-wrap gap-x-4 sm:gap-x-6 gap-y-2">
               <button
-                onClick={() => navigate('/works')}
-                className={`transition-colors font-quicksand text-sm ${
-                  isCurrentPage('/works') 
+                onClick={() => navigate('/tracks')}
+                className={`transition-colors font-quicksand text-xs sm:text-sm ${
+                  isCurrentPage('/tracks') 
                     ? 'text-accent-yellow' 
                     : 'text-silver/60 hover:text-silver'
                 }`}
               >
-                View My Works
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/recent')}
-                className={`transition-colors font-quicksand text-sm ${
-                  isCurrentPage('/recent') 
-                    ? 'text-accent-yellow' 
-                    : 'text-silver/60 hover:text-silver'
-                }`}
-              >
-                Recent Activity
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/collaborations')}
-                className={`transition-colors font-quicksand text-sm ${
-                  isCurrentPage('/collaborations') 
-                    ? 'text-accent-yellow' 
-                    : 'text-silver/60 hover:text-silver'
-                }`}
-              >
-                Collaborations
-              </button>
-              <span className="text-silver/20">•</span>
-              <button
-                onClick={() => navigate('/storage')}
-                className={`transition-colors font-quicksand text-sm ${
-                  isCurrentPage('/storage') 
-                    ? 'text-accent-yellow' 
-                    : 'text-silver/60 hover:text-silver'
-                }`}
-              >
-                Storage Settings
+                Tracks
               </button>
             </div>
           </nav>
@@ -126,13 +99,13 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
       {/* Page Header */}
       {(title || subtitle) && (
         <div className="border-b border-forest-light bg-forest-main/50 flex-shrink-0">
-          <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
             <div>
-              <h1 className="text-3xl font-anton text-white mb-2">
+              <h1 className="text-2xl sm:text-3xl font-anton text-white mb-2">
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-silver/70 font-quicksand">
+                <p className="text-silver/70 font-quicksand text-sm sm:text-base">
                   {subtitle}
                 </p>
               )}
@@ -143,7 +116,7 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
 
       {/* Scrollable Content */}
       <div className="v2-content v2-scrollable">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           {children}
         </div>
       </div>

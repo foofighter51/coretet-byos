@@ -41,26 +41,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode; onTrackEnd?: (
   const { tracks } = useLibrary();
 
   const play = useCallback(async (trackId: string, url: string) => {
-    // If URL is empty or looks like a public URL that might fail, fetch secure URL
-    if (!url || url.includes('/public/')) {
-      try {
-        const { data, error } = await supabase.functions.invoke('get-track-url', {
-          body: { trackId }
-        });
-        
-        if (error) {
-          console.error('Error from get-track-url function:', error);
-          console.error('Falling back to public URL');
-          // Don't return here, try to use the public URL
-        } else if (data?.url) {
-          url = data.url;
-        }
-      } catch (error) {
-        console.error('Failed to get secure URL:', error);
-        console.error('Falling back to public URL');
-        // Don't return here, try to use the public URL
-      }
-    }
+    // Use the URL directly - getStreamingUrl has already handled URL generation
     
     if (audioRef.current) {
       // If it's the same track, just resume playback
@@ -153,8 +134,11 @@ export const AudioProvider: React.FC<{ children: React.ReactNode; onTrackEnd?: (
     }
 
     try {
+      console.log('🎵 AudioContext: Getting streaming URL for track:', track);
       // Get streaming URL based on storage provider
       const streamingUrl = await getStreamingUrl(track);
+      
+      console.log('📡 AudioContext: Received streaming URL:', streamingUrl);
       
       if (!streamingUrl) {
         console.error('Failed to get streaming URL for track:', trackId);

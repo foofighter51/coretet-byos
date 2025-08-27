@@ -1,28 +1,95 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PenTool, Calendar, User, Music } from 'lucide-react';
+import { Upload, Play, Pause } from 'lucide-react';
 import { V2Layout } from '../components/Layout/V2Layout';
-import { useProjects } from '../contexts/ProjectContext';
-import CreateWorkModal from '../components/Works/CreateWorkModal';
+import { supabase } from '../../lib/supabase';
+import { useAuth } from '../../contexts/AuthContext';
+import { useAudio } from '../../contexts/AudioContext';
+import QuickUploadModal from '../components/Upload/QuickUploadModal';
 
-interface Work {
+interface Track {
   id: string;
   name: string;
-  artist?: string;
+  file_name: string;
+  category: string;
   created_at: string;
-  updated_at: string;
-  project_type: string;
+  file_size: number;
+  provider_url?: string;
+  storage_path?: string;
 }
 
 export function WorksListV2() {
   const navigate = useNavigate();
-  const { projects, loading, fetchProjects } = useProjects();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const { user } = useAuth();
+  const audio = useAudio();
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+
+  // Generate placeholder tracks for UI/UX testing
+  const generatePlaceholderTracks = (): Track[] => {
+    const trackNames = [
+      "Summer Vibes Demo", "Midnight Blues", "Electric Dreams", "Acoustic Sunrise", "Urban Legends",
+      "Neon Nights", "Coastal Breeze", "Mountain Echo", "Desert Storm", "Forest Walk",
+      "City Lights", "Ocean Waves", "Starlit Sky", "Thunder Road", "Velvet Moon",
+      "Golden Hour", "Silver Lining", "Crimson Dawn", "Emerald Rain", "Purple Haze",
+      "Broken Hearts Club", "Dancing Shadows", "Whispered Secrets", "Faded Memories", "New Beginnings",
+      "Lost in Translation", "Time Machine", "Digital Love", "Analog Soul", "Vintage Dreams",
+      "Future Funk", "Retro Wave", "Cosmic Journey", "Space Oddity", "Alien Encounter",
+      "Robot Dance", "Cyber Punk", "Neon Genesis", "Matrix Code", "Virtual Reality",
+      "Quantum Leap", "Parallel Universe", "Time Paradox", "Reality Check", "Dream Sequence",
+      "Midnight Snack", "Coffee Shop", "Rainy Day", "Sunny Afternoon", "Lazy Sunday",
+      "Road Trip", "Flight Delay", "Hotel Room", "Taxi Ride", "Bus Stop"
+    ];
+    
+    const categories = ["demos", "songs", "ideas", "voice-memos"];
+    const artists = ["Band Name", "Solo Artist", "The Collective", "Studio Session", "Live Recording"];
+    
+    return trackNames.map((name, index) => ({
+      id: `placeholder-${index}`,
+      name,
+      file_name: `${name.toLowerCase().replace(/\s+/g, '_')}.mp3`,
+      category: categories[index % categories.length],
+      created_at: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+      file_size: Math.floor(Math.random() * 50000000) + 1000000, // 1MB - 50MB
+      provider_url: `https://example.com/audio/${index}`,
+      storage_path: `audio-files/${index}.mp3`
+    }));
+  };
 
   useEffect(() => {
-    // Fetch projects when component mounts
-    fetchProjects();
+    // Fetch tracks when component mounts
+    fetchTracks();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const fetchTracks = async () => {
+    if (!user) return;
+    
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('tracks')
+        .select('*')
+        .eq('user_id', user.id)
+        .is('deleted_at', null)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      
+      // Combine real tracks with placeholder tracks for UI/UX testing
+      const realTracks = data || [];
+      const placeholderTracks = generatePlaceholderTracks();
+      const allTracks = [...realTracks, ...placeholderTracks];
+      
+      setTracks(allTracks);
+    } catch (error) {
+      console.error('Error fetching tracks:', error);
+      // If DB fails, still show placeholder tracks for UI testing
+      setTracks(generatePlaceholderTracks());
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const formatDate = (dateString: string) => {
     try {
@@ -36,120 +103,120 @@ export function WorksListV2() {
     }
   };
 
-  const handleWorkClick = (workId: string) => {
-    navigate(`/work/${workId}`);
+  const handleTrackDoubleClick = async (track: Track) => {
+    try {
+      // If this track is already playing, pause it
+      if (audio.currentTrack === track.id && audio.isPlaying) {
+        audio.pause();
+        return;
+      }
+
+      // Play the track using global audio context
+      await audio.playTrack(track.id);
+      
+    } catch (error) {
+      console.error('❌ Error playing track:', error);
+    }
+  };
+
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024 * 1024) {
+      return `${Math.round(bytes / 1024)} KB`;
+    }
+    return `${Math.round(bytes / (1024 * 1024))} MB`;
+  };
+
+  // Estimate track duration from file size (rough approximation)
+  const estimateDuration = (bytes: number) => {
+    // Assume ~1MB per minute for compressed audio (very rough estimate)
+    const estimatedMinutes = bytes / (1024 * 1024);
+    const minutes = Math.floor(estimatedMinutes);
+    const seconds = Math.floor((estimatedMinutes - minutes) * 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   if (loading) {
     return (
-      <V2Layout title="My Works" subtitle="Your songs and compositions">
+      <V2Layout title="My Tracks" subtitle="Your uploaded tracks and demos">
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-accent-yellow border-t-transparent rounded-full animate-spin"></div>
-          <span className="ml-3 text-silver font-quicksand">Loading your works...</span>
+          <span className="ml-3 text-silver font-quicksand">Loading your tracks...</span>
         </div>
       </V2Layout>
     );
   }
 
   return (
-    <V2Layout title="My Works" subtitle="Your songs and compositions" showSecondaryToolbar={true}>
-      {/* Create New Work Button */}
-      <div className="mb-8 flex justify-between items-center">
+    <V2Layout>
+      {/* Track Count */}
+      <div className="mb-8">
         <div className="text-sm text-silver/60 font-quicksand">
-          {projects.length} {projects.length === 1 ? 'work' : 'works'} total
+          {tracks.length} {tracks.length === 1 ? 'track' : 'tracks'} uploaded
         </div>
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="flex items-center space-x-2 px-4 py-2 bg-accent-yellow text-gray-900 rounded-lg font-quicksand font-medium hover:bg-accent-yellow/90 transition-colors"
-        >
-          <PenTool className="w-4 h-4" />
-          <span>Create New Work</span>
-        </button>
       </div>
 
-      {projects.length === 0 ? (
+      {tracks.length === 0 ? (
         /* Empty State */
         <div className="text-center py-16">
           <div className="text-6xl mb-6">🎵</div>
-          <h3 className="text-xl font-anton text-silver mb-3">No Works Yet</h3>
+          <h3 className="text-xl font-anton text-silver mb-3">No Tracks Yet</h3>
           <p className="font-quicksand text-silver/60 text-lg mb-8 max-w-md mx-auto">
-            Start your musical journey by creating your first work. Document your creative process from initial idea to final version.
+            Ready to share with your band? Upload your first track and start collaborating.
           </p>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-accent-yellow text-gray-900 rounded-lg font-quicksand font-medium hover:bg-accent-yellow/90 transition-all duration-300 hover:transform hover:scale-105"
-          >
-            <PenTool className="w-5 h-5" />
-            <span>Create Your First Work</span>
-          </button>
+          <p className="font-quicksand text-silver/40 text-sm">
+            Click "Upload Music" in the top bar to get started
+          </p>
         </div>
       ) : (
-        /* Works Grid */
+        /* Tracks Grid */
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((work) => (
+          {tracks.map((track) => (
             <div
-              key={work.id}
-              onClick={() => handleWorkClick(work.id)}
-              className="group bg-forest-main border border-forest-light hover:border-accent-yellow rounded-lg p-6 cursor-pointer transition-all duration-300 hover:transform hover:scale-105"
+              key={track.id}
+              onDoubleClick={() => handleTrackDoubleClick(track)}
+              className="group bg-forest-main border border-forest-light hover:border-accent-yellow rounded-lg p-6 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer"
             >
-              {/* Work Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1 min-w-0">
+              {/* Track Info - Name, Duration, Type */}
+              <div className="space-y-3">
+                <div>
                   <h3 className="font-anton text-lg text-white truncate group-hover:text-accent-yellow transition-colors">
-                    {work.name}
+                    {track.name}
                   </h3>
-                  {work.artist && (
-                    <div className="flex items-center space-x-1 mt-1">
-                      <User className="w-3 h-3 text-silver/60" />
-                      <span className="font-quicksand text-sm text-silver/70 truncate">
-                        {work.artist}
-                      </span>
-                    </div>
-                  )}
                 </div>
-                <div className="flex-shrink-0 w-8 h-8 bg-accent-yellow/20 rounded-full flex items-center justify-center group-hover:bg-accent-yellow/30 transition-colors">
-                  <Music className="w-4 h-4 text-accent-yellow" />
-                </div>
-              </div>
-
-              {/* Work Stats - placeholder for now */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-lg font-anton text-accent-coral">0</div>
-                  <div className="text-xs font-quicksand text-silver/60">Versions</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-anton text-accent-coral">0</div>
-                  <div className="text-xs font-quicksand text-silver/60">Iterations</div>
+                
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-3">
+                    <span className="font-quicksand text-silver/70">
+                      {estimateDuration(track.file_size)}
+                    </span>
+                    <span className="font-quicksand text-xs text-silver/70 bg-forest-light px-2 py-1 rounded">
+                      {track.category}
+                    </span>
+                  </div>
+                  <span className="font-quicksand text-xs text-silver/50">
+                    {formatDate(track.created_at)}
+                  </span>
                 </div>
               </div>
 
-              {/* Dates */}
-              <div className="space-y-2 text-xs font-quicksand text-silver/50">
-                <div className="flex items-center space-x-2">
-                  <Calendar className="w-3 h-3" />
-                  <span>Created {formatDate(work.created_at)}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Calendar className="w-3 h-3" />
-                  <span>Updated {formatDate(work.updated_at)}</span>
-                </div>
-              </div>
-
-              {/* Hover Indicator */}
-              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="text-xs font-quicksand text-accent-yellow">
-                  Click to view details →
-                </div>
-              </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Create Work Modal */}
-      {showCreateModal && (
-        <CreateWorkModal onClose={() => setShowCreateModal(false)} />
+      {/* Upload Modal */}
+      {showUploadModal && (
+        <QuickUploadModal onClose={() => {
+          setShowUploadModal(false);
+          fetchTracks(); // Refresh tracks after upload
+        }} />
       )}
     </V2Layout>
   );

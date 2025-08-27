@@ -13,7 +13,6 @@ import BulkEditModal from './BulkEditModal';
 import SharePlaylistModal from '../Sharing/SharePlaylistModal';
 import { CreateVariationModal } from '../Variations/CreateVariationModal';
 import SearchFilterChips from '../Layout/SearchFilterChips';
-import InlinePlayer from '../Player/InlinePlayer';
 import FilterBar, { FilterState } from './FilterBar';
 import ActiveFilterChips from './ActiveFilterChips';
 
@@ -353,7 +352,7 @@ const TrackList: React.FC<TrackListProps> = ({ category, onTrackSelect, selected
       case 'songs': return 'Songs';
       case 'final-versions': return 'Final Versions';
       case 'live-performances': return 'Live Performances';
-      case 'demos': return 'Demos';
+      case 'demos': return 'Recordings';
       case 'ideas': return 'Ideas';
       case 'voice-memos': return 'Voice Memos';
       default: return 'Tracks';
@@ -663,10 +662,8 @@ const TrackList: React.FC<TrackListProps> = ({ category, onTrackSelect, selected
               </div>
             )}
             
-            {/* Center: Inline Player */}
-            <div className="flex-1 flex justify-center max-w-2xl mx-auto">
-              <InlinePlayer onTrackSelect={onTrackSelect} selectedTrack={selectedTrack} />
-            </div>
+            {/* Center: Track count or other info could go here */}
+            <div className="flex-1" />
             
             {/* Right side: Spacer for balance */}
             <div className="w-32" />

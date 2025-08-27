@@ -34,7 +34,7 @@ const categories = [
   { id: 'songs' as const, name: 'Songs', icon: Music2, color: 'text-accent-yellow' },
   { id: 'final-versions' as const, name: 'Final Versions', icon: Award, color: 'text-accent-yellow' },
   { id: 'live-performances' as const, name: 'Live Performances', icon: Radio, color: 'text-accent-coral' },
-  { id: 'demos' as const, name: 'Demos', icon: Mic, color: 'text-accent-coral' },
+  { id: 'demos' as const, name: 'Recordings', icon: Mic, color: 'text-accent-coral' },
   { id: 'ideas' as const, name: 'Ideas', icon: Lightbulb, color: 'text-accent-yellow' },
   { id: 'voice-memos' as const, name: 'Voice Memos', icon: MessageSquare, color: 'text-accent-coral' },
 ];

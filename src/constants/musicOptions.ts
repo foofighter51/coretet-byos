@@ -22,5 +22,5 @@ export const GENRE_OPTIONS = [
 
 export const CATEGORY_OPTIONS = [
   { value: 'songs', label: 'Songs' },
-  { value: 'demos', label: 'Demos' }
+  { value: 'demos', label: 'Recordings' }
 ];

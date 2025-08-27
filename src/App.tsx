@@ -17,10 +17,12 @@ import './styles/theme-variables.css';
 import './styles/v2-layout-fix.css';
 
 // V2 imports
-import { V2Routes } from './v2/routes/V2Routes';
+import { V2App } from './v2/V2App';
 import { FEATURES } from './config/features';
 import DebugV2 from './v2/components/DebugV2';
 import { ToastProvider } from './contexts/ToastContext';
+import { AudioProvider } from './contexts/AudioContext';
+import { LibraryProvider } from './contexts/LibraryContext';
 import { ProjectProvider } from './v2/contexts/ProjectContext';
 
 // Component to handle mobile detection and redirection
@@ -59,7 +61,11 @@ function App() {
                     {FEATURES.PROJECT_HIERARCHY ? (
                       <ToastProvider>
                         <ProjectProvider>
-                          <V2Routes />
+                          <LibraryProvider>
+                            <AudioProvider>
+                              <V2App />
+                            </AudioProvider>
+                          </LibraryProvider>
                         </ProjectProvider>
                       </ToastProvider>
                     ) : <MainApp />}

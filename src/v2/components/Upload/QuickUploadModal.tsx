@@ -54,14 +54,14 @@ export default function QuickUploadModal({ onClose }: QuickUploadModalProps) {
 
         // Upload to Supabase storage
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('tracks')
+          .from('audio-files')
           .upload(fileName, file);
 
         if (uploadError) throw uploadError;
 
         // Get public URL
         const { data: { publicUrl } } = supabase.storage
-          .from('tracks')
+          .from('audio-files')
           .getPublicUrl(fileName);
 
         // Create track record
@@ -69,12 +69,13 @@ export default function QuickUploadModal({ onClose }: QuickUploadModalProps) {
           .from('tracks')
           .insert({
             user_id: user.id,
-            title: file.name.replace(/\.[^/.]+$/, ''), // Remove extension
-            file_url: publicUrl,
+            name: file.name.replace(/\.[^/.]+$/, ''), // Remove extension
+            file_name: file.name,
             file_size: file.size,
             duration: 0, // Would need audio analysis to get actual duration
-            format: fileExt?.toLowerCase(),
-            upload_source: 'quick_upload'
+            category: 'demos', // Default to demos for quick uploads
+            storage_path: fileName,
+            provider_url: publicUrl
           });
 
         if (dbError) throw dbError;
@@ -83,8 +84,8 @@ export default function QuickUploadModal({ onClose }: QuickUploadModalProps) {
         setUploadProgress((uploadedCount / totalFiles) * 100);
       }
 
-      // Success - navigate to library
-      navigate('/library');
+      // Success - navigate to works (demos list)
+      navigate('/works');
       onClose();
     } catch (err) {
       console.error('Upload error:', err);
