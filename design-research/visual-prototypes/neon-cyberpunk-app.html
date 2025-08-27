@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 16: Neon Cyberpunk Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            position: relative;
+        }
+
+        .neon-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .top-bar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00ffff;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff0080;
+            text-shadow: 0 0 10px #ff0080;
+            letter-spacing: 2px;
+        }
+
+        .search-bar {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid #00ffff;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            width: 300px;
+            outline: none;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(0, 255, 0, 0.5);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ff0080;
+            background: linear-gradient(45deg, #ff0080, #00ffff);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .sidebar h3 {
+            color: #ff0080;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #ff0080;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 0, 128, 0.2);
+            border-color: #ff0080;
+            color: #ff0080;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .track-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: scan 3s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .track-card:hover {
+            border-color: #ff0080;
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .track-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        .track-status {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            border: 1px solid #00ff00;
+        }
+
+        .track-artists {
+            color: #ff0080;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .track-waveform {
+            height: 60px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .waveform-bars {
+            display: flex;
+            align-items: end;
+            height: 100%;
+            padding: 5px;
+            gap: 2px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #00ff00, #00ffff);
+            border-radius: 1px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .bar:nth-child(odd) { animation-delay: -0.5s; }
+        .bar:nth-child(even) { animation-delay: -1s; }
+
+        @keyframes pulse {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .play-button {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            background: transparent;
+            color: #00ff00;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ffff00;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 0 3px #ffff00;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 8px #ffff00;
+        }
+
+        .collaboration-panel {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ff0080;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .collaboration-panel h3 {
+            color: #ff0080;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #ff0080;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .collaborator-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ffff, #ff0080);
+            border: 1px solid #00ffff;
+        }
+
+        .collaborator-name {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .collaborator-role {
+            color: #00ff00;
+            font-size: 0.8rem;
+        }
+
+        .comment-section {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #00ffff;
+        }
+
+        .comment {
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 3px solid #ff0080;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .comment-author {
+            color: #ff0080;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            color: #00ffff;
+            line-height: 1.4;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ff0080;
+            border-radius: 50%;
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .action-fab:hover {
+            background: rgba(255, 0, 128, 0.4);
+            box-shadow: 0 0 20px #ff0080;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .sidebar, .collaboration-panel {
+                order: 2;
+            }
+            
+            .track-grid {
+                grid-template-columns: 1fr;
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="neon-grid"></div>
+        
+        <div class="top-bar">
+            <div class="logo">CORETET_</div>
+            <input type="text" class="search-bar" placeholder="Search WIP tracks, collaborators...">
+            <div class="user-profile">
+                <span style="color: #00ffff;">@producer_alex</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Library</h3>
+                <div class="nav-item active">Your WIP Tracks</div>
+                <div class="nav-item">Shared Playlists</div>
+                <div class="nav-item">Collaborations</div>
+                <div class="nav-item">Recently Rated</div>
+                <div class="nav-item">Favorites</div>
+                
+                <h3 style="margin-top: 2rem;">Genres</h3>
+                <div class="nav-item">Electronic</div>
+                <div class="nav-item">Hip-Hop</div>
+                <div class="nav-item">Indie Rock</div>
+                <div class="nav-item">Jazz Fusion</div>
+                <div class="nav-item">Ambient</div>
+            </div>
+
+            <div class="track-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 style="color: #00ffff; text-shadow: 0 0 10px #00ffff;">Your WIP Tracks</h2>
+                    <div style="color: #00ff00; font-size: 0.9rem;">47 tracks • 23 collaborations active</div>
+                </div>
+
+                <div class="track-grid">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">NEON_NIGHTS.wav</div>
+                            <div class="track-status">MIXING</div>
+                        </div>
+                        <div class="track-artists">ft. @synthwave_sara, @bass_master_mike</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 30%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 35%;"></div>
+                                <div class="bar" style="height: 65%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <span class="star">★★★★☆</span>
+                                <span style="color: #00ff00; font-size: 0.8rem; margin-left: 0.5rem;">(12 ratings)</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <button style="background: rgba(0,255,0,0.2); border: 1px solid #00ff00; color: #00ff00; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">COMMENT</button>
+                            <button style="background: rgba(255,0,128,0.2); border: 1px solid #ff0080; color: #ff0080; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">ARRANGE</button>
+                            <button style="background: rgba(0,255,255,0.2); border: 1px solid #00ffff; color: #00ffff; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">SHARE</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">CYBER_DREAMS_v3.wav</div>
+                            <div class="track-status" style="background: rgba(255,0,128,0.2); color: #ff0080; border-color: #ff0080;">COLLAB</div>
+                        </div>
+                        <div class="track-artists">ft. @vocal_queen, @drum_machine_dan</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <span class="star">★★★★★</span>
+                                <span style="color: #00ff00; font-size: 0.8rem; margin-left: 0.5rem;">(8 ratings)</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <button style="background: rgba(0,255,0,0.2); border: 1px solid #00ff00; color: #00ff00; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">COMMENT</button>
+                            <button style="background: rgba(255,0,128,0.2); border: 1px solid #ff0080; color: #ff0080; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">ARRANGE</button>
+                            <button style="background: rgba(0,255,255,0.2); border: 1px solid #00ffff; color: #00ffff; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">SHARE</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">DIGITAL_LOVE_REMIX.wav</div>
+                            <div class="track-status" style="background: rgba(255,255,0,0.2); color: #ffff00; border-color: #ffff00;">COMPLETE</div>
+                        </div>
+                        <div class="track-artists">solo project • remix of @retro_producer</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 65%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <span class="star">★★★☆☆</span>
+                                <span style="color: #00ff00; font-size: 0.8rem; margin-left: 0.5rem;">(24 ratings)</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                            <button style="background: rgba(0,255,0,0.2); border: 1px solid #00ff00; color: #00ff00; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">COMMENT</button>
+                            <button style="background: rgba(255,0,128,0.2); border: 1px solid #ff0080; color: #ff0080; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">ARRANGE</button>
+                            <button style="background: rgba(0,255,255,0.2); border: 1px solid #00ffff; color: #00ffff; padding: 0.25rem 0.5rem; border-radius: 5px; font-size: 0.8rem; cursor: pointer;">SHARE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Active Collaborations</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">@synthwave_sara</div>
+                        <div class="collaborator-role">Lead Synth • 3 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">@vocal_queen</div>
+                        <div class="collaborator-role">Vocals • 2 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">@bass_master_mike</div>
+                        <div class="collaborator-role">Bass • 1 track</div>
+                    </div>
+                </div>
+
+                <div class="comment-section">
+                    <h3 style="font-size: 1rem;">Recent Comments</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-author">@synthwave_sara</div>
+                        <div class="comment-text">"The new synth pad at 2:30 is perfect! Love how it builds tension."</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">@vocal_queen</div>
+                        <div class="comment-text">"Need more headroom on the vocal bus for my harmonies. Can you adjust?"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Create Arrangement">🎛️</div>
+            <div class="action-fab" title="Share Playlist">📤</div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate mobile interactions
+        document.querySelectorAll('.track-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.borderColor = '#ffff00';
+                card.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.5)';
+                setTimeout(() => {
+                    card.style.borderColor = '#00ff00';
+                    card.style.boxShadow = 'none';
+                }, 1000);
+            });
+        });
+
+        // Star rating interaction
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', () => {
+                star.style.color = '#ffff00';
+                star.style.textShadow = '0 0 10px #ffff00';
+            });
+        });
+
+        // Mobile action buttons
+        document.querySelectorAll('.action-fab').forEach(fab => {
+            fab.addEventListener('click', () => {
+                fab.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    fab.style.transform = 'scale(1.1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio Analog - CoreTet Concept</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baskerville:wght@400;700&family=Courier+Prime:wght@400;700&family=Amatic+SC:wght@400;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --sepia-warm: #D2691E;
+            --darkroom-red: #8B0000;
+            --faded-gold: #DAA520;
+            --paper-white: #FDF5E6;
+            --charcoal-gray: #36454F;
+            --cream-yellow: #FFFDD0;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: var(--paper-white);
+            color: var(--charcoal-gray);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Film grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="grain"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23grain)" opacity="0.15"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .back-nav {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            background: var(--darkroom-red);
+            color: var(--paper-white);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Baskerville', serif;
+            box-shadow: 2px 2px 8px rgba(139, 0, 0, 0.3);
+        }
+        
+        .darkroom-header {
+            background: linear-gradient(135deg, var(--darkroom-red), #A52A2A);
+            color: var(--paper-white);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .darkroom-header::before {
+            content: '📷';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .darkroom-header h1 {
+            font-family: 'Baskerville', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .darkroom-header p {
+            font-family: 'Amatic SC', cursive;
+            font-size: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-sheet {
+            background: var(--cream-yellow);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 8px solid white;
+            box-shadow: 0 4px 16px rgba(139, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .contact-sheet::before {
+            content: '';
+            position: absolute;
+            top: -4px; bottom: -4px; left: -4px; right: -4px;
+            border: 2px solid var(--charcoal-gray);
+            pointer-events: none;
+        }
+        
+        .sheet-header {
+            font-family: 'Amatic SC', cursive;
+            font-size: 1.5rem;
+            color: var(--darkroom-red);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--sepia-warm);
+            padding-bottom: 0.5rem;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .polaroid-card {
+            background: white;
+            padding: 1rem 1rem 3rem 1rem;
+            box-shadow: 
+                2px 2px 8px rgba(0,0,0,0.1),
+                4px 4px 12px rgba(139, 0, 0, 0.1);
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .polaroid-card:nth-child(2n) {
+            transform: rotate(1deg);
+        }
+        
+        .polaroid-card:nth-child(3n) {
+            transform: rotate(-0.5deg);
+        }
+        
+        .polaroid-card:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 
+                4px 4px 16px rgba(0,0,0,0.15),
+                8px 8px 24px rgba(139, 0, 0, 0.15);
+            z-index: 10;
+        }
+        
+        .track-photo {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--sepia-warm), var(--faded-gold));
+            border: 2px solid #E6D7C5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .track-photo::before {
+            content: '♪';
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+        }
+        
+        .track-photo::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="80" cy="20" r="1" fill="rgba(255,255,255,0.3)"/><circle cx="60" cy="70" r="1.5" fill="rgba(255,255,255,0.2)"/></svg>');
+        }
+        
+        .track-caption {
+            font-family: 'Amatic SC', cursive;
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--charcoal-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .track-details {
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--sepia-warm);
+            margin-bottom: 1rem;
+        }
+        
+        .film-strip {
+            background: var(--charcoal-gray);
+            height: 60px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .film-strip::before {
+            content: '';
+            position: absolute;
+            top: 5px; bottom: 5px;
+            left: 0; right: 0;
+            background: repeating-linear-gradient(
+                to right,
+                transparent 0,
+                transparent 15px,
+                rgba(255,255,255,0.1) 15px,
+                rgba(255,255,255,0.1) 20px
+            );
+        }
+        
+        .film-frames {
+            display: flex;
+            height: 100%;
+            animation: scroll 15s linear infinite;
+        }
+        
+        .film-frame {
+            min-width: 80px;
+            height: 50px;
+            background: var(--sepia-warm);
+            margin: 5px 2px;
+            border: 1px solid var(--darkroom-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+        
+        .developer-tray {
+            background: var(--darkroom-red);
+            color: var(--paper-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .developer-tray::before {
+            content: 'DARKROOM';
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 0.2em;
+        }
+        
+        .tray-title {
+            font-family: 'Baskerville', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .now-developing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        .developing-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--faded-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--darkroom-red);
+            animation: develop 3s ease-in-out infinite;
+        }
+        
+        .play-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .vintage-button {
+            background: var(--faded-gold);
+            border: 2px solid var(--sepia-warm);
+            color: var(--charcoal-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'Courier Prime', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .vintage-button:hover {
+            background: var(--sepia-warm);
+            color: var(--paper-white);
+            transform: translateY(-1px);
+        }
+        
+        .mobile-camera {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 580px;
+            background: #2C2C2C;
+            border-radius: 25px;
+            padding: 1rem;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        @media (min-width: 1400px) {
+            .mobile-camera {
+                display: block;
+            }
+        }
+        
+        .camera-viewfinder {
+            width: 100%;
+            height: 100%;
+            background: var(--paper-white);
+            border-radius: 20px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .viewfinder-header {
+            text-align: center;
+            font-family: 'Amatic SC', cursive;
+            color: var(--darkroom-red);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .mobile-polaroid {
+            background: white;
+            padding: 0.5rem 0.5rem 2rem 0.5rem;
+            margin: 0.5rem 0;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            transform: rotate(-1deg);
+        }
+        
+        .mobile-photo {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(45deg, var(--sepia-warm), var(--faded-gold));
+            border: 1px solid #E6D7C5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mobile-caption {
+            font-family: 'Amatic SC', cursive;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--charcoal-gray);
+        }
+        
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        
+        @keyframes develop {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        /* Dust particles */
+        .dust-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(210, 105, 30, 0.3);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .dust-particle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .dust-particle:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .dust-particle:nth-child(3) {
+            top: 40%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+            50% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dust-particle"></div>
+    <div class="dust-particle"></div>
+    <div class="dust-particle"></div>
+    
+    <a href="index.html" class="back-nav">← Back to Gallery</a>
+    
+    <header class="darkroom-header">
+        <h1>Analog Sessions</h1>
+        <p>Music captured on film, developed with care</p>
+    </header>
+    
+    <main class="main-content">
+        <div class="contact-sheet">
+            <div class="sheet-header">Recent Exposures - Contact Sheet #47</div>
+            <div class="photo-grid">
+                <div class="polaroid-card">
+                    <div class="track-photo"></div>
+                    <div class="track-caption">"Midnight Blues"</div>
+                    <div class="track-details">35mm • f/2.8 • 1/60s<br>The Collective • 4:23</div>
+                    <div class="play-controls">
+                        <button class="vintage-button">▶ Play</button>
+                        <button class="vintage-button">+ Add</button>
+                    </div>
+                </div>
+                
+                <div class="polaroid-card">
+                    <div class="track-photo"></div>
+                    <div class="track-caption">"Coffee Shop Morning"</div>
+                    <div class="track-details">120mm • f/1.4 • 1/125s<br>Solo Artist • 3:45</div>
+                    <div class="play-controls">
+                        <button class="vintage-button">▶ Play</button>
+                        <button class="vintage-button">+ Add</button>
+                    </div>
+                </div>
+                
+                <div class="polaroid-card">
+                    <div class="track-photo"></div>
+                    <div class="track-caption">"Urban Legends"</div>
+                    <div class="track-details">35mm • f/4.0 • 1/250s<br>Band Name • 5:12</div>
+                    <div class="play-controls">
+                        <button class="vintage-button">▶ Play</button>
+                        <button class="vintage-button">+ Add</button>
+                    </div>
+                </div>
+                
+                <div class="polaroid-card">
+                    <div class="track-photo"></div>
+                    <div class="track-caption">"Electric Dreams"</div>
+                    <div class="track-details">Medium Format • f/2.8 • 1/60s<br>Studio Session • 6:01</div>
+                    <div class="play-controls">
+                        <button class="vintage-button">▶ Play</button>
+                        <button class="vintage-button">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="film-strip">
+            <div class="film-frames">
+                <div class="film-frame">01</div>
+                <div class="film-frame">02</div>
+                <div class="film-frame">03</div>
+                <div class="film-frame">04</div>
+                <div class="film-frame">05</div>
+                <div class="film-frame">06</div>
+                <div class="film-frame">07</div>
+                <div class="film-frame">08</div>
+                <div class="film-frame">09</div>
+                <div class="film-frame">10</div>
+                <div class="film-frame">11</div>
+                <div class="film-frame">12</div>
+            </div>
+        </div>
+        
+        <div class="developer-tray">
+            <h3 class="tray-title">🎧 Now Developing</h3>
+            <div class="now-developing">
+                <div class="developing-icon">♪</div>
+                <div>
+                    <div style="font-family: 'Baskerville', serif; font-size: 1.1rem;">Coffee Shop Morning</div>
+                    <div style="opacity: 0.8;">Solo Artist • Exposure: 3:45</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="mobile-camera">
+        <div class="camera-viewfinder">
+            <div class="viewfinder-header">📷 Camera Roll</div>
+            <div class="mobile-polaroid">
+                <div class="mobile-photo"></div>
+                <div class="mobile-caption">Midnight Blues</div>
+            </div>
+            <div class="mobile-polaroid" style="transform: rotate(1deg);">
+                <div class="mobile-photo"></div>
+                <div class="mobile-caption">Coffee Shop Morning</div>
+            </div>
+            <div class="mobile-polaroid" style="transform: rotate(-0.5deg);">
+                <div class="mobile-photo"></div>
+                <div class="mobile-caption">Urban Legends</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add click interactions for polaroid cards
+        document.querySelectorAll('.polaroid-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Simulate camera shutter click
+                card.style.filter = 'brightness(1.2)';
+                setTimeout(() => {
+                    card.style.filter = 'brightness(1)';
+                }, 100);
+            });
+        });
+        
+        // Add vintage button interactions
+        document.querySelectorAll('.vintage-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.style.transform = 'translateY(1px)';
+                setTimeout(() => {
+                    btn.style.transform = 'translateY(-1px)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

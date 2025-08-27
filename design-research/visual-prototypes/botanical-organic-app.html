@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 23: Botanical Organic Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #8fbc8f 100%);
+            color: #2d4a2d;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .organic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(173, 255, 47, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(152, 251, 152, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(144, 238, 144, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: organicFlow 20s ease-in-out infinite;
+        }
+
+        @keyframes organicFlow {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(2deg); opacity: 0.6; }
+        }
+
+        .top-bar {
+            background: rgba(45, 90, 39, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 3px solid #8fbc8f;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(45, 90, 39, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #98fb98;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '🌿';
+            margin-left: 0.5rem;
+            animation: leafSway 4s ease-in-out infinite;
+        }
+
+        @keyframes leafSway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .search-bar {
+            background: rgba(143, 188, 143, 0.2);
+            border: 2px solid #8fbc8f;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            color: #2d4a2d;
+            font-size: 0.95rem;
+            width: 320px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #98fb98;
+            background: rgba(152, 251, 152, 0.2);
+            box-shadow: 0 0 0 3px rgba(152, 251, 152, 0.2);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(45, 74, 45, 0.6);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(143, 188, 143, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+        }
+
+        .profile-pic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #98fb98, #8fbc8f);
+            border: 2px solid rgba(152, 251, 152, 0.5);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            background: rgba(45, 90, 39, 0.8);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .sidebar h3 {
+            color: #98fb98;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .sidebar h3::before {
+            content: '🌱';
+            margin-right: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            margin: 0.75rem 0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            color: rgba(152, 251, 152, 0.8);
+            background: rgba(143, 188, 143, 0.1);
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(152, 251, 152, 0.2);
+            color: #98fb98;
+            transform: translateX(8px);
+            border-color: rgba(152, 251, 152, 0.3);
+        }
+
+        .nav-item.active {
+            background: rgba(152, 251, 152, 0.25);
+            color: #98fb98;
+            border-color: rgba(152, 251, 152, 0.5);
+            box-shadow: 0 5px 15px rgba(152, 251, 152, 0.2);
+        }
+
+        .track-section {
+            background: rgba(45, 90, 39, 0.6);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #98fb98;
+            letter-spacing: 1px;
+        }
+
+        .section-meta {
+            color: rgba(152, 251, 152, 0.7);
+            font-size: 0.9rem;
+            background: rgba(143, 188, 143, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .track-card {
+            background: rgba(74, 124, 89, 0.4);
+            border-radius: 25px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(143, 188, 143, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(152, 251, 152, 0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .track-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(152, 251, 152, 0.5);
+            box-shadow: 0 15px 40px rgba(45, 90, 39, 0.3);
+        }
+
+        .track-card:hover::before {
+            transform: rotate(45deg) scale(1.2);
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .track-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #f0fff0;
+            letter-spacing: 0.5px;
+        }
+
+        .track-status {
+            background: rgba(173, 255, 47, 0.3);
+            color: #2d4a2d;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(173, 255, 47, 0.5);
+        }
+
+        .track-status.complete {
+            background: rgba(144, 238, 144, 0.3);
+            border-color: rgba(144, 238, 144, 0.5);
+        }
+
+        .track-status.collab {
+            background: rgba(152, 251, 152, 0.3);
+            border-color: rgba(152, 251, 152, 0.5);
+        }
+
+        .track-artists {
+            color: rgba(240, 255, 240, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .track-waveform {
+            height: 80px;
+            background: rgba(45, 90, 39, 0.4);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(143, 188, 143, 0.2);
+        }
+
+        .organic-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            padding: 8px;
+        }
+
+        .wave-stem {
+            width: 4px;
+            background: linear-gradient(to top, #2d5a27, #8fbc8f, #98fb98);
+            border-radius: 2px 2px 8px 8px;
+            animation: organicGrow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .wave-stem::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -2px;
+            width: 8px;
+            height: 8px;
+            background: #98fb98;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .wave-stem:nth-child(odd) { animation-delay: -1s; }
+        .wave-stem:nth-child(even) { animation-delay: -2s; }
+
+        @keyframes organicGrow {
+            0%, 100% { height: 30%; transform: scaleY(1); }
+            50% { height: 85%; transform: scaleY(1.1); }
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #8fbc8f;
+            border-radius: 50%;
+            background: rgba(143, 188, 143, 0.2);
+            color: #98fb98;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .play-button:hover {
+            transform: scale(1.15);
+            background: rgba(152, 251, 152, 0.3);
+            box-shadow: 0 8px 25px rgba(143, 188, 143, 0.4);
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            color: #adff2f;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 3px rgba(173, 255, 47, 0.5));
+        }
+
+        .star:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 8px rgba(173, 255, 47, 0.8));
+        }
+
+        .rating-count {
+            color: rgba(152, 251, 152, 0.7);
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-btn {
+            background: rgba(143, 188, 143, 0.2);
+            border: 1px solid rgba(143, 188, 143, 0.4);
+            color: #98fb98;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .action-btn:hover {
+            background: rgba(152, 251, 152, 0.25);
+            border-color: rgba(152, 251, 152, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(143, 188, 143, 0.3);
+        }
+
+        .collaboration-panel {
+            background: rgba(45, 90, 39, 0.8);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .collaboration-panel h3 {
+            color: #98fb98;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .collaboration-panel h3::before {
+            content: '🌿';
+            margin-right: 0.5rem;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            background: rgba(74, 124, 89, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(143, 188, 143, 0.2);
+        }
+
+        .collaborator:hover {
+            background: rgba(152, 251, 152, 0.15);
+            transform: translateX(5px);
+            border-color: rgba(152, 251, 152, 0.4);
+        }
+
+        .collaborator-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #98fb98, #8fbc8f);
+            border: 2px solid rgba(152, 251, 152, 0.4);
+        }
+
+        .collaborator-name {
+            color: #f0fff0;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .collaborator-role {
+            color: rgba(152, 251, 152, 0.7);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .comment-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .comment {
+            background: rgba(74, 124, 89, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(143, 188, 143, 0.2);
+        }
+
+        .comment-author {
+            color: #98fb98;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            color: rgba(240, 255, 240, 0.9);
+            line-height: 1.5;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #8fbc8f;
+            border-radius: 50%;
+            background: rgba(45, 90, 39, 0.8);
+            color: #98fb98;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
+        }
+
+        .action-fab:hover {
+            transform: scale(1.1);
+            background: rgba(74, 124, 89, 0.8);
+            box-shadow: 0 12px 35px rgba(45, 90, 39, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .sidebar, .collaboration-panel {
+                order: 2;
+            }
+            
+            .track-section {
+                order: 1;
+            }
+            
+            .track-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="organic-background"></div>
+    
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CoreTet</div>
+            <input type="text" class="search-bar" placeholder="Search your musical garden...">
+            <div class="user-profile">
+                <span style="color: #98fb98; font-weight: 500;">Forest_Composer</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Your Garden</h3>
+                <div class="nav-item active">Growing Tracks</div>
+                <div class="nav-item">Shared Groves</div>
+                <div class="nav-item">Live Collaborations</div>
+                <div class="nav-item">Recent Blooms</div>
+                <div class="nav-item">Favorite Seeds</div>
+                
+                <h3 style="margin-top: 2rem;">Musical Flora</h3>
+                <div class="nav-item">Acoustic Folk</div>
+                <div class="nav-item">Nature Sounds</div>
+                <div class="nav-item">World Music</div>
+                <div class="nav-item">Ambient Forest</div>
+                <div class="nav-item">Organic Electronic</div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">Musical Garden</h2>
+                    <div class="section-meta">29 growing tracks • 16 collaborations blooming</div>
+                </div>
+
+                <div class="track-grid">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Morning Dew Sessions</div>
+                            <div class="track-status">Growing</div>
+                        </div>
+                        <div class="track-artists">with Nature_Sounds, Acoustic_Forest</div>
+                        
+                        <div class="track-waveform">
+                            <div class="organic-waves">
+                                <div class="wave-stem" style="height: 45%;"></div>
+                                <div class="wave-stem" style="height: 70%;"></div>
+                                <div class="wave-stem" style="height: 55%;"></div>
+                                <div class="wave-stem" style="height: 85%;"></div>
+                                <div class="wave-stem" style="height: 60%;"></div>
+                                <div class="wave-stem" style="height: 75%;"></div>
+                                <div class="wave-stem" style="height: 40%;"></div>
+                                <div class="wave-stem" style="height: 90%;"></div>
+                                <div class="wave-stem" style="height: 50%;"></div>
+                                <div class="wave-stem" style="height: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★☆</span>
+                                </div>
+                                <span class="rating-count">17 listeners</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">🗣️ Comment</button>
+                            <button class="action-btn">🎼 Arrange</button>
+                            <button class="action-btn">🌱 Share Seed</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Forest Canopy Dreams</div>
+                            <div class="track-status collab">Collaborating</div>
+                        </div>
+                        <div class="track-artists">with Woodland_Harp, Bird_Songs</div>
+                        
+                        <div class="track-waveform">
+                            <div class="organic-waves">
+                                <div class="wave-stem" style="height: 60%;"></div>
+                                <div class="wave-stem" style="height: 40%;"></div>
+                                <div class="wave-stem" style="height: 80%;"></div>
+                                <div class="wave-stem" style="height: 55%;"></div>
+                                <div class="wave-stem" style="height: 70%;"></div>
+                                <div class="wave-stem" style="height: 45%;"></div>
+                                <div class="wave-stem" style="height: 85%;"></div>
+                                <div class="wave-stem" style="height: 35%;"></div>
+                                <div class="wave-stem" style="height: 75%;"></div>
+                                <div class="wave-stem" style="height: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★★</span>
+                                </div>
+                                <span class="rating-count">23 listeners</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">🗣️ Comment</button>
+                            <button class="action-btn">🎼 Arrange</button>
+                            <button class="action-btn">🌱 Share Seed</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Mushroom Circle Melody</div>
+                            <div class="track-status complete">Bloomed</div>
+                        </div>
+                        <div class="track-artists">solo growth project</div>
+                        
+                        <div class="track-waveform">
+                            <div class="organic-waves">
+                                <div class="wave-stem" style="height: 70%;"></div>
+                                <div class="wave-stem" style="height: 50%;"></div>
+                                <div class="wave-stem" style="height: 90%;"></div>
+                                <div class="wave-stem" style="height: 60%;"></div>
+                                <div class="wave-stem" style="height: 80%;"></div>
+                                <div class="wave-stem" style="height: 45%;"></div>
+                                <div class="wave-stem" style="height: 75%;"></div>
+                                <div class="wave-stem" style="height: 55%;"></div>
+                                <div class="wave-stem" style="height: 85%;"></div>
+                                <div class="wave-stem" style="height: 40%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★☆☆</span>
+                                </div>
+                                <span class="rating-count">34 listeners</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">🗣️ Comment</button>
+                            <button class="action-btn">🎼 Arrange</button>
+                            <button class="action-btn">🌱 Share Seed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Garden Collaborators</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Nature Sounds</div>
+                        <div class="collaborator-role">Field Recordings • 5 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Acoustic Forest</div>
+                        <div class="collaborator-role">Guitar & Folk • 4 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Woodland Harp</div>
+                        <div class="collaborator-role">Celtic Harp • 3 tracks</div>
+                    </div>
+                </div>
+
+                <div class="comment-section">
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">Recent Growth Notes</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Nature Sounds</div>
+                        <div class="comment-text">"The robin's morning song at 1:23 creates such beautiful harmony with your guitar. Should we layer more dawn chorus?"</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Woodland Harp</div>
+                        <div class="comment-text">"Love how organic this feels! The Celtic scales complement the forest atmosphere perfectly 🌲"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Create Arrangement">🎛️</div>
+            <div class="action-fab" title="Share Seed">🌱</div>
+        </div>
+    </div>
+</body>
+</html>

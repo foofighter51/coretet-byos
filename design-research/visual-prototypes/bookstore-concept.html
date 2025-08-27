@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independent Bookstore Literary - CoreTet Concept</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Source+Serif+Pro:wght@300;400;600&family=Inter:wght@300;400;500&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --paper-cream: #F7F5F3;
+            --ink-black: #2C2419;
+            --leather-brown: #8B4513;
+            --sage-green: #87A96B;
+            --dusty-gold: #D4AF37;
+            --soft-gray: #E8E6E3;
+        }
+        
+        body {
+            font-family: 'Source Serif Pro', serif;
+            background: var(--paper-cream);
+            color: var(--ink-black);
+            line-height: 1.7;
+        }
+        
+        .back-nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 100;
+            background: var(--leather-brown);
+            color: var(--paper-cream);
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(44, 36, 25, 0.3);
+        }
+        
+        .bookstore-header {
+            background: var(--paper-cream);
+            padding: 4rem 2rem 2rem;
+            border-bottom: 3px solid var(--leather-brown);
+            text-align: center;
+            position: relative;
+        }
+        
+        .store-sign {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .store-tagline {
+            font-style: italic;
+            color: var(--leather-brown);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .shelving-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .shelf-section {
+            background: var(--soft-gray);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--leather-brown);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .shelf-section.active,
+        .shelf-section:hover {
+            background: var(--leather-brown);
+            color: var(--paper-cream);
+        }
+        
+        .main-floor {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-header {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-subtitle {
+            color: var(--leather-brown);
+            font-style: italic;
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .book-shelves {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .book-spine {
+            background: linear-gradient(to right, var(--paper-cream), #F0EDE8);
+            border: 1px solid var(--soft-gray);
+            border-left: 8px solid var(--dusty-gold);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .book-spine:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 15px rgba(44, 36, 25, 0.15);
+            border-left-color: var(--sage-green);
+        }
+        
+        .book-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .book-author {
+            font-style: italic;
+            color: var(--leather-brown);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--leather-brown);
+            opacity: 0.8;
+            border-top: 1px solid var(--soft-gray);
+            padding-top: 1rem;
+            margin-top: auto;
+        }
+        
+        .book-duration {
+            font-family: 'Inter', monospace;
+        }
+        
+        .read-btn {
+            background: var(--sage-green);
+            color: var(--paper-cream);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+        }
+        
+        .read-btn:hover {
+            background: var(--dusty-gold);
+        }
+        
+        .featured-collection {
+            background: var(--soft-gray);
+            border: 3px solid var(--leather-brown);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .collection-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 1rem;
+        }
+        
+        .collection-description {
+            font-size: 1.1rem;
+            color: var(--leather-brown);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        
+        .anthology-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .anthology-item {
+            background: var(--paper-cream);
+            border: 2px solid var(--dusty-gold);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .anthology-item:hover {
+            background: var(--dusty-gold);
+            color: var(--paper-cream);
+        }
+        
+        .anthology-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .anthology-count {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        .reading-nook {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--leather-brown);
+            color: var(--paper-cream);
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-width: 300px;
+            box-shadow: 0 8px 24px rgba(44, 36, 25, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .reading-nook.active {
+            opacity: 1;
+        }
+        
+        .now-reading {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .current-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .current-author {
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .reading-progress {
+            width: 100%;
+            height: 3px;
+            background: rgba(247, 245, 243, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--dusty-gold);
+            width: 35%;
+            transition: width 0.3s ease;
+        }
+        
+        .mobile-shelf {
+            position: fixed;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 500px;
+            background: var(--leather-brown);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: none;
+            box-shadow: 0 8px 24px rgba(44, 36, 25, 0.4);
+        }
+        
+        @media (min-width: 1400px) {
+            .mobile-shelf {
+                display: block;
+            }
+        }
+        
+        .shelf-header {
+            color: var(--paper-cream);
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--dusty-gold);
+        }
+        
+        .mobile-book {
+            background: var(--paper-cream);
+            border-left: 4px solid var(--sage-green);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .mobile-book-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink-black);
+            margin-bottom: 0.25rem;
+        }
+        
+        .mobile-book-author {
+            font-size: 0.8rem;
+            color: var(--leather-brown);
+            font-style: italic;
+        }
+        
+        .typewriter-search {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            background: var(--paper-cream);
+            border: 2px solid var(--leather-brown);
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', monospace;
+            font-size: 0.9rem;
+            width: 300px;
+            color: var(--ink-black);
+        }
+        
+        .typewriter-search:focus {
+            outline: none;
+            background: var(--soft-gray);
+        }
+        
+        .typewriter-search::placeholder {
+            color: var(--leather-brown);
+            opacity: 0.6;
+        }
+        
+        @media (max-width: 768px) {
+            .anthology-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .shelving-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .typewriter-search {
+                position: static;
+                width: 100%;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-nav">← Back to Street</a>
+    
+    <input type="text" class="typewriter-search" placeholder="Search the stacks...">
+    
+    <header class="bookstore-header">
+        <h1 class="store-sign">CoreTet & Co.</h1>
+        <p class="store-tagline">"Rare Musical Manuscripts & Collaborative Works"</p>
+        
+        <nav class="shelving-nav">
+            <div class="shelf-section active">Recent Arrivals</div>
+            <div class="shelf-section">Collaborations</div>
+            <div class="shelf-section">Poetry & Song</div>
+            <div class="shelf-section">Anthologies</div>
+            <div class="shelf-section">Staff Picks</div>
+        </nav>
+    </header>
+    
+    <main class="main-floor">
+        <section>
+            <h2 class="section-header">📚 Recent Acquisitions</h2>
+            <p class="section-subtitle">Fresh manuscripts from contemporary composers</p>
+            
+            <div class="book-shelves">
+                <div class="book-spine" onclick="readWork('Midnight Reflections', 'The Collective')">
+                    <div>
+                        <div class="book-title">Midnight Reflections</div>
+                        <div class="book-author">The Collective</div>
+                    </div>
+                    <div class="book-meta">
+                        <span>First Edition • 2024</span>
+                        <span class="book-duration">4:23</span>
+                        <button class="read-btn">Read</button>
+                    </div>
+                </div>
+                
+                <div class="book-spine" onclick="readWork('Urban Symphony', 'Solo Artist')">
+                    <div>
+                        <div class="book-title">Urban Symphony</div>
+                        <div class="book-author">Solo Artist</div>
+                    </div>
+                    <div class="book-meta">
+                        <span>Limited Edition • 2024</span>
+                        <span class="book-duration">5:17</span>
+                        <button class="read-btn">Read</button>
+                    </div>
+                </div>
+                
+                <div class="book-spine">
+                    <div>
+                        <div class="book-title">Analog Dreams</div>
+                        <div class="book-author">Studio Session</div>
+                    </div>
+                    <div class="book-meta">
+                        <span>Manuscript • 2024</span>
+                        <span class="book-duration">3:45</span>
+                        <button class="read-btn">Read</button>
+                    </div>
+                </div>
+                
+                <div class="book-spine">
+                    <div>
+                        <div class="book-title">Electric Dreams</div>
+                        <div class="book-author">Band Name</div>
+                    </div>
+                    <div class="book-meta">
+                        <span>Signed Copy • 2024</span>
+                        <span class="book-duration">6:01</span>
+                        <button class="read-btn">Read</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="featured-collection">
+            <h2 class="collection-title">Curated Anthology</h2>
+            <p class="collection-description">
+                "Voices in Harmony" - A carefully selected collection exploring the intersection 
+                of individual expression and collaborative creation in contemporary music.
+            </p>
+            
+            <div class="anthology-grid">
+                <div class="anthology-item">
+                    <div class="anthology-title">Late Night Sessions</div>
+                    <div class="anthology-count">12 works</div>
+                </div>
+                <div class="anthology-item">
+                    <div class="anthology-title">Creative Process</div>
+                    <div class="anthology-count">8 works</div>
+                </div>
+                <div class="anthology-item">
+                    <div class="anthology-title">Experimental Forms</div>
+                    <div class="anthology-count">15 works</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div class="reading-nook" id="player">
+        <div class="now-reading">Now Reading</div>
+        <div class="current-title" id="current-title">Select a work to begin</div>
+        <div class="current-author" id="current-author">Browse our collection above</div>
+        <div class="reading-progress">
+            <div class="progress-bar"></div>
+        </div>
+        <div style="font-family: 'Inter', monospace; font-size: 0.8rem; opacity: 0.7;">
+            <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+        </div>
+    </div>
+    
+    <div class="mobile-shelf">
+        <div class="shelf-header">Pocket Library</div>
+        <div class="mobile-book">
+            <div class="mobile-book-title">Midnight Reflections</div>
+            <div class="mobile-book-author">The Collective</div>
+        </div>
+        <div class="mobile-book" style="border-left-color: var(--dusty-gold);">
+            <div class="mobile-book-title">Urban Symphony</div>
+            <div class="mobile-book-author">Solo Artist</div>
+        </div>
+        <div class="mobile-book" style="border-left-color: var(--leather-brown);">
+            <div class="mobile-book-title">Analog Dreams</div>
+            <div class="mobile-book-author">Studio Session</div>
+        </div>
+    </div>
+    
+    <script>
+        function readWork(title, author) {
+            const player = document.getElementById('player');
+            const currentTitle = document.getElementById('current-title');
+            const currentArtist = document.getElementById('current-artist');
+            const currentTime = document.getElementById('current-time');
+            const totalTime = document.getElementById('total-time');
+            
+            currentTitle.textContent = title;
+            currentArtist.textContent = author;
+            currentTime.textContent = '0:00';
+            totalTime.textContent = '4:23'; // Could be dynamic
+            
+            player.classList.add('active');
+            
+            // Simulate reading progress
+            let progress = 0;
+            const progressBar = document.querySelector('.progress-bar');
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+        
+        // Shelf section navigation
+        document.querySelectorAll('.shelf-section').forEach(section => {
+            section.addEventListener('click', () => {
+                document.querySelectorAll('.shelf-section').forEach(s => s.classList.remove('active'));
+                section.classList.add('active');
+            });
+        });
+        
+        // Search functionality
+        document.querySelector('.typewriter-search').addEventListener('input', (e) => {
+            // Simulate typewriter sound/effect
+            if (e.target.value) {
+                e.target.style.fontFamily = "'Inter', monospace";
+            }
+        });
+        
+        // Book spine interactions
+        document.querySelectorAll('.book-spine').forEach(spine => {
+            spine.addEventListener('mouseenter', () => {
+                spine.style.borderLeftColor = 'var(--sage-green)';
+            });
+            spine.addEventListener('mouseleave', () => {
+                spine.style.borderLeftColor = 'var(--dusty-gold)';
+            });
+        });
+    </script>
+</body>
+</html>

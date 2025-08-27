@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 17: Pastel Minimalist Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #fef7f0 0%, #f0f2f5 100%);
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .top-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ff6b9d;
+            letter-spacing: -0.5px;
+        }
+
+        .search-bar {
+            background: rgba(255, 182, 193, 0.1);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            color: #4a5568;
+            font-size: 0.95rem;
+            width: 350px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #ff6b9d;
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(74, 85, 104, 0.5);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.2);
+        }
+
+        .sidebar h3 {
+            color: #ff6b9d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            margin: 0.5rem 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #718096;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 107, 157, 0.1);
+            color: #ff6b9d;
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        .track-section {
+            padding: 1rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #2d3748;
+            letter-spacing: -0.5px;
+        }
+
+        .section-meta {
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .track-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.08);
+            border: 1px solid rgba(255, 182, 193, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .track-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.15);
+            border-color: rgba(255, 107, 157, 0.3);
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .track-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            letter-spacing: -0.3px;
+        }
+
+        .track-status {
+            background: rgba(255, 107, 157, 0.15);
+            color: #ff6b9d;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .track-status.complete {
+            background: rgba(72, 187, 120, 0.15);
+            color: #48bb78;
+        }
+
+        .track-status.collab {
+            background: rgba(255, 211, 61, 0.15);
+            color: #ffd93d;
+        }
+
+        .track-artists {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track-waveform {
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(255, 211, 61, 0.1));
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .waveform-bars {
+            display: flex;
+            align-items: end;
+            height: 100%;
+            padding: 10px;
+            gap: 3px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #ff6b9d, #ffd93d);
+            border-radius: 2px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .track-card:hover .bar {
+            opacity: 1;
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ffd93d;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .rating-count {
+            color: #a0aec0;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            color: #ff6b9d;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 107, 157, 0.1);
+            border-color: #ff6b9d;
+        }
+
+        .collaboration-panel {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.2);
+        }
+
+        .collaboration-panel h3 {
+            color: #ff6b9d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 182, 193, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .collaborator:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .collaborator-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+        }
+
+        .collaborator-name {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .collaborator-role {
+            color: #a0aec0;
+            font-size: 0.85rem;
+        }
+
+        .comment-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 182, 193, 0.2);
+        }
+
+        .comment {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 182, 193, 0.1);
+        }
+
+        .comment-author {
+            color: #ff6b9d;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #ffd93d);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .action-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .sidebar, .collaboration-panel {
+                order: 2;
+            }
+            
+            .track-section {
+                order: 1;
+            }
+            
+            .track-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CoreTet</div>
+            <input type="text" class="search-bar" placeholder="Search your WIP tracks and collaborations...">
+            <div class="user-profile">
+                <span style="color: #718096; font-weight: 500;">Sarah Chen</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Your Music</h3>
+                <div class="nav-item active">Work in Progress</div>
+                <div class="nav-item">Shared Playlists</div>
+                <div class="nav-item">Active Collaborations</div>
+                <div class="nav-item">Recently Rated</div>
+                <div class="nav-item">Favorites</div>
+                
+                <h3 style="margin-top: 2rem;">Browse</h3>
+                <div class="nav-item">Pop & Indie</div>
+                <div class="nav-item">Electronic</div>
+                <div class="nav-item">Jazz & Soul</div>
+                <div class="nav-item">Rock & Alternative</div>
+                <div class="nav-item">Experimental</div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">Your WIP Tracks</h2>
+                    <div class="section-meta">32 tracks • 18 active collaborations</div>
+                </div>
+
+                <div class="track-grid">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Sunset Boulevard</div>
+                            <div class="track-status">In Progress</div>
+                        </div>
+                        <div class="track-artists">with Marcus Rivera, Elena Torres</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                                <div class="bar" style="height: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★☆</span>
+                                </div>
+                                <span class="rating-count">14 ratings</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">💬 Comment</button>
+                            <button class="action-btn">🎛️ Arrange</button>
+                            <button class="action-btn">📤 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Ocean Waves (Remix)</div>
+                            <div class="track-status collab">Collaborating</div>
+                        </div>
+                        <div class="track-artists">with DJ Luna, Vocal Katie</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 35%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★★</span>
+                                </div>
+                                <span class="rating-count">9 ratings</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">💬 Comment</button>
+                            <button class="action-btn">🎛️ Arrange</button>
+                            <button class="action-btn">📤 Share</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Midnight Jazz Session</div>
+                            <div class="track-status complete">Complete</div>
+                        </div>
+                        <div class="track-artists">solo project</div>
+                        
+                        <div class="track-waveform">
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★☆☆</span>
+                                </div>
+                                <span class="rating-count">27 ratings</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">💬 Comment</button>
+                            <button class="action-btn">🎛️ Arrange</button>
+                            <button class="action-btn">📤 Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Active Collaborators</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Marcus Rivera</div>
+                        <div class="collaborator-role">Guitar & Production • 4 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Elena Torres</div>
+                        <div class="collaborator-role">Vocals & Harmony • 3 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">DJ Luna</div>
+                        <div class="collaborator-role">Electronic & Remix • 2 tracks</div>
+                    </div>
+                </div>
+
+                <div class="comment-section">
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">Recent Activity</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Marcus Rivera</div>
+                        <div class="comment-text">"Love the new bridge section! The guitar harmonics really complement your piano."</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Elena Torres</div>
+                        <div class="comment-text">"Can we try a different vocal melody for the chorus? I have some ideas..."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Create Arrangement">🎛️</div>
+            <div class="action-fab" title="Share Playlist">📤</div>
+        </div>
+    </div>
+</body>
+</html>

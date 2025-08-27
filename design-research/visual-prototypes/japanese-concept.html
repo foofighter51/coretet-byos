@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Organizational Minimalism - CoreTet Concept</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=Inter:wght@300;400;500&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --natural-white: #FDFDF8;
+            --warm-gray: #F6F6F2;
+            --soft-charcoal: #3A3A3C;
+            --sage-green: #A8B5A0;
+            --true-black: #1A1A1A;
+            --light-beige: #F0F0EC;
+            --spacing: 8px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: var(--natural-white);
+            color: var(--true-black);
+            line-height: 1.6;
+        }
+        
+        .back-nav {
+            position: fixed;
+            top: calc(var(--spacing) * 3);
+            left: calc(var(--spacing) * 3);
+            z-index: 100;
+            background: var(--sage-green);
+            color: var(--natural-white);
+            padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 3);
+            border: none;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .back-nav:hover {
+            background: var(--soft-charcoal);
+        }
+        
+        .header {
+            background: var(--natural-white);
+            padding: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 4) 0;
+            border-bottom: 1px solid var(--warm-gray);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing) * 4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--true-black);
+            letter-spacing: -0.02em;
+        }
+        
+        .search-container {
+            flex: 0 1 400px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+            border: 1px solid var(--warm-gray);
+            background: var(--light-beige);
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--true-black);
+            border-radius: 0;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--sage-green);
+            background: var(--natural-white);
+        }
+        
+        .search-input::placeholder {
+            color: var(--soft-charcoal);
+            opacity: 0.6;
+        }
+        
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--warm-gray);
+        }
+        
+        .toggle-btn {
+            background: var(--light-beige);
+            border: none;
+            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--soft-charcoal);
+        }
+        
+        .toggle-btn.active {
+            background: var(--sage-green);
+            color: var(--natural-white);
+        }
+        
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: calc(var(--spacing) * 4);
+        }
+        
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: calc(var(--spacing) * 3);
+        }
+        
+        .category-column {
+            background: var(--warm-gray);
+            border: 1px solid rgba(58, 58, 60, 0.1);
+            min-height: 600px;
+        }
+        
+        .column-header {
+            background: var(--natural-white);
+            padding: calc(var(--spacing) * 3);
+            border-bottom: 1px solid rgba(58, 58, 60, 0.1);
+        }
+        
+        .column-title {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--true-black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: calc(var(--spacing) * 0.5);
+        }
+        
+        .track-count {
+            font-size: 0.8rem;
+            color: var(--soft-charcoal);
+            opacity: 0.7;
+        }
+        
+        .tracks-container {
+            padding: calc(var(--spacing) * 2);
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing) * 2);
+        }
+        
+        .track-card {
+            background: var(--natural-white);
+            border: 1px solid rgba(58, 58, 60, 0.08);
+            padding: calc(var(--spacing) * 3);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .track-card:hover {
+            box-shadow: 0 2px 12px rgba(58, 58, 60, 0.1);
+            border-color: var(--sage-green);
+            transform: translateY(-1px);
+        }
+        
+        .track-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+        
+        .track-status {
+            width: calc(var(--spacing) * 2);
+            height: calc(var(--spacing) * 2);
+            border-radius: 50%;
+            background: var(--sage-green);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        
+        .track-info {
+            flex: 1;
+            margin-left: calc(var(--spacing) * 2);
+        }
+        
+        .track-name {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--true-black);
+            margin-bottom: calc(var(--spacing) * 0.5);
+            line-height: 1.4;
+        }
+        
+        .track-artist {
+            font-size: 0.85rem;
+            color: var(--soft-charcoal);
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        .track-duration {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--soft-charcoal);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        
+        .track-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: calc(var(--spacing) * 2);
+            border-top: 1px solid var(--warm-gray);
+        }
+        
+        .play-btn {
+            background: none;
+            border: 1px solid var(--sage-green);
+            color: var(--sage-green);
+            width: calc(var(--spacing) * 5);
+            height: calc(var(--spacing) * 5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+        }
+        
+        .play-btn:hover {
+            background: var(--sage-green);
+            color: var(--natural-white);
+        }
+        
+        .add-btn {
+            background: none;
+            border: none;
+            color: var(--soft-charcoal);
+            cursor: pointer;
+            font-size: 1.2rem;
+            opacity: 0.6;
+            transition: all 0.2s ease;
+            width: calc(var(--spacing) * 4);
+            height: calc(var(--spacing) * 4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-btn:hover {
+            opacity: 1;
+            color: var(--sage-green);
+        }
+        
+        .empty-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: var(--soft-charcoal);
+            opacity: 0.5;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 300;
+        }
+        
+        .floating-player {
+            position: fixed;
+            bottom: calc(var(--spacing) * 3);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(253, 253, 248, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--warm-gray);
+            padding: calc(var(--spacing) * 3);
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 3);
+            min-width: 400px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-player.active {
+            opacity: 1;
+        }
+        
+        .now-playing-info {
+            flex: 1;
+        }
+        
+        .now-playing-title {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--true-black);
+            margin-bottom: calc(var(--spacing) * 0.5);
+        }
+        
+        .now-playing-artist {
+            font-size: 0.85rem;
+            color: var(--soft-charcoal);
+            opacity: 0.8;
+        }
+        
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 2);
+        }
+        
+        .control-btn {
+            background: none;
+            border: 1px solid var(--sage-green);
+            color: var(--sage-green);
+            width: calc(var(--spacing) * 6);
+            height: calc(var(--spacing) * 6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .control-btn:hover {
+            background: var(--sage-green);
+            color: var(--natural-white);
+        }
+        
+        .mobile-preview {
+            position: fixed;
+            top: 50%;
+            right: calc(var(--spacing) * 3);
+            transform: translateY(-50%);
+            width: 320px;
+            height: 640px;
+            background: var(--soft-charcoal);
+            border-radius: 25px;
+            padding: calc(var(--spacing) * 2);
+            display: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        @media (min-width: 1600px) {
+            .mobile-preview {
+                display: block;
+            }
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--natural-white);
+            border-radius: 20px;
+            padding: calc(var(--spacing) * 3);
+            overflow: hidden;
+        }
+        
+        .mobile-header {
+            text-align: center;
+            padding: calc(var(--spacing) * 2) 0;
+            border-bottom: 1px solid var(--warm-gray);
+            margin-bottom: calc(var(--spacing) * 3);
+        }
+        
+        .mobile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--warm-gray);
+            margin-bottom: calc(var(--spacing) * 3);
+        }
+        
+        .mobile-tab {
+            flex: 1;
+            text-align: center;
+            padding: calc(var(--spacing) * 2);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--soft-charcoal);
+            border-bottom: 2px solid transparent;
+        }
+        
+        .mobile-tab.active {
+            color: var(--sage-green);
+            border-bottom-color: var(--sage-green);
+        }
+        
+        .mobile-track {
+            display: flex;
+            align-items: center;
+            padding: calc(var(--spacing) * 2) 0;
+            border-bottom: 1px solid var(--warm-gray);
+        }
+        
+        .mobile-track:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-track-status {
+            width: calc(var(--spacing) * 1.5);
+            height: calc(var(--spacing) * 1.5);
+            border-radius: 50%;
+            background: var(--sage-green);
+            margin-right: calc(var(--spacing) * 2);
+        }
+        
+        .mobile-track-info {
+            flex: 1;
+        }
+        
+        .mobile-track-name {
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: calc(var(--spacing) * 0.5);
+        }
+        
+        .mobile-track-artist {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 1200px) {
+            .kanban-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: calc(var(--spacing) * 3);
+            }
+            
+            .search-container {
+                order: 1;
+                max-width: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-nav">← Back</a>
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">CoreTet</div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search tracks, artists, or collaborators">
+            </div>
+            <div class="view-toggle">
+                <button class="toggle-btn active">Organize</button>
+                <button class="toggle-btn">List</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="kanban-board">
+            <div class="category-column">
+                <div class="column-header">
+                    <div class="column-title">Recent</div>
+                    <div class="track-count">4 tracks</div>
+                </div>
+                <div class="tracks-container">
+                    <div class="track-card" onclick="playTrack('Midnight Reflections', 'The Collective')">
+                        <div class="track-header">
+                            <div class="track-status"></div>
+                            <div class="track-info">
+                                <div class="track-name">Midnight Reflections</div>
+                                <div class="track-artist">The Collective</div>
+                            </div>
+                            <div class="track-duration">4:23</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="play-btn" onclick="event.stopPropagation(); playTrack('Midnight Reflections', 'The Collective')">▶</button>
+                            <button class="add-btn">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="track-card" onclick="playTrack('Urban Symphony', 'Solo Artist')">
+                        <div class="track-header">
+                            <div class="track-status"></div>
+                            <div class="track-info">
+                                <div class="track-name">Urban Symphony</div>
+                                <div class="track-artist">Solo Artist</div>
+                            </div>
+                            <div class="track-duration">5:17</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="play-btn" onclick="event.stopPropagation(); playTrack('Urban Symphony', 'Solo Artist')">▶</button>
+                            <button class="add-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-column">
+                <div class="column-header">
+                    <div class="column-title">Collaborations</div>
+                    <div class="track-count">3 tracks</div>
+                </div>
+                <div class="tracks-container">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-status"></div>
+                            <div class="track-info">
+                                <div class="track-name">Electric Dreams</div>
+                                <div class="track-artist">Studio Session</div>
+                            </div>
+                            <div class="track-duration">6:01</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="play-btn">▶</button>
+                            <button class="add-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-column">
+                <div class="column-header">
+                    <div class="column-title">Favorites</div>
+                    <div class="track-count">2 tracks</div>
+                </div>
+                <div class="tracks-container">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-status"></div>
+                            <div class="track-info">
+                                <div class="track-name">Analog Soul</div>
+                                <div class="track-artist">Live Recording</div>
+                            </div>
+                            <div class="track-duration">4:56</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="play-btn">▶</button>
+                            <button class="add-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-column">
+                <div class="column-header">
+                    <div class="column-title">To Review</div>
+                    <div class="track-count">0 tracks</div>
+                </div>
+                <div class="tracks-container">
+                    <div class="empty-state">
+                        No tracks to review
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="floating-player" id="player">
+        <div class="now-playing-info">
+            <div class="now-playing-title" id="current-title">Track Title</div>
+            <div class="now-playing-artist" id="current-artist">Artist Name</div>
+        </div>
+        <div class="player-controls">
+            <button class="control-btn">⏸</button>
+        </div>
+    </div>
+    
+    <div class="mobile-preview">
+        <div class="mobile-screen">
+            <div class="mobile-header">
+                <div style="font-weight: 400;">CoreTet</div>
+            </div>
+            <div class="mobile-tabs">
+                <div class="mobile-tab active">Recent</div>
+                <div class="mobile-tab">Collab</div>
+                <div class="mobile-tab">Faves</div>
+            </div>
+            <div class="mobile-track">
+                <div class="mobile-track-status"></div>
+                <div class="mobile-track-info">
+                    <div class="mobile-track-name">Midnight Reflections</div>
+                    <div class="mobile-track-artist">The Collective</div>
+                </div>
+            </div>
+            <div class="mobile-track">
+                <div class="mobile-track-status"></div>
+                <div class="mobile-track-info">
+                    <div class="mobile-track-name">Urban Symphony</div>
+                    <div class="mobile-track-artist">Solo Artist</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function playTrack(title, artist) {
+            const player = document.getElementById('player');
+            const currentTitle = document.getElementById('current-title');
+            const currentArtist = document.getElementById('current-artist');
+            
+            currentTitle.textContent = title;
+            currentArtist.textContent = artist;
+            
+            player.classList.add('active');
+        }
+        
+        // View toggle functionality
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        // Mobile tabs
+        document.querySelectorAll('.mobile-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', (e) => {
+            // Placeholder for search functionality
+            console.log('Searching for:', e.target.value);
+        });
+    </script>
+</body>
+</html>

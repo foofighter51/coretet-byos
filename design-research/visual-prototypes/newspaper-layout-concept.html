@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 14: Newspaper Layout - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            background: #f8f8f8;
+            color: #2c2c2c;
+            line-height: 1.5;
+        }
+
+        .newspaper-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        .masthead {
+            border-bottom: 3px solid #2c2c2c;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(to bottom, #fff, #f8f8f8);
+        }
+
+        .masthead h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .date-info {
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 0.5rem 0;
+            margin-top: 1rem;
+        }
+
+        .newspaper-grid {
+            display: grid;
+            grid-template-columns: 1fr 2px 2fr 2px 1fr;
+            gap: 0;
+            padding: 2rem;
+        }
+
+        .column-divider {
+            background: #ddd;
+            width: 2px;
+        }
+
+        .column {
+            padding: 0 1rem;
+        }
+
+        .headline {
+            font-size: 1.8rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #2c2c2c;
+            padding-bottom: 0.5rem;
+        }
+
+        .subheadline {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1.5rem 0 0.5rem 0;
+            color: #444;
+        }
+
+        .track-article {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .track-headline {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c2c2c;
+        }
+
+        .track-byline {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .track-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .rating-stars {
+            display: inline-flex;
+            gap: 2px;
+            margin: 0.5rem 0;
+        }
+
+        .star {
+            color: #d4af37;
+            font-size: 1rem;
+        }
+
+        .comment-section {
+            border-top: 1px solid #ddd;
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        .comment {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid #ccc;
+            font-style: italic;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #2c2c2c;
+        }
+
+        .advertisement {
+            border: 2px solid #2c2c2c;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+            background: #f0f0f0;
+        }
+
+        .classified-section {
+            border-top: 2px solid #2c2c2c;
+            padding: 1rem;
+            font-size: 0.8rem;
+            background: #f8f8f8;
+        }
+
+        .classified-ad {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border: 1px dotted #999;
+        }
+
+        .mobile-view {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .newspaper-grid {
+                display: block;
+            }
+            
+            .column-divider {
+                display: none;
+            }
+            
+            .column {
+                padding: 1rem 0;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .masthead h1 {
+                font-size: 2rem;
+            }
+            
+            .mobile-view {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #2c2c2c;
+                color: white;
+                padding: 1rem;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+        }
+
+        .breaking-news {
+            background: #2c2c2c;
+            color: white;
+            padding: 0.5rem 2rem;
+            text-align: center;
+            font-weight: bold;
+            animation: flash 2s infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-container">
+        <div class="breaking-news">
+            🔴 BREAKING: New collaborative track "Ocean Waves" reaches #1 trending
+        </div>
+        
+        <div class="masthead">
+            <h1>The CoreTet Times</h1>
+            <div class="date-info">
+                Tuesday, December 10, 2024 • Vol. 1, No. 847 • Your Daily Music Collaboration News
+            </div>
+        </div>
+
+        <div class="newspaper-grid">
+            <div class="column">
+                <div class="headline">Featured Collaborations</div>
+                
+                <div class="track-article">
+                    <div class="track-headline">"Midnight Jazz Fusion"</div>
+                    <div class="track-byline">By Sarah Chen, Marcus Rivera, Elena Torres • 2 hours ago</div>
+                    <div class="rating-stars">
+                        <span class="star">★★★★★</span>
+                    </div>
+                    <div class="track-content">
+                        This groundbreaking fusion piece began as Sarah's late-night piano sketch and evolved through Marcus's horn arrangements and Elena's percussion mastery. The 4-minute journey showcases what happens when three distinct musical voices find perfect harmony.
+                    </div>
+                    <div class="comment-section">
+                        <div class="comment">
+                            <span class="comment-author">JazzLover2024:</span> "The saxophone solo at 2:30 gave me chills!"
+                        </div>
+                        <div class="comment">
+                            <span class="comment-author">BeatMaker:</span> "How did you get that snare sound so crisp?"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track-article">
+                    <div class="track-headline">"Acoustic Dreams"</div>
+                    <div class="track-byline">By David Kim, Ana Sousa • 4 hours ago</div>
+                    <div class="rating-stars">
+                        <span class="star">★★★★☆</span>
+                    </div>
+                    <div class="track-content">
+                        An intimate duet that captures the essence of late summer evenings. David's fingerpicking guitar provides the foundation for Ana's haunting vocals.
+                    </div>
+                </div>
+
+                <div class="advertisement">
+                    <strong>COLLABORATION WANTED</strong><br>
+                    Seeking vocalist for indie-folk project<br>
+                    Contact: @FolkSeeker
+                </div>
+            </div>
+
+            <div class="column-divider"></div>
+
+            <div class="column">
+                <div class="headline">Community Spotlight</div>
+                
+                <div class="track-article">
+                    <div class="track-headline">"Global Rhythms Project"</div>
+                    <div class="track-byline">Featuring 12 artists across 8 countries • Updated continuously</div>
+                    <div class="rating-stars">
+                        <span class="star">★★★★★</span>
+                    </div>
+                    <div class="track-content">
+                        This week-long collaborative experiment brings together traditional instruments from around the world. Each day, a new artist from a different country adds their cultural flavor to the evolving composition.
+                        
+                        <br><br><strong>Latest Addition:</strong> Today, Kenji from Tokyo added shakuhachi flute, creating an ethereal bridge between yesterday's African drums and the foundational Celtic harp.
+                    </div>
+                    <div class="comment-section">
+                        <div class="comment">
+                            <span class="comment-author">WorldMusicFan:</span> "This is exactly why I love CoreTet - where else could this happen?"
+                        </div>
+                        <div class="comment">
+                            <span class="comment-author">Kenji_Flute:</span> "Honored to contribute to this beautiful project 🙏"
+                        </div>
+                        <div class="comment">
+                            <span class="comment-author">Producer_Max:</span> "The mixing on this is incredible. Each instrument has space to breathe."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subheadline">Mobile Collaboration Corner</div>
+                <div class="track-content">
+                    <strong>📱 This Week's Mobile Features:</strong><br>
+                    • Quick-rate tracks with star gestures<br>
+                    • Voice comments now support 30 languages<br>
+                    • New arrangement tools for mobile creators<br>
+                    • Swipe-to-discover trending collaborations
+                </div>
+            </div>
+
+            <div class="column-divider"></div>
+
+            <div class="column">
+                <div class="headline">Weekly Charts</div>
+                
+                <div class="subheadline">Most Rated</div>
+                <div style="font-size: 0.9rem;">
+                    1. "Ocean Waves" - 2,847 ratings<br>
+                    2. "City Lights" - 1,923 ratings<br>
+                    3. "Forest Path" - 1,654 ratings<br>
+                    4. "Digital Love" - 1,432 ratings<br>
+                    5. "Sunset Drive" - 1,201 ratings
+                </div>
+
+                <div class="subheadline">Most Commented</div>
+                <div style="font-size: 0.9rem;">
+                    1. "Experimental Jazz #4" - 156 comments<br>
+                    2. "Bedroom Pop Vibes" - 134 comments<br>
+                    3. "Hip-Hop Fusion" - 127 comments<br>
+                    4. "Ambient Space" - 98 comments<br>
+                    5. "Indie Rock Collab" - 87 comments
+                </div>
+
+                <div class="classified-section">
+                    <div class="subheadline">Collaboration Classifieds</div>
+                    
+                    <div class="classified-ad">
+                        <strong>SEEKING DRUMMER</strong> for progressive rock project. Must have mobile recording setup. Contact @ProgRockDreamer
+                    </div>
+                    
+                    <div class="classified-ad">
+                        <strong>VOCALIST AVAILABLE</strong> for hire. Specializing in jazz and soul. Portfolio: @VelvetVoice2024
+                    </div>
+                    
+                    <div class="classified-ad">
+                        <strong>REMIX WANTED</strong> for "Summer Nights" track. Electronic producers preferred. Profit sharing available.
+                    </div>
+                    
+                    <div class="classified-ad">
+                        <strong>MOBILE BAND FORMING</strong> for virtual tour. All instruments welcome. Weekly jam sessions via app.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-view">
+            📱 Tap any track to rate • Swipe comments to reply • Hold to start collaboration
+        </div>
+    </div>
+
+    <script>
+        // Simulate newspaper interactions
+        document.querySelectorAll('.track-article').forEach(article => {
+            article.addEventListener('click', () => {
+                article.style.backgroundColor = '#f0f8ff';
+                setTimeout(() => {
+                    article.style.backgroundColor = '#fafafa';
+                }, 1000);
+            });
+        });
+
+        // Mobile gestures simulation
+        if (window.innerWidth <= 768) {
+            let startY = 0;
+            document.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchend', (e) => {
+                const endY = e.changedTouches[0].clientY;
+                const diff = startY - endY;
+                
+                if (Math.abs(diff) > 50) {
+                    const articles = document.querySelectorAll('.track-article');
+                    articles.forEach(article => {
+                        article.style.transform = `translateY(${diff > 0 ? -10 : 10}px)`;
+                        setTimeout(() => {
+                            article.style.transform = 'translateY(0)';
+                        }, 200);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
