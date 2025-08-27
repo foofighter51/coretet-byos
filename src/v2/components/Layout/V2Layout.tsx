@@ -93,6 +93,12 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
               >
                 Playlists
               </button>
+              <button
+                onClick={() => window.open('/design-research/visual-prototypes/index.html', '_blank')}
+                className="text-silver/60 hover:text-silver transition-colors font-quicksand text-xs sm:text-sm"
+              >
+                Design Research
+              </button>
             </div>
           </nav>
         </div>
