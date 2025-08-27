@@ -83,6 +83,16 @@ export function V2Layout({ children, title, subtitle, showSecondaryToolbar = fal
               >
                 Tracks
               </button>
+              <button
+                onClick={() => navigate('/playlists')}
+                className={`transition-colors font-quicksand text-xs sm:text-sm ${
+                  isCurrentPage('/playlists') 
+                    ? 'text-accent-yellow' 
+                    : 'text-silver/60 hover:text-silver'
+                }`}
+              >
+                Playlists
+              </button>
             </div>
           </nav>
         </div>

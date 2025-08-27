@@ -11,6 +11,7 @@ import ProjectList from '../components/Projects/ProjectList';
 import { WorksListV2 } from '../pages/WorksListV2';
 import { WorkDetailV2 } from '../pages/WorkDetailV2';
 import { AdminDashboard } from '../pages/AdminDashboard';
+import { PlaylistsPageV2 } from '../pages/PlaylistsPageV2';
 
 // For now, import V1 components as placeholders for other routes
 import MainApp from '../../components/MainApp';
@@ -27,6 +28,7 @@ export function V2Routes() {
       {/* V2 Routes - Songwriter focus */}
       <Route path="/" element={<SongwriterDashboard />} />
       <Route path="/tracks" element={<WorksListV2 />} />
+      <Route path="/playlists" element={<PlaylistsPageV2 />} />
       <Route path="/work/:workId" element={<WorkDetailV2 />} />
       <Route path="/library" element={<AudioLibraryPlaceholder />} />
       <Route path="/recent" element={<RecentActivityPlaceholder />} />
