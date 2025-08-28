@@ -29,6 +29,7 @@ export function V2Routes() {
       <Route path="/" element={<SongwriterDashboard />} />
       <Route path="/tracks" element={<WorksListV2 />} />
       <Route path="/playlists" element={<PlaylistsPageV2 />} />
+      <Route path="/design-research" element={<DesignResearchGallery />} />
       <Route path="/work/:workId" element={<WorkDetailV2 />} />
       <Route path="/library" element={<AudioLibraryPlaceholder />} />
       <Route path="/recent" element={<RecentActivityPlaceholder />} />
@@ -109,6 +110,23 @@ function CollaborationsPlaceholder() {
         <p className="font-quicksand text-silver/60 text-lg">
           Collaborative works will appear here when you start working with others.
         </p>
+      </div>
+    </V2Layout>
+  );
+}
+
+function DesignResearchGallery() {
+  return (
+    <V2Layout 
+      title="Design Research" 
+      subtitle="UI/UX prototype gallery for CoreTet visual directions"
+    >
+      <div className="h-[calc(100vh-300px)]">
+        <iframe
+          src="/design-research/visual-prototypes/index.html"
+          className="w-full h-full border-0 rounded-lg"
+          title="Design Research Gallery"
+        />
       </div>
     </V2Layout>
   );
