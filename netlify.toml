@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm ci --prefer-offline --no-audit --no-fund && npm run build"
   publish = "dist"
 
 [[redirects]]
@@ -9,3 +9,5 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  NPM_CONFIG_CACHE = "/opt/build/cache/npm"
+  CI = "true"
