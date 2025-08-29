@@ -26,11 +26,12 @@ self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip caching for API requests
+  // Skip caching for API requests and design research
   if (url.pathname.includes('/rest/') || 
       url.pathname.includes('/auth/') ||
       url.pathname.includes('/storage/') ||
       url.pathname.includes('/functions/') ||
+      url.pathname.includes('/design-research/') ||
       url.hostname.includes('supabase')) {
     event.respondWith(fetch(request));
     return;
