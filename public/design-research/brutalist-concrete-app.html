@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 20: Brutalist Concrete Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial Black', 'Helvetica', sans-serif;
+            background: #2e2e2e;
+            color: #f0f0f0;
+            line-height: 1.4;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #2e2e2e;
+        }
+
+        .top-bar {
+            background: #1a1a1a;
+            border-bottom: 4px solid #404040;
+            padding: 1rem 2rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #f0f0f0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .search-bar {
+            background: #404040;
+            border: none;
+            border-radius: 0;
+            padding: 1rem;
+            color: #f0f0f0;
+            font-size: 1rem;
+            font-weight: bold;
+            outline: none;
+            width: 100%;
+            max-width: 400px;
+            justify-self: center;
+        }
+
+        .search-bar::placeholder {
+            color: #999;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #404040;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background: #666;
+            border: none;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            min-height: calc(100vh - 100px);
+        }
+
+        .sidebar {
+            background: #333;
+            border-right: 4px solid #404040;
+            padding: 0;
+        }
+
+        .sidebar-section {
+            border-bottom: 2px solid #404040;
+            padding: 2rem 0;
+        }
+
+        .sidebar h3 {
+            color: #f0f0f0;
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 2rem 1rem 2rem;
+            background: #1a1a1a;
+            padding: 0.75rem;
+        }
+
+        .nav-item {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            font-weight: bold;
+            color: #ccc;
+            border-left: 4px solid transparent;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-item:hover {
+            background: #404040;
+            color: #f0f0f0;
+        }
+
+        .nav-item.active {
+            background: #1a1a1a;
+            color: #f0f0f0;
+            border-left-color: #666;
+        }
+
+        .track-section {
+            background: #2e2e2e;
+            padding: 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid #404040;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-meta {
+            color: #999;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .track-item {
+            background: #333;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: grid;
+            grid-template-columns: 60px 1fr auto auto;
+            align-items: center;
+            gap: 2rem;
+            border-left: 8px solid #404040;
+        }
+
+        .track-item:hover {
+            background: #404040;
+            border-left-color: #666;
+        }
+
+        .track-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #666;
+            text-align: center;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .track-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .track-artists {
+            color: #999;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .track-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .track-status {
+            background: #1a1a1a;
+            color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .track-duration {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 900;
+            font-family: 'Courier New', monospace;
+        }
+
+        .rating-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #666;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .star.filled {
+            color: #f0f0f0;
+        }
+
+        .star:hover {
+            color: #f0f0f0;
+        }
+
+        .rating-count {
+            color: #999;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            color: #f0f0f0;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .action-btn:hover {
+            background: #404040;
+            border-color: #666;
+        }
+
+        .action-btn.primary {
+            background: #666;
+            border-color: #666;
+        }
+
+        .action-btn.primary:hover {
+            background: #999;
+            border-color: #999;
+            color: #1a1a1a;
+        }
+
+        .collaboration-panel {
+            background: #333;
+            border-left: 4px solid #404040;
+            padding: 0;
+        }
+
+        .collab-section {
+            border-bottom: 2px solid #404040;
+            padding: 2rem;
+        }
+
+        .collab-section:last-child {
+            border-bottom: none;
+        }
+
+        .collab-section h3 {
+            color: #f0f0f0;
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            background: #1a1a1a;
+            padding: 0.75rem;
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #404040;
+        }
+
+        .collaborator:last-child {
+            border-bottom: none;
+        }
+
+        .collaborator-avatar {
+            width: 50px;
+            height: 50px;
+            background: #666;
+        }
+
+        .collaborator-info {
+            flex: 1;
+        }
+
+        .collaborator-name {
+            color: #f0f0f0;
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .collaborator-role {
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .comment {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #404040;
+        }
+
+        .comment-author {
+            color: #f0f0f0;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .comment-text {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .action-fab:hover {
+            background: #404040;
+            border-color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar, .collaboration-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CORETET</div>
+            <input type="text" class="search-bar" placeholder="SEARCH TRACKS">
+            <div class="user-profile">
+                <span style="color: #f0f0f0; font-weight: bold; text-transform: uppercase;">PRODUCER_X</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>LIBRARY</h3>
+                    <div class="nav-item active">WIP TRACKS</div>
+                    <div class="nav-item">SHARED LISTS</div>
+                    <div class="nav-item">COLLABORATIONS</div>
+                    <div class="nav-item">RECENT</div>
+                    <div class="nav-item">RATED</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>GENRES</h3>
+                    <div class="nav-item">INDUSTRIAL</div>
+                    <div class="nav-item">TECHNO</div>
+                    <div class="nav-item">NOISE</div>
+                    <div class="nav-item">EXPERIMENTAL</div>
+                    <div class="nav-item">AMBIENT</div>
+                </div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">WIP COLLECTION</h2>
+                    <div class="section-meta">34 TRACKS • LAST UPDATED 1 HOUR AGO</div>
+                </div>
+
+                <div class="track-list">
+                    <div class="track-item">
+                        <div class="track-number">01</div>
+                        <div class="track-info">
+                            <div class="track-title">CONCRETE DREAMS</div>
+                            <div class="track-artists">WITH INDUSTRIAL_MIKE, NOISE_QUEEN</div>
+                            <div class="track-meta">
+                                <div class="track-status">MIXING</div>
+                                <div class="track-duration">4:23</div>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <div class="rating-stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <div class="rating-count">22 VOTES</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">COMMENT</button>
+                            <button class="action-btn primary">ARRANGE</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div class="track-number">02</div>
+                        <div class="track-info">
+                            <div class="track-title">BRUTAL RHYTHMS</div>
+                            <div class="track-artists">WITH TECHNO_ARCHITECT</div>
+                            <div class="track-meta">
+                                <div class="track-status">RECORDING</div>
+                                <div class="track-duration">6:12</div>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <div class="rating-stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="rating-count">31 VOTES</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">COMMENT</button>
+                            <button class="action-btn primary">ARRANGE</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div class="track-number">03</div>
+                        <div class="track-info">
+                            <div class="track-title">STEEL AND STONE</div>
+                            <div class="track-artists">SOLO PROJECT</div>
+                            <div class="track-meta">
+                                <div class="track-status">COMPLETE</div>
+                                <div class="track-duration">5:45</div>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <div class="rating-stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <div class="rating-count">18 VOTES</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">COMMENT</button>
+                            <button class="action-btn">SHARE</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div class="track-number">04</div>
+                        <div class="track-info">
+                            <div class="track-title">URBAN DECAY</div>
+                            <div class="track-artists">WITH CONCRETE_COLLECTIVE</div>
+                            <div class="track-meta">
+                                <div class="track-status">COLLABORATING</div>
+                                <div class="track-duration">7:08</div>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <div class="rating-stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <div class="rating-count">27 VOTES</div>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">COMMENT</button>
+                            <button class="action-btn primary">JOIN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <div class="collab-section">
+                    <h3>COLLABORATORS</h3>
+                    
+                    <div class="collaborator">
+                        <div class="collaborator-avatar"></div>
+                        <div class="collaborator-info">
+                            <div class="collaborator-name">INDUSTRIAL_MIKE</div>
+                            <div class="collaborator-role">PERCUSSION • 5 TRACKS</div>
+                        </div>
+                    </div>
+
+                    <div class="collaborator">
+                        <div class="collaborator-avatar"></div>
+                        <div class="collaborator-info">
+                            <div class="collaborator-name">NOISE_QUEEN</div>
+                            <div class="collaborator-role">SYNTH • 3 TRACKS</div>
+                        </div>
+                    </div>
+
+                    <div class="collaborator">
+                        <div class="collaborator-avatar"></div>
+                        <div class="collaborator-info">
+                            <div class="collaborator-name">TECHNO_ARCHITECT</div>
+                            <div class="collaborator-role">PRODUCER • 2 TRACKS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collab-section">
+                    <h3>RECENT ACTIVITY</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-author">INDUSTRIAL_MIKE</div>
+                        <div class="comment-text">THE NEW DRUM PATTERN IS MASSIVE. NEEDS MORE LOW END THOUGH.</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">NOISE_QUEEN</div>
+                        <div class="comment-text">LOVE THE HARSH TEXTURES. CAN WE PUSH THE DISTORTION HARDER?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Create Arrangement">🎛️</div>
+            <div class="action-fab" title="Share Playlist">📤</div>
+        </div>
+    </div>
+</body>
+</html>

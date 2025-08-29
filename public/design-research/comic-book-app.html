@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 24: Comic Book Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 400% 400%;
+            animation: comicBg 15s ease infinite;
+            color: #2d3436;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        @keyframes comicBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .comic-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #2d3436 2px, transparent 2px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: dotMove 20s linear infinite;
+        }
+
+        @keyframes dotMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(20px) translateY(20px); }
+        }
+
+        .top-bar {
+            background: #fff;
+            border: 4px solid #2d3436;
+            border-bottom: 6px solid #2d3436;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 8px 8px 0px #2d3436;
+            margin: 1rem;
+            border-radius: 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #e17055;
+            text-shadow: 3px 3px 0px #2d3436;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .logo::after {
+            content: 'POW!';
+            position: absolute;
+            top: -30px;
+            right: -40px;
+            background: #ff6b6b;
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            border: 2px solid #2d3436;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            animation: logoPow 2s ease-in-out infinite;
+        }
+
+        @keyframes logoPow {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .search-bar {
+            background: #fff;
+            border: 3px solid #2d3436;
+            border-radius: 0;
+            padding: 0.75rem 1rem;
+            color: #2d3436;
+            font-family: 'Comic Sans MS', sans-serif;
+            width: 300px;
+            outline: none;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 4px 4px 0px #2d3436;
+        }
+
+        .search-bar::placeholder {
+            color: #636e72;
+            font-weight: bold;
+        }
+
+        .search-bar:focus {
+            box-shadow: 6px 6px 0px #2d3436;
+            transform: translate(-2px, -2px);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #4ecdc4;
+            border: 3px solid #2d3436;
+            padding: 0.5rem 1rem;
+            box-shadow: 4px 4px 0px #2d3436;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background: #ff6b6b;
+            border: 3px solid #2d3436;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .profile-pic::after {
+            content: '★';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            color: #ffeaa7;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 0px #2d3436;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 1rem;
+            padding: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            background: #fff;
+            border: 4px solid #2d3436;
+            padding: 1.5rem;
+            box-shadow: 8px 8px 0px #2d3436;
+        }
+
+        .sidebar h3 {
+            color: #e17055;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px #2d3436;
+            position: relative;
+        }
+
+        .sidebar h3::before {
+            content: 'BOOM!';
+            position: absolute;
+            top: -20px;
+            right: 0;
+            background: #45b7d1;
+            color: #fff;
+            padding: 0.2rem 0.4rem;
+            border: 2px solid #2d3436;
+            font-size: 0.6rem;
+            transform: rotate(15deg);
+        }
+
+        .nav-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            color: #2d3436;
+            border: 2px solid transparent;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: #4ecdc4;
+            border-color: #2d3436;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #2d3436;
+        }
+
+        .nav-item.active {
+            background: #ff6b6b;
+            color: #fff;
+            border-color: #2d3436;
+            box-shadow: 4px 4px 0px #2d3436;
+            text-shadow: 1px 1px 0px #2d3436;
+        }
+
+        .nav-item.active::after {
+            content: 'ZAP!';
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            background: #ffeaa7;
+            color: #2d3436;
+            padding: 0.2rem 0.4rem;
+            border: 2px solid #2d3436;
+            font-size: 0.6rem;
+            font-weight: bold;
+            transform: rotate(-15deg);
+        }
+
+        .track-section {
+            background: #fff;
+            border: 4px solid #2d3436;
+            padding: 2rem;
+            box-shadow: 8px 8px 0px #2d3436;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid #2d3436;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #e17055;
+            text-shadow: 3px 3px 0px #2d3436;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: 'WHAM!';
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            background: #96ceb4;
+            color: #2d3436;
+            padding: 0.3rem 0.6rem;
+            border: 2px solid #2d3436;
+            font-size: 0.7rem;
+            transform: rotate(10deg);
+        }
+
+        .section-meta {
+            color: #2d3436;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #ffeaa7;
+            padding: 0.5rem 1rem;
+            border: 2px solid #2d3436;
+            box-shadow: 3px 3px 0px #2d3436;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .track-card {
+            background: #fff;
+            border: 4px solid #2d3436;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            box-shadow: 6px 6px 0px #2d3436;
+        }
+
+        .track-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px #2d3436;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #ff6b6b;
+            z-index: 5;
+        }
+
+        .track-card::after {
+            content: 'NEW!';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 6;
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .track-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #2d3436;
+            text-shadow: 1px 1px 0px #ffeaa7;
+            text-transform: uppercase;
+        }
+
+        .track-status {
+            background: #45b7d1;
+            color: #fff;
+            padding: 0.4rem 0.8rem;
+            border: 2px solid #2d3436;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 2px 2px 0px #2d3436;
+            text-shadow: 1px 1px 0px #2d3436;
+        }
+
+        .track-status.complete {
+            background: #96ceb4;
+        }
+
+        .track-status.collab {
+            background: #ff6b6b;
+        }
+
+        .track-artists {
+            color: #636e72;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .track-waveform {
+            height: 80px;
+            background: #f8f9fa;
+            border: 3px solid #2d3436;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .comic-waveform {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            padding: 5px;
+        }
+
+        .comic-bar {
+            width: 8px;
+            background: linear-gradient(to top, #ff6b6b, #4ecdc4, #45b7d1);
+            border: 2px solid #2d3436;
+            animation: comicPulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .comic-bar::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -2px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid #ffeaa7;
+        }
+
+        .comic-bar:nth-child(odd) { animation-delay: -0.5s; }
+        .comic-bar:nth-child(even) { animation-delay: -1s; }
+
+        @keyframes comicPulse {
+            0%, 100% { height: 30%; }
+            50% { height: 85%; }
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #2d3436;
+            background: #4ecdc4;
+            color: #2d3436;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0px #2d3436;
+            border-radius: 50%;
+        }
+
+        .play-button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #2d3436;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            color: #ffeaa7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0px #2d3436;
+            filter: drop-shadow(2px 2px 0px #2d3436);
+        }
+
+        .star:hover {
+            transform: scale(1.3) rotate(10deg);
+        }
+
+        .rating-count {
+            color: #2d3436;
+            font-size: 0.9rem;
+            font-weight: bold;
+            background: #fff;
+            padding: 0.2rem 0.5rem;
+            border: 2px solid #2d3436;
+            margin-left: 0.5rem;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-btn {
+            background: #96ceb4;
+            border: 2px solid #2d3436;
+            color: #2d3436;
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            font-family: 'Comic Sans MS', sans-serif;
+            box-shadow: 2px 2px 0px #2d3436;
+        }
+
+        .action-btn:hover {
+            background: #45b7d1;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #2d3436;
+        }
+
+        .collaboration-panel {
+            background: #fff;
+            border: 4px solid #2d3436;
+            padding: 1.5rem;
+            box-shadow: 8px 8px 0px #2d3436;
+        }
+
+        .collaboration-panel h3 {
+            color: #e17055;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px #2d3436;
+            position: relative;
+        }
+
+        .collaboration-panel h3::before {
+            content: 'BAM!';
+            position: absolute;
+            top: -20px;
+            right: 0;
+            background: #ffeaa7;
+            color: #2d3436;
+            padding: 0.2rem 0.4rem;
+            border: 2px solid #2d3436;
+            font-size: 0.6rem;
+            transform: rotate(-10deg);
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: #f8f9fa;
+            border: 2px solid #2d3436;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .collaborator:hover {
+            background: #4ecdc4;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #2d3436;
+        }
+
+        .collaborator-avatar {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #2d3436;
+            background: linear-gradient(45deg, #ff6b6b, #96ceb4);
+            border-radius: 50%;
+        }
+
+        .collaborator-name {
+            color: #2d3436;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .collaborator-role {
+            color: #636e72;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .comment-section {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 3px solid #2d3436;
+        }
+
+        .comment {
+            background: #f8f9fa;
+            border: 2px solid #2d3436;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 3px 3px 0px #2d3436;
+            position: relative;
+        }
+
+        .comment::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #2d3436;
+        }
+
+        .comment-author {
+            color: #e17055;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .comment-text {
+            color: #2d3436;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #2d3436;
+            background: #ff6b6b;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50%;
+            box-shadow: 4px 4px 0px #2d3436;
+        }
+
+        .action-fab:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #2d3436;
+            background: #4ecdc4;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 0.5rem;
+            }
+            
+            .track-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .top-bar {
+                margin: 0.5rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="comic-dots"></div>
+    
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CoreTet</div>
+            <input type="text" class="search-bar" placeholder="SEARCH FOR SUPER TRACKS!">
+            <div class="user-profile">
+                <span style="color: #2d3436; font-weight: bold;">MUSIC_HERO</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Your Powers</h3>
+                <div class="nav-item active">Hero Tracks</div>
+                <div class="nav-item">Team-Up Projects</div>
+                <div class="nav-item">Live Battles</div>
+                <div class="nav-item">Recent Wins</div>
+                <div class="nav-item">Super Favorites</div>
+                
+                <h3 style="margin-top: 2rem;">Musical Genres</h3>
+                <div class="nav-item">Super Pop</div>
+                <div class="nav-item">Rock Heroes</div>
+                <div class="nav-item">Electronic Powers</div>
+                <div class="nav-item">Hip-Hop Heroes</div>
+                <div class="nav-item">Jazz League</div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">Hero Headquarters</h2>
+                    <div class="section-meta">42 SUPER TRACKS • LAST BATTLE: 30 MIN AGO</div>
+                </div>
+
+                <div class="track-grid">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Thunder Strike Anthem</div>
+                            <div class="track-status">Power-Up Mode</div>
+                        </div>
+                        <div class="track-artists">with LIGHTNING_GUITARIST, THUNDER_DRUMS</div>
+                        
+                        <div class="track-waveform">
+                            <div class="comic-waveform">
+                                <div class="comic-bar" style="height: 45%;"></div>
+                                <div class="comic-bar" style="height: 70%;"></div>
+                                <div class="comic-bar" style="height: 55%;"></div>
+                                <div class="comic-bar" style="height: 85%;"></div>
+                                <div class="comic-bar" style="height: 60%;"></div>
+                                <div class="comic-bar" style="height: 75%;"></div>
+                                <div class="comic-bar" style="height: 40%;"></div>
+                                <div class="comic-bar" style="height: 90%;"></div>
+                                <div class="comic-bar" style="height: 50%;"></div>
+                                <div class="comic-bar" style="height: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★☆</span>
+                                </div>
+                                <span class="rating-count">26 FANS</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Team-Up</button>
+                            <button class="action-btn">Share Power</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Mega Collaboration</div>
+                            <div class="track-status collab">Team Battle</div>
+                        </div>
+                        <div class="track-artists">with SUPER_BAND, MEGA_PRODUCERS</div>
+                        
+                        <div class="track-waveform">
+                            <div class="comic-waveform">
+                                <div class="comic-bar" style="height: 60%;"></div>
+                                <div class="comic-bar" style="height: 40%;"></div>
+                                <div class="comic-bar" style="height: 80%;"></div>
+                                <div class="comic-bar" style="height: 55%;"></div>
+                                <div class="comic-bar" style="height: 70%;"></div>
+                                <div class="comic-bar" style="height: 45%;"></div>
+                                <div class="comic-bar" style="height: 85%;"></div>
+                                <div class="comic-bar" style="height: 35%;"></div>
+                                <div class="comic-bar" style="height: 75%;"></div>
+                                <div class="comic-bar" style="height: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★★</span>
+                                </div>
+                                <span class="rating-count">41 FANS</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Team-Up</button>
+                            <button class="action-btn">Share Power</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Victory March</div>
+                            <div class="track-status complete">Mission Complete</div>
+                        </div>
+                        <div class="track-artists">SOLO HERO PROJECT</div>
+                        
+                        <div class="track-waveform">
+                            <div class="comic-waveform">
+                                <div class="comic-bar" style="height: 70%;"></div>
+                                <div class="comic-bar" style="height: 50%;"></div>
+                                <div class="comic-bar" style="height: 90%;"></div>
+                                <div class="comic-bar" style="height: 60%;"></div>
+                                <div class="comic-bar" style="height: 80%;"></div>
+                                <div class="comic-bar" style="height: 45%;"></div>
+                                <div class="comic-bar" style="height: 75%;"></div>
+                                <div class="comic-bar" style="height: 55%;"></div>
+                                <div class="comic-bar" style="height: 85%;"></div>
+                                <div class="comic-bar" style="height: 40%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★☆☆</span>
+                                </div>
+                                <span class="rating-count">33 FANS</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Team-Up</button>
+                            <button class="action-btn">Share Power</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Hero Team</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Lightning Guitarist</div>
+                        <div class="collaborator-role">ELECTRIC POWERS • 7 BATTLES</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Thunder Drums</div>
+                        <div class="collaborator-role">PERCUSSION HERO • 5 BATTLES</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Super Band</div>
+                        <div class="collaborator-role">TEAM LEADERS • 4 BATTLES</div>
+                    </div>
+                </div>
+
+                <div class="comment-section">
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem;">HERO COMMUNICATIONS</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Lightning Guitarist</div>
+                        <div class="comment-text">THAT GUITAR SOLO WAS ELECTRIC! THE CROWD WENT WILD! WE NEED MORE POWER IN THE CHORUS!</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-author">Thunder Drums</div>
+                        <div class="comment-text">READY TO BRING THE THUNDER! SEND ME THE UPDATED MIX AND I'LL ADD EXPLOSIVE BEATS!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Team Up">🦸</div>
+            <div class="action-fab" title="Share Power">💥</div>
+        </div>
+    </div>
+</body>
+</html>

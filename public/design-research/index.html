@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreTet Design Concepts - Visual Prototypes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            font-size: 2.5rem;
+        }
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .concept-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .concept-preview {
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        .concept-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .concept-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .concept-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tag {
+            background: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        /* Concept-specific previews */
+        .vinyl-preview {
+            background: linear-gradient(135deg, #8B4513, #8FBC8F);
+            position: relative;
+        }
+        .vinyl-preview::before {
+            content: '♪';
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+        
+        .fashion-preview {
+            background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
+            color: #2C2C2C;
+            border: 1px solid #E5E5E5;
+        }
+        
+        .sports-preview {
+            background: linear-gradient(135deg, #00D4FF, #39FF14);
+            position: relative;
+        }
+        .sports-preview::before {
+            content: '⚡';
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+        
+        .photo-preview {
+            background: linear-gradient(135deg, #D2691E, #DAA520);
+            position: relative;
+        }
+        .photo-preview::before {
+            content: '📷';
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+        
+        .gallery-preview {
+            background: linear-gradient(135deg, #FDFDFD, #F5F5F5);
+            color: #2B2B2B;
+            border: 1px solid #EEEEEE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 CoreTet Design Concepts</h1>
+        <div class="concept-grid">
+            
+            <a href="vinyl-concept.html" class="concept-card">
+                <div class="concept-preview vinyl-preview">
+                    Vinyl Record Shop
+                </div>
+                <div class="concept-title">01. Vinyl Record Shop Aesthetic</div>
+                <div class="concept-desc">Analog warmth meets digital functionality. Coffee shop culture with tactile music discovery through vinyl crates and turntable interfaces.</div>
+                <div class="concept-tags">
+                    <span class="tag">Warm Colors</span>
+                    <span class="tag">Tactile UI</span>
+                    <span class="tag">Coffee Shop</span>
+                </div>
+            </a>
+            
+            <a href="fashion-concept.html" class="concept-card">
+                <div class="concept-preview fashion-preview">
+                    Luxury Fashion
+                </div>
+                <div class="concept-title">02. Luxury Fashion Minimalism</div>
+                <div class="concept-desc">Less is more luxurious. Premium restraint with 80% white space, mathematical precision, and sophisticated simplicity.</div>
+                <div class="concept-tags">
+                    <span class="tag">Minimalism</span>
+                    <span class="tag">White Space</span>
+                    <span class="tag">Premium</span>
+                </div>
+            </a>
+            
+            <a href="sports-concept.html" class="concept-card">
+                <div class="concept-preview sports-preview">
+                    Sports Energy
+                </div>
+                <div class="concept-title">03. Sports App Dynamic Energy</div>
+                <div class="concept-desc">Feel the beat, fuel the energy. High-performance athletic experience with gamification, stats dashboards, and pulse animations.</div>
+                <div class="concept-tags">
+                    <span class="tag">High Energy</span>
+                    <span class="tag">Gamification</span>
+                    <span class="tag">Athletic</span>
+                </div>
+            </a>
+            
+            <a href="photo-concept.html" class="concept-card">
+                <div class="concept-preview photo-preview">
+                    Film Photography
+                </div>
+                <div class="concept-title">04. Photography Portfolio Analog</div>
+                <div class="concept-desc">Embrace beautiful imperfection. Film grain textures, darkroom workflow, and vintage camera aesthetics with authentic analog feel.</div>
+                <div class="concept-tags">
+                    <span class="tag">Film Grain</span>
+                    <span class="tag">Analog</span>
+                    <span class="tag">Vintage</span>
+                </div>
+            </a>
+            
+            <a href="gallery-concept.html" class="concept-card">
+                <div class="concept-preview gallery-preview">
+                    Art Gallery
+                </div>
+                <div class="concept-title">05. Art Gallery Curator</div>
+                <div class="concept-desc">Every track is a masterpiece. Museum-quality presentation with curatorial excellence, contemplative discovery, and exhibition-style layouts.</div>
+                <div class="concept-tags">
+                    <span class="tag">Curatorial</span>
+                    <span class="tag">Museum</span>
+                    <span class="tag">Contemplative</span>
+                </div>
+            </a>
+
+            <a href="japanese-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #FDFDF8, #A8B5A0); color: #3A3A3C;">
+                    Japanese Minimal
+                </div>
+                <div class="concept-title">06. Japanese Organizational</div>
+                <div class="concept-desc">Functional purity with perfect organization. Kanban-style track categories, Muji-inspired minimalism, and Japanese design principles for organized creativity.</div>
+                <div class="concept-tags">
+                    <span class="tag">Kanban</span>
+                    <span class="tag">Organized</span>
+                    <span class="tag">Muji-inspired</span>
+                </div>
+            </a>
+
+            <a href="bookstore-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #8B4513, #D2691E); color: #F7F3E9;">
+                    Independent Bookstore
+                </div>
+                <div class="concept-title">07. Independent Bookstore Literary</div>
+                <div class="concept-desc">Discover rare musical gems like browsing independent bookshops. Literary salon atmosphere with handwritten annotations and intimate creative conversations.</div>
+                <div class="concept-tags">
+                    <span class="tag">Literary</span>
+                    <span class="tag">Handwritten</span>
+                    <span class="tag">Intimate</span>
+                </div>
+            </a>
+
+            <a href="synthesis-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #2C1810, #1A0F0A); color: #F7F3E9;">
+                    Cross-Industry Synthesis
+                </div>
+                <div class="concept-title">08. Multi-Persona Collaboration</div>
+                <div class="concept-desc">Literary magazine meets music collaboration. Typography-first interface where each track reads like a story, and collaboration flows like editorial conversation.</div>
+                <div class="concept-tags">
+                    <span class="tag">Literary Magazine</span>
+                    <span class="tag">Typography</span>
+                    <span class="tag">Editorial</span>
+                </div>
+            </a>
+
+            <a href="ux-workflows-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;">
+                    UX Workflow Innovation
+                </div>
+                <div class="concept-title">09. Frictionless Creative Journey</div>
+                <div class="concept-desc">Sarah's UX research eliminates barriers to creation. Voice-to-MIDI conversion, AI collaboration matching, and one-click distribution for seamless workflows.</div>
+                <div class="concept-tags">
+                    <span class="tag">UX Research</span>
+                    <span class="tag">Workflow</span>
+                    <span class="tag">AI-Powered</span>
+                </div>
+            </a>
+
+            <a href="color-psychology-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #ff6b35, #4834d4, #26de81, #a55eea); color: #fff;">
+                    Color Psychology
+                </div>
+                <div class="concept-title">10. Emotional Color Systems</div>
+                <div class="concept-desc">Marcus's visual research into color psychology. Dynamic interface colors that adapt to creative phases: energy (orange), focus (blue), collaboration (green), refinement (purple).</div>
+                <div class="concept-tags">
+                    <span class="tag">Color Psychology</span>
+                    <span class="tag">Visual Design</span>
+                    <span class="tag">Emotional UI</span>
+                </div>
+            </a>
+
+            <a href="storytelling-interface-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #7877c6, #ffb199, #78dbe2); color: #e8e8e8;">
+                    Storytelling Interface
+                </div>
+                <div class="concept-title">11. Musical Narratives</div>
+                <div class="concept-desc">Alex's creative direction turns tracks into stories. Timeline-based narrative interface where each collaboration becomes a chapter in an evolving musical story.</div>
+                <div class="concept-tags">
+                    <span class="tag">Storytelling</span>
+                    <span class="tag">Creative Direction</span>
+                    <span class="tag">Narrative UI</span>
+                </div>
+            </a>
+
+            <a href="mobile-innovation-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff;">
+                    Mobile Innovation
+                </div>
+                <div class="concept-title">12. Touch, Voice & Gesture</div>
+                <div class="concept-desc">Jamie's mobile-first research. Voice-to-MIDI conversion, haptic rhythm feedback, 3D spatial audio positioning, and AI gesture recognition for intuitive mobile creation.</div>
+                <div class="concept-tags">
+                    <span class="tag">Mobile-First</span>
+                    <span class="tag">Voice UI</span>
+                    <span class="tag">Haptic Feedback</span>
+                </div>
+            </a>
+
+            <a href="cross-industry-synthesis2-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #ff7eb3, #7c3aed, #06b6d4); color: #f0f6fc;">
+                    Advanced Synthesis
+                </div>
+                <div class="concept-title">13. Meta-Collaboration Framework</div>
+                <div class="concept-desc">Morgan's deep research across 50+ industries. Scientific labs, construction engineering, medical teams, legal cases, and space missions inform revolutionary collaboration patterns.</div>
+                <div class="concept-tags">
+                    <span class="tag">Cross-Industry</span>
+                    <span class="tag">Meta-Framework</span>
+                    <span class="tag">AI-Driven</span>
+                </div>
+            </a>
+
+            <a href="newspaper-layout-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #f8f8f8, #2c2c2c); color: #2c2c2c;">
+                    Newspaper Layout
+                </div>
+                <div class="concept-title">14. The CoreTet Times</div>
+                <div class="concept-desc">Tracks as breaking news articles, collaborations as feature stories. Mobile ratings via headline importance, comments as letters to editor, trending charts as classified ads.</div>
+                <div class="concept-tags">
+                    <span class="tag">Editorial Design</span>
+                    <span class="tag">News Layout</span>
+                    <span class="tag">Traditional Media</span>
+                </div>
+            </a>
+
+            <a href="recipe-book-concept.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #8B4513, #d4af37); color: #f5f5dc;">
+                    Recipe Book
+                </div>
+                <div class="concept-title">15. Musical Recipe Collection</div>
+                <div class="concept-desc">Collaborations as recipes with ingredients (contributors) and step-by-step instructions. Rate individual steps, comment like recipe reviews, create variations as new arrangements.</div>
+                <div class="concept-tags">
+                    <span class="tag">Recipe Format</span>
+                    <span class="tag">Step-by-Step</span>
+                    <span class="tag">Culinary UI</span>
+                </div>
+            </a>
+
+            <a href="neon-cyberpunk-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #0a0a0a, #00ffff, #ff0080); color: #00ff00;">
+                    Neon Cyberpunk
+                </div>
+                <div class="concept-title">16. Cyberpunk Music App</div>
+                <div class="concept-desc">WIP track library with neon aesthetics. Animated waveforms, holographic UI elements, and cyberpunk-style collaboration features. Rate with glowing stars, comment with terminal styling.</div>
+                <div class="concept-tags">
+                    <span class="tag">Cyberpunk</span>
+                    <span class="tag">Neon Colors</span>
+                    <span class="tag">Animated UI</span>
+                </div>
+            </a>
+
+            <a href="pastel-minimalist-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #fef7f0, #ff6b9d, #ffd93d); color: #4a5568;">
+                    Pastel Minimalist
+                </div>
+                <div class="concept-title">17. Soft Pastel Interface</div>
+                <div class="concept-desc">Gentle gradients and soft colors for WIP track management. Clean typography, subtle shadows, and peaceful collaboration environment with Instagram-style aesthetics.</div>
+                <div class="concept-tags">
+                    <span class="tag">Pastel Colors</span>
+                    <span class="tag">Minimalist</span>
+                    <span class="tag">Soft UI</span>
+                </div>
+            </a>
+
+            <a href="dark-professional-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #1a1a1a, #2a2a2a, #007aff); color: #e0e0e0;">
+                    Dark Professional
+                </div>
+                <div class="concept-title">18. Professional Dark Mode</div>
+                <div class="concept-desc">Spotify/Apple Music inspired dark interface for serious music collaboration. Clean list views, professional typography, and studio-grade organization for WIP tracks.</div>
+                <div class="concept-tags">
+                    <span class="tag">Dark Mode</span>
+                    <span class="tag">Professional</span>
+                    <span class="tag">List View</span>
+                </div>
+            </a>
+
+            <a href="vintage-analog-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #2c1810, #8b4513, #daa520); color: #e8dcc6;">
+                    Vintage Analog
+                </div>
+                <div class="concept-title">19. Vintage Recording Studio</div>
+                <div class="concept-desc">Analog warmth with tape machine aesthetics. Vintage knobs, warm browns and golds, animated VU meters, and classic studio terminology for track collaboration.</div>
+                <div class="concept-tags">
+                    <span class="tag">Vintage</span>
+                    <span class="tag">Analog</span>
+                    <span class="tag">Studio</span>
+                </div>
+            </a>
+
+            <a href="brutalist-concrete-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #1a1a1a, #2e2e2e, #404040); color: #f0f0f0;">
+                    Brutalist Concrete
+                </div>
+                <div class="concept-title">20. Brutalist Architecture</div>
+                <div class="concept-desc">Raw concrete aesthetics with industrial typography. Bold, heavy interface elements, sharp edges, and uncompromising functionality for serious music collaboration.</div>
+                <div class="concept-tags">
+                    <span class="tag">Brutalist</span>
+                    <span class="tag">Industrial</span>
+                    <span class="tag">Bold Typography</span>
+                </div>
+            </a>
+
+            <a href="glass-morphism-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); color: #ffffff;">
+                    Glass Morphism
+                </div>
+                <div class="concept-title">21. Translucent Glass UI</div>
+                <div class="concept-desc">Modern glass morphism with frosted glass effects and backdrop blur. Floating elements, transparent layers, and ethereal collaboration workspace with dreamy aesthetics.</div>
+                <div class="concept-tags">
+                    <span class="tag">Glass Effects</span>
+                    <span class="tag">Backdrop Blur</span>
+                    <span class="tag">Modern UI</span>
+                </div>
+            </a>
+
+            <a href="retro-synthwave-app.html" class="concept-card">
+                <div class="concept-preview" style="background: linear-gradient(135deg, #0a0a0a, #1a0826, #2d1b4e); color: #ff00ff;">
+                    Retro Synthwave
+                </div>
+                <div class="concept-title">22. 80s Synthwave Terminal</div>
+                <div class="concept-desc">Neon-soaked 80s aesthetic with animated grid backgrounds, synthwave visualizers, and retro-futuristic collaboration tools. Cyberpunk styling meets music production.</div>
+                <div class="concept-tags">
+                    <span class="tag">80s Retro</span>
+                    <span class="tag">Neon Effects</span>
+                    <span class="tag">Synthwave</span>
+                </div>
+            </a>
+            
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: white; border-radius: 12px;">
+            <h3>📱 Interactive Prototypes</h3>
+            <p style="color: #666; margin-top: 0.5rem;">Click each concept card above to view detailed interactive mockups</p>
+        </div>
+    </div>
+</body>
+</html>

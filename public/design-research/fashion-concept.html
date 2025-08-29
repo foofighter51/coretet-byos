@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Fashion Minimalism - CoreTet Concept</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --pure-white: #FFFFFF;
+            --charcoal-black: #2C2C2C;
+            --platinum-silver: #E5E5E5;
+            --deep-navy: #1A1A2E;
+            --light-gray: #F8F9FA;
+            --off-black: #1C1C1C;
+            --spacing-unit: 1.618rem;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            background: var(--pure-white);
+            color: var(--off-black);
+            line-height: 1.6;
+        }
+        
+        .back-nav {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            background: none;
+            border: 1px solid var(--platinum-silver);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: var(--off-black);
+            font-weight: 300;
+            transition: all 0.3s ease;
+        }
+        
+        .back-nav:hover {
+            background: var(--off-black);
+            color: var(--pure-white);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            letter-spacing: -0.02em;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 600px;
+            opacity: 0.7;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+        
+        .cta-button {
+            background: none;
+            border: 1px solid var(--off-black);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--off-black);
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background: var(--off-black);
+            color: var(--pure-white);
+        }
+        
+        .content-section {
+            padding: calc(var(--spacing-unit) * 4) 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 2);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            text-align: center;
+        }
+        
+        .track-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: calc(var(--spacing-unit) * 2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .track-card {
+            background: var(--pure-white);
+            border: 1px solid rgba(0,0,0,0.08);
+            padding: calc(var(--spacing-unit) * 2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .track-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        .track-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+        }
+        
+        .track-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        
+        .track-info p {
+            color: var(--charcoal-black);
+            opacity: 0.7;
+            font-weight: 300;
+        }
+        
+        .track-duration {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--charcoal-black);
+            opacity: 0.6;
+        }
+        
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: calc(var(--spacing-unit) * 1);
+            border-top: 1px solid var(--platinum-silver);
+        }
+        
+        .play-button {
+            background: none;
+            border: 1px solid var(--off-black);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: var(--off-black);
+            color: var(--pure-white);
+        }
+        
+        .track-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .add-playlist {
+            background: none;
+            border: none;
+            color: var(--charcoal-black);
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: opacity 0.2s ease;
+        }
+        
+        .add-playlist:hover {
+            opacity: 1;
+        }
+        
+        .playlist-section {
+            background: var(--light-gray);
+            padding: calc(var(--spacing-unit) * 4) 0;
+        }
+        
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 2);
+        }
+        
+        .playlist-card {
+            background: var(--pure-white);
+            padding: calc(var(--spacing-unit) * 2);
+            border: 1px solid rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.1);
+        }
+        
+        .playlist-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .playlist-meta {
+            color: var(--charcoal-black);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            margin-bottom: calc(var(--spacing-unit) * 1);
+        }
+        
+        .playlist-preview {
+            height: 2px;
+            background: var(--platinum-silver);
+            margin-top: calc(var(--spacing-unit) * 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .playlist-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--off-black);
+            width: 60%;
+            transition: width 0.5s ease;
+        }
+        
+        .mobile-frame {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            width: 320px;
+            height: 640px;
+            background: var(--off-black);
+            border-radius: 30px;
+            padding: 1rem;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        @media (min-width: 1400px) {
+            .mobile-frame {
+                display: block;
+            }
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--pure-white);
+            border-radius: 25px;
+            padding: 2rem 1rem;
+            overflow: hidden;
+        }
+        
+        .mobile-header {
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        .mobile-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mobile-track {
+            padding: calc(var(--spacing-unit) * 1) 0;
+            border-bottom: 1px solid var(--platinum-silver);
+        }
+        
+        .mobile-track:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-track-name {
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+        
+        .mobile-track-artist {
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        .floating-player {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--platinum-silver);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 400px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-player.active {
+            opacity: 1;
+        }
+        
+        .now-playing {
+            flex: 1;
+        }
+        
+        .now-playing-title {
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+        
+        .now-playing-artist {
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-nav">← Back</a>
+    
+    <section class="hero">
+        <h1 class="fade-in">CoreTet</h1>
+        <p class="fade-in">Music collaboration, refined to its essence</p>
+        <a href="#tracks" class="cta-button fade-in">Explore Collection</a>
+    </section>
+    
+    <section class="content-section" id="tracks">
+        <div class="container">
+            <h2 class="section-title">Recent Tracks</h2>
+            <div class="track-grid">
+                <div class="track-card">
+                    <div class="track-meta">
+                        <div class="track-info">
+                            <h3>Midnight Reflections</h3>
+                            <p>The Collective</p>
+                        </div>
+                        <div class="track-duration">4:23</div>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-button" onclick="playTrack(this, 'Midnight Reflections', 'The Collective')">▶</button>
+                        <div class="track-actions">
+                            <button class="add-playlist">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-card">
+                    <div class="track-meta">
+                        <div class="track-info">
+                            <h3>Urban Symphony</h3>
+                            <p>Solo Artist</p>
+                        </div>
+                        <div class="track-duration">5:17</div>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-button" onclick="playTrack(this, 'Urban Symphony', 'Solo Artist')">▶</button>
+                        <div class="track-actions">
+                            <button class="add-playlist">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-card">
+                    <div class="track-meta">
+                        <div class="track-info">
+                            <h3>Analog Dreams</h3>
+                            <p>Studio Session</p>
+                        </div>
+                        <div class="track-duration">3:45</div>
+                    </div>
+                    <div class="track-controls">
+                        <button class="play-button" onclick="playTrack(this, 'Analog Dreams', 'Studio Session')">▶</button>
+                        <div class="track-actions">
+                            <button class="add-playlist">Add to Playlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="playlist-section">
+        <div class="container">
+            <h2 class="section-title">Curated Collections</h2>
+            <div class="playlist-grid">
+                <a href="#" class="playlist-card">
+                    <h3 class="playlist-title">Late Night Sessions</h3>
+                    <div class="playlist-meta">12 tracks · 47 min</div>
+                    <div class="playlist-preview"></div>
+                </a>
+                
+                <a href="#" class="playlist-card">
+                    <h3 class="playlist-title">Creative Flow</h3>
+                    <div class="playlist-meta">8 tracks · 32 min</div>
+                    <div class="playlist-preview"></div>
+                </a>
+                
+                <a href="#" class="playlist-card">
+                    <h3 class="playlist-title">Collaboration Works</h3>
+                    <div class="playlist-meta">15 tracks · 61 min</div>
+                    <div class="playlist-preview"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div class="mobile-frame">
+        <div class="mobile-screen">
+            <div class="mobile-header">
+                <h2 class="mobile-title">CoreTet</h2>
+                <p style="opacity: 0.6; font-size: 0.9rem;">Music refined</p>
+            </div>
+            <div class="mobile-track">
+                <div class="mobile-track-name">Midnight Reflections</div>
+                <div class="mobile-track-artist">The Collective</div>
+            </div>
+            <div class="mobile-track">
+                <div class="mobile-track-name">Urban Symphony</div>
+                <div class="mobile-track-artist">Solo Artist</div>
+            </div>
+            <div class="mobile-track">
+                <div class="mobile-track-name">Analog Dreams</div>
+                <div class="mobile-track-artist">Studio Session</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-player" id="player">
+        <div class="now-playing">
+            <div class="now-playing-title" id="current-title">Track Title</div>
+            <div class="now-playing-artist" id="current-artist">Artist Name</div>
+        </div>
+        <button class="play-button">⏸</button>
+    </div>
+    
+    <script>
+        function playTrack(button, title, artist) {
+            const player = document.getElementById('player');
+            const currentTitle = document.getElementById('current-title');
+            const currentArtist = document.getElementById('current-artist');
+            
+            currentTitle.textContent = title;
+            currentArtist.textContent = artist;
+            
+            player.classList.add('active');
+            button.innerHTML = '⏸';
+            
+            // Reset other buttons
+            document.querySelectorAll('.play-button').forEach(btn => {
+                if (btn !== button && btn.innerHTML === '⏸') {
+                    btn.innerHTML = '▶';
+                }
+            });
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelector('a[href="#tracks"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('tracks').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.track-card, .playlist-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

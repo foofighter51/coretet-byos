@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 18: Dark Professional Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #1a1a1a;
+        }
+
+        .top-bar {
+            background: #2a2a2a;
+            border-bottom: 1px solid #333;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .search-bar {
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            width: 320px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #007aff;
+            background: #2a2a2a;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .search-bar::placeholder {
+            color: #888;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .profile-name {
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007aff, #5856d6);
+            border: 2px solid #333;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px;
+            gap: 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            background: #222;
+            border-right: 1px solid #333;
+            padding: 2rem 0;
+        }
+
+        .sidebar h3 {
+            color: #888;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 2rem 1.5rem 1rem 1.5rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-weight: 500;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        .nav-item.active {
+            background: #2a2a2a;
+            color: #007aff;
+            border-left-color: #007aff;
+        }
+
+        .track-section {
+            background: #1e1e1e;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .section-meta {
+            color: #888;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .track-item {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: grid;
+            grid-template-columns: 50px 1fr auto auto auto;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .track-item:hover {
+            background: #333;
+        }
+
+        .track-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .track-item:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .play-button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: #007aff;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            font-size: 0.9rem;
+        }
+
+        .play-button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .track-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .track-artists {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .track-status {
+            padding: 0.3rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-progress {
+            background: rgba(255, 159, 10, 0.15);
+            color: #ff9f0a;
+        }
+
+        .status-collab {
+            background: rgba(52, 199, 89, 0.15);
+            color: #34c759;
+        }
+
+        .status-complete {
+            background: rgba(88, 86, 214, 0.15);
+            color: #5856d6;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 1px;
+        }
+
+        .star {
+            color: #ff9f0a;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.9rem;
+        }
+
+        .star:hover {
+            transform: scale(1.1);
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: #333;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .action-btn:hover {
+            background: #444;
+            border-color: #555;
+        }
+
+        .action-btn.primary {
+            background: #007aff;
+            border-color: #007aff;
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .collaboration-panel {
+            background: #222;
+            border-left: 1px solid #333;
+            padding: 2rem 1.5rem;
+        }
+
+        .collaboration-panel h3 {
+            color: #888;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            transition: all 0.15s ease;
+        }
+
+        .collaborator:hover {
+            background: rgba(255, 255, 255, 0.02);
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 6px;
+        }
+
+        .collaborator:last-child {
+            border-bottom: none;
+        }
+
+        .collaborator-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007aff, #5856d6);
+        }
+
+        .collaborator-info {
+            flex: 1;
+        }
+
+        .collaborator-name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .collaborator-role {
+            color: #888;
+            font-size: 0.75rem;
+        }
+
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34c759;
+        }
+
+        .comment-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+        }
+
+        .comment {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            color: #007aff;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .comment-time {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .comment-text {
+            color: #e0e0e0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .action-fab {
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 50%;
+            background: #007aff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+        }
+
+        .action-fab:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0, 122, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar, .collaboration-panel {
+                display: none;
+            }
+            
+            .top-bar {
+                padding: 1rem;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CoreTet</div>
+            <input type="text" class="search-bar" placeholder="Search tracks and collaborators">
+            <div class="user-profile">
+                <span class="profile-name">David Park</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Library</h3>
+                <div class="nav-item active">Your Tracks</div>
+                <div class="nav-item">Shared Playlists</div>
+                <div class="nav-item">Collaborations</div>
+                <div class="nav-item">Recently Played</div>
+                <div class="nav-item">Liked Tracks</div>
+                
+                <h3>Genres</h3>
+                <div class="nav-item">Hip-Hop</div>
+                <div class="nav-item">Electronic</div>
+                <div class="nav-item">R&B/Soul</div>
+                <div class="nav-item">Rock</div>
+                <div class="nav-item">Pop</div>
+                <div class="nav-item">Jazz</div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">Your WIP Collection</h2>
+                    <div class="section-meta">28 tracks • Last updated 2 hours ago</div>
+                </div>
+
+                <div class="track-list">
+                    <div class="track-item">
+                        <button class="play-button">▶</button>
+                        <div class="track-info">
+                            <div class="track-title">Urban Nights (Demo)</div>
+                            <div class="track-artists">with Alex Chen, Maria Santos</div>
+                        </div>
+                        <div class="track-status status-progress">In Progress</div>
+                        <div class="rating-stars">
+                            <div class="stars">
+                                <span class="star">★★★★☆</span>
+                            </div>
+                            <span class="rating-count">16</span>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn primary">Arrange</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <button class="play-button">▶</button>
+                        <div class="track-info">
+                            <div class="track-title">Synthwave Memories</div>
+                            <div class="track-artists">with RetroSynth, DJ Luna</div>
+                        </div>
+                        <div class="track-status status-collab">Collaborating</div>
+                        <div class="rating-stars">
+                            <div class="stars">
+                                <span class="star">★★★★★</span>
+                            </div>
+                            <span class="rating-count">23</span>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn primary">Arrange</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <button class="play-button">▶</button>
+                        <div class="track-info">
+                            <div class="track-title">Coffee Shop Acoustics</div>
+                            <div class="track-artists">with Guitar Jake</div>
+                        </div>
+                        <div class="track-status status-complete">Mixed</div>
+                        <div class="rating-stars">
+                            <div class="stars">
+                                <span class="star">★★★☆☆</span>
+                            </div>
+                            <span class="rating-count">8</span>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Share</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <button class="play-button">▶</button>
+                        <div class="track-info">
+                            <div class="track-title">Basement Beats Vol. 2</div>
+                            <div class="track-artists">solo project</div>
+                        </div>
+                        <div class="track-status status-progress">Mixing</div>
+                        <div class="rating-stars">
+                            <div class="stars">
+                                <span class="star">★★★★☆</span>
+                            </div>
+                            <span class="rating-count">12</span>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn primary">Arrange</button>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <button class="play-button">▶</button>
+                        <div class="track-info">
+                            <div class="track-title">Late Night Vibes</div>
+                            <div class="track-artists">with Smooth Operator, Chill Master</div>
+                        </div>
+                        <div class="track-status status-collab">Live Session</div>
+                        <div class="rating-stars">
+                            <div class="stars">
+                                <span class="star">★★★★★</span>
+                            </div>
+                            <span class="rating-count">31</span>
+                        </div>
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn primary">Join</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Active Collaborators</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">Alex Chen</div>
+                        <div class="collaborator-role">Producer • 4 tracks</div>
+                    </div>
+                    <div class="online-indicator"></div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">Maria Santos</div>
+                        <div class="collaborator-role">Vocals • 2 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">DJ Luna</div>
+                        <div class="collaborator-role">Electronic • 3 tracks</div>
+                    </div>
+                    <div class="online-indicator"></div>
+                </div>
+
+                <div class="comment-section">
+                    <h3 style="margin-bottom: 1rem;">Recent Comments</h3>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-author">Alex Chen</div>
+                            <div class="comment-time">2h ago</div>
+                        </div>
+                        <div class="comment-text">"The new bassline is fire! Can we boost it around 80Hz?"</div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-author">Maria Santos</div>
+                            <div class="comment-time">4h ago</div>
+                        </div>
+                        <div class="comment-text">"Ready to record vocals on the bridge section whenever you are"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Create Arrangement">🎛️</div>
+            <div class="action-fab" title="Share Playlist">📤</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 11: Storytelling Interface - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #0a0a0a;
+            color: #e8e8e8;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .story-canvas {
+            position: relative;
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 177, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.05) 0%, transparent 50%);
+        }
+
+        .narrative-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .narrative-header h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #7877c6, #ffb199);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(120, 119, 198, 0.5) 0%,
+                rgba(255, 177, 153, 0.5) 50%,
+                rgba(120, 219, 226, 0.5) 100%);
+        }
+
+        .story-chapter {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .story-chapter:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-chapter:nth-child(odd) {
+            margin-left: 0;
+            margin-right: 50%;
+            text-align: right;
+        }
+
+        .story-chapter:nth-child(even) {
+            margin-left: 50%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .chapter-number {
+            position: absolute;
+            top: -15px;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #7877c6, #ffb199);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .story-chapter:nth-child(odd) .chapter-number {
+            right: -15px;
+        }
+
+        .story-chapter:nth-child(even) .chapter-number {
+            left: -15px;
+        }
+
+        .chapter-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffb199;
+        }
+
+        .chapter-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .music-snippet {
+            background: rgba(120, 119, 198, 0.1);
+            border-left: 4px solid #7877c6;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .music-snippet::before {
+            content: '♪';
+            position: absolute;
+            left: -2px;
+            top: -10px;
+            font-size: 1.5rem;
+            color: #7877c6;
+        }
+
+        .collaboration-thread {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(120, 219, 226, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(120, 219, 226, 0.2);
+        }
+
+        .thread-message {
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-left: 3px solid rgba(120, 219, 226, 0.5);
+        }
+
+        .message-author {
+            font-weight: bold;
+            color: #78dbe2;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .interactive-elements {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .story-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #7877c6, #78dbe2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .control-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .emotional-arc {
+            position: absolute;
+            top: 0;
+            right: -2rem;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                rgba(255, 177, 153, 0.1) 0%,
+                rgba(120, 219, 226, 0.1) 30%,
+                rgba(120, 119, 198, 0.1) 60%,
+                rgba(255, 177, 153, 0.1) 100%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .story-chapter {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+            }
+            
+            .timeline-line {
+                left: 2rem;
+            }
+            
+            .chapter-number {
+                left: -15px !important;
+                right: auto !important;
+            }
+            
+            .interactive-elements {
+                position: static;
+                transform: none;
+                margin: 2rem;
+                align-self: center;
+            }
+            
+            .story-controls {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-canvas">
+        <div class="emotional-arc"></div>
+        
+        <div class="narrative-header">
+            <h1>📖 Musical Narratives</h1>
+            <p style="font-size: 1.3rem; opacity: 0.8;">Every track tells a story. Every collaboration writes a chapter.</p>
+        </div>
+
+        <div class="story-timeline">
+            <div class="timeline-line"></div>
+
+            <div class="story-chapter">
+                <div class="chapter-number">1</div>
+                <h2 class="chapter-title">The Spark</h2>
+                <div class="chapter-content">
+                    Sarah's 2 AM voice memo captures a fleeting melody—hummed between dreams and consciousness. In the digital ether of creative collaboration, this becomes the seed of something larger than any single imagination could conceive.
+                </div>
+                <div class="music-snippet">
+                    🎵 "midnight-melody-raw.m4a" • 0:47 • Uploaded 3 days ago
+                    <br>Original voice memo: "Hmm-da-da-dum, hmm-da-da-dum..."
+                </div>
+                <div class="collaboration-thread">
+                    <div class="thread-message">
+                        <div class="message-author">Sarah Chen</div>
+                        "Couldn't sleep, kept hearing this in my head. Not sure where it goes but... maybe someone can help it find its way?"
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-chapter">
+                <div class="chapter-number">2</div>
+                <h2 class="chapter-title">The Response</h2>
+                <div class="chapter-content">
+                    Marcus discovers the melody during his morning coffee ritual. Jazz pianist by training, minimalist by choice, he hears the spaces between Sarah's notes—the places where harmony wants to live.
+                </div>
+                <div class="music-snippet">
+                    🎹 "midnight-with-chords-v1.wav" • 2:14 • Uploaded 2 days ago
+                    <br>Added: Piano accompaniment, minor 7th progressions
+                </div>
+                <div class="collaboration-thread">
+                    <div class="thread-message">
+                        <div class="message-author">Marcus Thompson</div>
+                        "Your melody reminded me of late-night conversations with old friends. Added some chords that felt like comfortable silences."
+                    </div>
+                    <div class="thread-message">
+                        <div class="message-author">Sarah Chen</div>
+                        "Marcus! This is exactly what I heard but couldn't play. It's like you read my mind through the music."
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-chapter">
+                <div class="chapter-number">3</div>
+                <h2 class="chapter-title">The Expansion</h2>
+                <div class="chapter-content">
+                    Elena joins from Barcelona, drawn by the intimacy of the late-night conversation in musical form. Her cello provides the voice that speaks what words cannot—deep, resonant, achingly beautiful.
+                </div>
+                <div class="music-snippet">
+                    🎻 "midnight-conversation-v2.wav" • 3:45 • Uploaded 1 day ago
+                    <br>Added: Cello melody, string harmonies, dynamic build
+                </div>
+                <div class="collaboration-thread">
+                    <div class="thread-message">
+                        <div class="message-author">Elena Rodriguez</div>
+                        "This piece speaks to the loneliness of creation, but also the hope of connection. I wanted to add a voice that bridges your melody and Marcus's chords."
+                    </div>
+                    <div class="thread-message">
+                        <div class="message-author">Sarah Chen</div>
+                        "Elena, I'm crying. This is becoming something none of us could have made alone."
+                    </div>
+                    <div class="thread-message">
+                        <div class="message-author">Marcus Thompson</div>
+                        "The three-way conversation between voice, piano, and cello... we've created something alive."
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-chapter">
+                <div class="chapter-number">4</div>
+                <h2 class="chapter-title">The Completion</h2>
+                <div class="chapter-content">
+                    David arrives with his producer's ear and adds the subtle percussion that makes hearts beat in sync with the track. Not drums, but the sound of rain on windows, of fingers tapping on coffee cups, of life's quiet rhythms.
+                </div>
+                <div class="music-snippet">
+                    🥁 "midnight-conversation-final.wav" • 4:12 • Uploaded 6 hours ago
+                    <br>Added: Ambient percussion, field recordings, final mix
+                </div>
+                <div class="collaboration-thread">
+                    <div class="thread-message">
+                        <div class="message-author">David Kim</div>
+                        "I recorded the rain outside my studio last night. Felt like it belonged with your midnight conversation."
+                    </div>
+                    <div class="thread-message">
+                        <div class="message-author">Sarah Chen</div>
+                        "From a sleepless hum to this... we've written a story together without ever being in the same room."
+                    </div>
+                    <div class="thread-message">
+                        <div class="message-author">Elena Rodriguez</div>
+                        "This is why we create—to find each other across the darkness."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-elements">
+            <div class="story-controls">
+                <button class="control-btn" onclick="playStory()" title="Play Story">▶</button>
+                <button class="control-btn" onclick="viewVersions()" title="Version History">📝</button>
+                <button class="control-btn" onclick="joinStory()" title="Add Chapter">➕</button>
+                <button class="control-btn" onclick="shareStory()" title="Share Story">📤</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); padding: 1rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <p style="font-size: 0.9rem; opacity: 0.7;">
+            🎼 "Midnight Conversation" • 4 contributors • 3 days • Genre-defying collaboration
+        </p>
+    </div>
+
+    <script>
+        function playStory() {
+            alert('Playing full story arc with all versions...');
+        }
+
+        function viewVersions() {
+            alert('Viewing version history and contributor timeline...');
+        }
+
+        function joinStory() {
+            alert('Adding your chapter to this musical story...');
+        }
+
+        function shareStory() {
+            alert('Sharing the complete narrative and creative journey...');
+        }
+
+        // Animate chapters on scroll
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-chapter').forEach((chapter, index) => {
+            chapter.style.opacity = '0';
+            chapter.style.transform = 'translateY(50px)';
+            chapter.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+            observer.observe(chapter);
+        });
+    </script>
+</body>
+</html>

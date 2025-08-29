@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports App Energy - CoreTet Concept</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --electric-blue: #00D4FF;
+            --neon-green: #39FF14;
+            --flame-orange: #FF4500;
+            --deep-gray: #1C1C1E;
+            --ice-white: #F0F8FF;
+            --signal-red: #FF073A;
+        }
+        
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: linear-gradient(135deg, var(--deep-gray), #2C2C2E);
+            color: var(--ice-white);
+            overflow-x: hidden;
+        }
+        
+        .back-nav {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            background: var(--electric-blue);
+            color: var(--deep-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, var(--electric-blue), var(--neon-green));
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '⚡';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--deep-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stats-bar {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-around;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--electric-blue);
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        
+        .main-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .session-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(57, 255, 20, 0.1));
+            border: 2px solid var(--electric-blue);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--neon-green);
+        }
+        
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+        
+        .session-card:hover::before {
+            opacity: 1;
+            animation: shine 0.5s ease-in-out;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .session-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            color: var(--ice-white);
+        }
+        
+        .session-intensity {
+            background: var(--flame-orange);
+            color: var(--deep-gray);
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .track-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .track-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .track-number {
+            background: var(--electric-blue);
+            color: var(--deep-gray);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .track-info {
+            flex: 1;
+        }
+        
+        .track-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .track-artist {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .bpm-badge {
+            background: var(--neon-green);
+            color: var(--deep-gray);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--electric-blue), var(--neon-green));
+            border: none;
+            color: var(--deep-gray);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--electric-blue);
+            color: var(--electric-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--electric-blue);
+            color: var(--deep-gray);
+        }
+        
+        .achievement-bar {
+            background: rgba(57, 255, 20, 0.1);
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--neon-green);
+        }
+        
+        .achievement-title {
+            font-family: 'Oswald', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            width: 75%;
+            border-radius: 4px;
+            animation: progress-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+        
+        @keyframes progress-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .mobile-preview {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 600px;
+            background: var(--deep-gray);
+            border-radius: 25px;
+            padding: 1rem;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        @media (min-width: 1400px) {
+            .mobile-preview {
+                display: block;
+            }
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-gray), #2C2C2E);
+            border-radius: 20px;
+            padding: 1rem;
+            overflow: hidden;
+        }
+        
+        .mobile-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--electric-blue);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        
+        .mobile-session {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--electric-blue);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-session-title {
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .mobile-track {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            font-size: 0.8rem;
+        }
+        
+        .mobile-track-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-nav">← Back</a>
+    
+    <header class="header">
+        <h1>CoreTet Training</h1>
+    </header>
+    
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-number">47</div>
+            <div class="stat-label">Tracks</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Collaborators</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">156</div>
+            <div class="stat-label">Minutes</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Streak</div>
+        </div>
+    </div>
+    
+    <main class="main-content">
+        <h2 class="section-title">⚡ Training Sessions</h2>
+        
+        <div class="training-grid">
+            <div class="session-card">
+                <div class="session-header">
+                    <h3 class="session-title">High Energy Mix</h3>
+                    <div class="session-intensity">Intense</div>
+                </div>
+                <div class="track-list">
+                    <div class="track-item">
+                        <div class="track-number">1</div>
+                        <div class="track-info">
+                            <div class="track-name">Power Drive</div>
+                            <div class="track-artist">The Collective</div>
+                        </div>
+                        <div class="bpm-badge">140 BPM</div>
+                    </div>
+                    <div class="track-item">
+                        <div class="track-number">2</div>
+                        <div class="track-info">
+                            <div class="track-name">Electric Storm</div>
+                            <div class="track-artist">Solo Artist</div>
+                        </div>
+                        <div class="bpm-badge">128 BPM</div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary">▶ Start Session</button>
+                    <button class="btn-secondary">View Details</button>
+                </div>
+            </div>
+            
+            <div class="session-card">
+                <div class="session-header">
+                    <h3 class="session-title">Warm-Up Flow</h3>
+                    <div class="session-intensity" style="background: var(--neon-green);">Moderate</div>
+                </div>
+                <div class="track-list">
+                    <div class="track-item">
+                        <div class="track-number">1</div>
+                        <div class="track-info">
+                            <div class="track-name">Steady Beat</div>
+                            <div class="track-artist">Band Name</div>
+                        </div>
+                        <div class="bpm-badge">110 BPM</div>
+                    </div>
+                    <div class="track-item">
+                        <div class="track-number">2</div>
+                        <div class="track-info">
+                            <div class="track-name">Build Up</div>
+                            <div class="track-artist">Studio Session</div>
+                        </div>
+                        <div class="bpm-badge">120 BPM</div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary">▶ Start Session</button>
+                    <button class="btn-secondary">View Details</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="achievement-bar">
+            <h3 class="achievement-title">🏆 Weekly Challenge: Mix Master</h3>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">15/20 tracks completed this week</p>
+        </div>
+    </main>
+    
+    <div class="mobile-preview">
+        <div class="mobile-screen">
+            <div class="mobile-header">
+                <h3>Training Hub</h3>
+            </div>
+            <div class="mobile-session">
+                <div class="mobile-session-title">High Energy Mix</div>
+                <div class="mobile-track">
+                    <div class="mobile-track-dot"></div>
+                    <span>Power Drive - 140 BPM</span>
+                </div>
+                <div class="mobile-track">
+                    <div class="mobile-track-dot"></div>
+                    <span>Electric Storm - 128 BPM</span>
+                </div>
+            </div>
+            <div class="mobile-session">
+                <div class="mobile-session-title">Warm-Up Flow</div>
+                <div class="mobile-track">
+                    <div class="mobile-track-dot"></div>
+                    <span>Steady Beat - 110 BPM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add click interactions
+        document.querySelectorAll('.session-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-5px)';
+                }, 200);
+            });
+        });
+        
+        // Animate stats on load
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            const finalValue = parseInt(stat.textContent);
+            let currentValue = 0;
+            const increment = finalValue / 50;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    stat.textContent = finalValue;
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = Math.floor(currentValue);
+                }
+            }, 30);
+        });
+    </script>
+</body>
+</html>

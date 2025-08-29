@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 19: Vintage Analog Style - CoreTet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', 'Monaco', monospace;
+            background: linear-gradient(135deg, #2c1810, #3d2914);
+            color: #e8dcc6;
+            line-height: 1.5;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(160, 82, 45, 0.1) 0%, transparent 50%);
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .vintage-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .top-bar {
+            background: rgba(60, 41, 20, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #8b4513;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #daa520;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .search-bar {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            color: #e8dcc6;
+            font-family: 'Courier New', monospace;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar:focus {
+            border-color: #daa520;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 0 10px rgba(218, 165, 32, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(232, 220, 198, 0.5);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 5px;
+            border: 1px solid #8b4513;
+        }
+
+        .profile-pic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #daa520, #b8860b);
+            border: 2px solid #8b4513;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            background: rgba(60, 41, 20, 0.8);
+            border: 2px solid #8b4513;
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar h3 {
+            color: #daa520;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #8b4513;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #cd853f;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .nav-item::before {
+            content: '●';
+            margin-right: 0.5rem;
+            color: #8b4513;
+        }
+
+        .nav-item:hover {
+            background: rgba(139, 69, 19, 0.3);
+            border-color: #8b4513;
+            color: #daa520;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-item.active {
+            background: rgba(218, 165, 32, 0.2);
+            border-color: #daa520;
+            color: #daa520;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+        }
+
+        .track-section {
+            background: rgba(60, 41, 20, 0.6);
+            border: 2px solid #8b4513;
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #8b4513;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #daa520;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .section-meta {
+            color: #cd853f;
+            font-size: 0.9rem;
+            background: rgba(139, 69, 19, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #8b4513;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .track-card {
+            background: rgba(72, 50, 25, 0.8);
+            border: 2px solid #8b4513;
+            border-radius: 10px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #daa520, #b8860b);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .track-card:hover {
+            border-color: #daa520;
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .track-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e8dcc6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .track-status {
+            background: rgba(139, 69, 19, 0.4);
+            color: #daa520;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #8b4513;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .track-artists {
+            color: #cd853f;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .track-waveform {
+            height: 80px;
+            background: rgba(139, 69, 19, 0.2);
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .analog-needle {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 2px;
+            height: 60px;
+            background: #daa520;
+            transform-origin: bottom;
+            animation: needleMove 4s ease-in-out infinite;
+            box-shadow: 0 0 6px #daa520;
+        }
+
+        @keyframes needleMove {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        .waveform-bars {
+            display: flex;
+            align-items: end;
+            height: 100%;
+            padding: 8px;
+            gap: 3px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #8b4513, #daa520);
+            border-radius: 2px;
+            box-shadow: 0 0 4px rgba(218, 165, 32, 0.3);
+            animation: analogPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes analogPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .track-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #8b4513;
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #daa520;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.3), rgba(139, 69, 19, 0.3));
+            color: #daa520;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            color: #daa520;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            text-shadow: 0 0 4px #daa520;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 8px #daa520;
+        }
+
+        .rating-count {
+            color: #cd853f;
+            font-size: 0.85rem;
+            background: rgba(139, 69, 19, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .track-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: rgba(139, 69, 19, 0.4);
+            border: 2px solid #8b4513;
+            color: #e8dcc6;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .action-btn:hover {
+            background: rgba(218, 165, 32, 0.3);
+            border-color: #daa520;
+            color: #daa520;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .collaboration-panel {
+            background: rgba(60, 41, 20, 0.8);
+            border: 2px solid #8b4513;
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .collaboration-panel h3 {
+            color: #daa520;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #8b4513;
+            padding-bottom: 0.5rem;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 8px;
+            border: 1px solid #8b4513;
+            transition: all 0.3s ease;
+        }
+
+        .collaborator:hover {
+            background: rgba(139, 69, 19, 0.3);
+            border-color: #daa520;
+        }
+
+        .collaborator-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #daa520, #b8860b);
+            border: 2px solid #8b4513;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .collaborator-name {
+            color: #e8dcc6;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .collaborator-role {
+            color: #cd853f;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .mobile-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 20;
+        }
+
+        .action-fab {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #daa520;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.4), rgba(139, 69, 19, 0.4));
+            color: #daa520;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .action-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .track-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="vintage-overlay"></div>
+    <div class="app-container">
+        <div class="top-bar">
+            <div class="logo">CORETET</div>
+            <input type="text" class="search-bar" placeholder="Search vintage tracks and session musicians...">
+            <div class="user-profile">
+                <span style="color: #e8dcc6; font-weight: bold;">Studio_Producer</span>
+                <div class="profile-pic"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Record Collection</h3>
+                <div class="nav-item active">Master Tapes</div>
+                <div class="nav-item">Session Recordings</div>
+                <div class="nav-item">Studio Collaborations</div>
+                <div class="nav-item">Recently Tracked</div>
+                <div class="nav-item">Golden Oldies</div>
+                
+                <h3 style="margin-top: 2rem;">Genres</h3>
+                <div class="nav-item">Classic Rock</div>
+                <div class="nav-item">Vintage Jazz</div>
+                <div class="nav-item">Blues & Soul</div>
+                <div class="nav-item">Folk & Country</div>
+                <div class="nav-item">Psychedelic</div>
+            </div>
+
+            <div class="track-section">
+                <div class="section-header">
+                    <h2 class="section-title">Master Tape Collection</h2>
+                    <div class="section-meta">24 tracks • Last recorded yesterday</div>
+                </div>
+
+                <div class="track-grid">
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Sunset Studio Sessions</div>
+                            <div class="track-status">Recording</div>
+                        </div>
+                        <div class="track-artists">with Vintage_Guitar_Joe, Analog_Annie</div>
+                        
+                        <div class="track-waveform">
+                            <div class="analog-needle"></div>
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 75%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★☆</span>
+                                </div>
+                                <span class="rating-count">18 votes</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Overdub</button>
+                            <button class="action-btn">Share Reel</button>
+                        </div>
+                    </div>
+
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">Midnight Jam Session</div>
+                            <div class="track-status">Mixing</div>
+                        </div>
+                        <div class="track-artists">with Hammond_Organist, Rhythm_Section</div>
+                        
+                        <div class="track-waveform">
+                            <div class="analog-needle"></div>
+                            <div class="waveform-bars">
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 55%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 85%;"></div>
+                                <div class="bar" style="height: 35%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="track-controls">
+                            <button class="play-button">▶</button>
+                            <div class="rating-stars">
+                                <div class="stars">
+                                    <span class="star">★★★★★</span>
+                                </div>
+                                <span class="rating-count">24 votes</span>
+                            </div>
+                        </div>
+
+                        <div class="track-actions">
+                            <button class="action-btn">Comment</button>
+                            <button class="action-btn">Overdub</button>
+                            <button class="action-btn">Share Reel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collaboration-panel">
+                <h3>Studio Musicians</h3>
+                
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Vintage Guitar Joe</div>
+                        <div class="collaborator-role">Lead Guitar • 6 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Analog Annie</div>
+                        <div class="collaborator-role">Vocals & Harmony • 4 tracks</div>
+                    </div>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-avatar"></div>
+                    <div>
+                        <div class="collaborator-name">Hammond Organist</div>
+                        <div class="collaborator-role">Keys & Organ • 3 tracks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-actions">
+            <div class="action-fab" title="Rate Track">⭐</div>
+            <div class="action-fab" title="Add Comment">💬</div>
+            <div class="action-fab" title="Overdub Track">🎛️</div>
+            <div class="action-fab" title="Share Reel">📤</div>
+        </div>
+    </div>
+</body>
+</html>
